@@ -16,6 +16,7 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "error",
-    "curly": "error"
+    "curly": "error",
+    "react/display-name": "off"
   }
 }

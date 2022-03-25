@@ -3,7 +3,9 @@ import { Html, Head, Main, NextScript } from 'next/document';
 const Document = () => {
   return (
     <Html>
-      <Head />
+      <Head>
+        <link rel="preload" href="../assets/fonts/RobotoMono.ttf" as="font" type="font/ttf" crossOrigin="" />
+      </Head>
       <body>
         <Main />
         <NextScript />
