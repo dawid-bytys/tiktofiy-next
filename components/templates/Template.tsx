@@ -1,10 +1,12 @@
 import { AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
 
 import { useThemeWindow } from '../../hooks/useThemeWindow';
-import Glow from '../atoms/Glow';
 import Footer from '../molecules/Footer';
 import Header from '../molecules/Header';
-import ThemeWindow from '../molecules/ThemeWindow';
+
+const Glow = dynamic(() => import(/* webpackChunkName: "Glow" */ '../atoms/Glow'));
+const ThemeWindow = dynamic(() => import(/* webpackChunkName: "ThemeWindow" */ '../molecules/ThemeWindow'));
 
 interface TemplateProps {
   children: React.ReactNode;

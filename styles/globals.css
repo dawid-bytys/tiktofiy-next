@@ -13,11 +13,11 @@
 #__next,
 body,
 html {
-  @apply min-h-full h-full font-robotomono;
+  @apply min-h-full h-full font-robotomono bg-background text-foreground;
 }
 
-body[data-theme='default'] {
-  --color-text: #f6f0e9;
+html[data-theme='default'] {
+  --color-foreground: #f6f0e9;
   --color-background: #242933;
   --color-primary: #ec4c56;
   --color-sub: #596172;
@@ -25,8 +25,8 @@ body[data-theme='default'] {
   --color-sub-active: #868ea0;
 }
 
-body[data-theme='carbon'] {
-  --color-text: #f5e6c8;
+html[data-theme='carbon'] {
+  --color-foreground: #f5e6c8;
   --color-background: #313131;
   --color-primary: #f66e0d;
   --color-sub: #616161;
@@ -34,8 +34,8 @@ body[data-theme='carbon'] {
   --color-sub-active: #909090;
 }
 
-body[data-theme='material'] {
-  --color-text: #e6edf3;
+html[data-theme='material'] {
+  --color-foreground: #e6edf3;
   --color-background: #263238;
   --color-primary: #80cbc4;
   --color-sub: #4c6772;
@@ -43,8 +43,8 @@ body[data-theme='material'] {
   --color-sub-active: #7898a5;
 }
 
-body[data-theme='metaverse'] {
-  --color-text: #e8e8e8;
+html[data-theme='metaverse'] {
+  --color-foreground: #e8e8e8;
   --color-background: #232323;
   --color-primary: #d82934;
   --color-sub: #5e5e5e;

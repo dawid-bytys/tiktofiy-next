@@ -1,14 +1,7 @@
-import { motion } from 'framer-motion';
+import withTransition from '../../hoc/withTransition';
 
 const Glow = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 0.4 }}
-      exit={{ opacity: 0 }}
-      className="inset-0 absolute bg-black"
-    />
-  );
+  return <div className="inset-0 absolute bg-black"></div>;
 };
 
-export default Glow;
+export default withTransition(Glow, 0.4);
