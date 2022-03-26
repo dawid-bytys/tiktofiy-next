@@ -17,6 +17,18 @@
   "rules": {
     "@typescript-eslint/consistent-type-imports": "error",
     "curly": "error",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc" },
+        "groups": ["builtin", "external", "parent", "sibling", "index", "type"]
+      }
+    ],
+    "import/no-duplicates": "error",
+    "import/dynamic-import-chunkname": "error",
+    "import/no-anonymous-default-export": "error",
+    "prefer-const": "error"
   }
 }

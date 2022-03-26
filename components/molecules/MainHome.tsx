@@ -1,11 +1,5 @@
-import { Flex } from '@chakra-ui/react';
-
 const MainHome = () => {
-  return (
-    <Flex as="main" flex="1">
-      MainHome
-    </Flex>
-  );
+  return <main className="flex-1">MainHome</main>;
 };
 
 export default MainHome;

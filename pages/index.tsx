@@ -1,5 +1,5 @@
-import MainHome from '../components/molecules/MainHome';
 import Seo from '../components/Seo';
+import MainHome from '../components/molecules/MainHome';
 
 import type { NextPage } from 'next';
 

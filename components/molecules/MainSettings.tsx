@@ -1,11 +1,5 @@
-import { Flex } from '@chakra-ui/react';
-
 const MainSettings = () => {
-  return (
-    <Flex as="main" flex="1">
-      MainSettings
-    </Flex>
-  );
+  return <main className="flex-1">MainSettings</main>;
 };
 
 export default MainSettings;

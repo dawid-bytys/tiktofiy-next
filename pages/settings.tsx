@@ -1,5 +1,5 @@
-import MainSettings from '../components/molecules/MainSettings';
 import Seo from '../components/Seo';
+import MainSettings from '../components/molecules/MainSettings';
 
 import type { NextPage } from 'next';
 

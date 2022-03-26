@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import { memo } from 'react';
 import { useRouter } from 'next/router';
+import { memo } from 'react';
 
 import { WEBSITE_URL, ROBOTS } from '../utils/constants';
 
