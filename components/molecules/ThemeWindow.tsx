@@ -6,8 +6,8 @@ import { useThemeWindow } from '../../hooks/useThemeWindow';
 
 const ThemeWindow = () => {
   const themeWindowRef = useRef<HTMLDivElement>(null);
-  const themeWindowContext = useThemeWindow();
-  useClickOutside<HTMLDivElement>(themeWindowRef, themeWindowContext);
+  const { toggleThemeWindow } = useThemeWindow();
+  useClickOutside<HTMLDivElement>(themeWindowRef, () => toggleThemeWindow(false));
 
   return (
     <motion.div

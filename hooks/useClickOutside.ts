@@ -1,29 +1,25 @@
 import { useCallback, useEffect } from 'react';
 
-import type { ThemeWindowContext } from '../context/ThemeWindowContext';
 import type { RefObject } from 'react';
 
-export const useClickOutside = <T extends HTMLElement>(
-  ref: RefObject<T>,
-  { toggleThemeWindow }: Pick<ThemeWindowContext, 'toggleThemeWindow'>,
-) => {
+export const useClickOutside = <T extends HTMLElement>(ref: RefObject<T>, callback: () => void) => {
   const handleMouseClick = useCallback(
     (e: MouseEvent) => {
       const el = ref?.current;
       if (el && !el.contains(e.target as Node)) {
-        toggleThemeWindow(false);
+        callback();
       }
     },
-    [toggleThemeWindow, ref],
+    [callback, ref],
   );
 
   const handleKeyboardClick = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        toggleThemeWindow(false);
+        callback();
       }
     },
-    [toggleThemeWindow],
+    [callback],
   );
 
   useEffect(() => {
