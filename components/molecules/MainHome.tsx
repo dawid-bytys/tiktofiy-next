@@ -2,15 +2,14 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 import { useFadeRightTransition } from '../../hooks/useFadeRightTransition';
-import { useFetch } from '../../hooks/useFetch';
 import { Input } from '../atoms/Input';
 
-import type { ErrorAlertProps } from '../../utils/types';
+import type { EmptyObject, ErrorAlertProps } from '../../utils/types';
 
 const ErrorAlert = dynamic<ErrorAlertProps>(() =>
   import(/* webpackChunkName: "ErrorAlert" */ '../atoms/ErrorAlert').then(mod => mod.ErrorAlert),
 );
-const Loading = dynamic<object>(() =>
+const Loading = dynamic<EmptyObject>(() =>
   import(/* webpackChunkName: "Loading" */ '../atoms/Loading').then(mod => mod.Loading),
 );
 
@@ -25,7 +24,7 @@ export const MainHome = () => {
       <ErrorAlert errorMessage="dupa" />
       <Input
         placeholder="Paste a TikTok url..."
-        className="p-4 bg-input w-full sm:w-96 md:w-144 xl:w-196 rounded-2xl text-sm font-medium text-foreground"
+        className="p-4 bg-input w-full sm:w-96 md:w-144 xl:w-196 rounded-2xl text-sm font-medium text-foreground placeholder-subactive"
       />
     </motion.main>
   );

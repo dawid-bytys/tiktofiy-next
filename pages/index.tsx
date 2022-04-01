@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic';
 
-import type { SeoProps } from '../utils/types';
+import type { EmptyObject, SeoProps } from '../utils/types';
 import type { NextPage } from 'next';
 
 const Seo = dynamic<SeoProps>(() =>
   import(/* webpackChunkName: "Seo" */ '../components/Seo').then(mod => mod.Seo),
 );
-const MainHome = dynamic<object>(() =>
+const MainHome = dynamic<EmptyObject>(() =>
   import(/* webpackChunkName: "MainHome" */ '../components/molecules/MainHome').then(
     mod => mod.MainHome,
   ),

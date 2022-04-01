@@ -5,10 +5,12 @@ import { useThemeWindow } from '../../hooks/useThemeWindow';
 import { Footer } from '../molecules/Footer';
 import { Header } from '../molecules/Header';
 
-const Glow = dynamic<object>(() =>
+import type { EmptyObject } from '../../utils/types';
+
+const Glow = dynamic<EmptyObject>(() =>
   import(/* webpackChunkName: "Glow" */ '../atoms/Glow').then(mod => mod.Glow),
 );
-const ThemeWindow = dynamic<object>(() =>
+const ThemeWindow = dynamic<EmptyObject>(() =>
   import(/* webpackChunkName: "ThemeWindow" */ '../molecules/ThemeWindow').then(
     mod => mod.ThemeWindow,
   ),

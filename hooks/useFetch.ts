@@ -1,15 +1,13 @@
 import axios from 'axios';
 import { useState } from 'react';
 
+import type { AnyObject } from '../utils/types';
+
 type FetchingState<T> =
   | { status: 'idle' }
   | { status: 'loading' }
   | { status: 'success'; data: T }
   | { status: 'error'; errorMessage: string };
-
-// it is safe here to disable any, custom utility type
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-type AnyObject = Record<keyof any, unknown>;
 
 export const useFetch = <T extends AnyObject>(url: string) => {
   const [fetchingState, setFetchingState] = useState<FetchingState<T>>({ status: 'idle' });
