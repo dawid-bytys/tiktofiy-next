@@ -15,6 +15,10 @@ module.exports = {
         input: 'var(--color-input)',
         sub: 'var(--color-sub)',
         subactive: 'var(--color-sub-active)'
+      },
+      spacing: {
+        '144': '36rem',
+        '196': '49rem'
       }
     },
     screens: {
