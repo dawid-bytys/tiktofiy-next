@@ -18,7 +18,8 @@ module.exports = {
       }
     },
     screens: {
-      'sm': '20rem',
+      'xsm': '20rem',
+      'sm': '28rem',
       'md': '48rem',
       'lg': '64rem',
       'xl': '80rem',

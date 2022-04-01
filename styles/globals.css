@@ -13,7 +13,7 @@
 #__next,
 body,
 html {
-  @apply min-h-full h-full font-robotomono bg-background text-foreground;
+  @apply min-h-full h-full font-robotomono bg-background text-foreground overflow-x-hidden;
 }
 
 html[data-theme='default'] {

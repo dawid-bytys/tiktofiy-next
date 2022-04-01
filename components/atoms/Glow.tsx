@@ -1,7 +1,9 @@
-import withTransition from '../../hoc/withTransition';
+import { motion } from 'framer-motion';
 
-const Glow = () => {
-  return <div className="inset-0 absolute bg-black"></div>;
+import { useOpacityTransition } from '../../hooks/useOpacityTransition';
+
+export const Glow = () => {
+  const motionProps = useOpacityTransition(0.4);
+
+  return <motion.div {...motionProps} className="inset-0 absolute bg-black" />;
 };
-
-export default withTransition(Glow, 0.4);

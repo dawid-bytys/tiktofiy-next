@@ -4,13 +4,10 @@ import { memo } from 'react';
 
 import { WEBSITE_URL, ROBOTS } from '../utils/constants';
 
-interface SeoProps {
-  readonly title: string;
-}
+import type { SeoProps } from '../utils/types';
 
-const Seo = memo<SeoProps>(({ title }) => {
+export const Seo = memo<SeoProps>(({ title }) => {
   const router = useRouter();
-
   const canonical = WEBSITE_URL + router.pathname;
 
   return (
@@ -32,5 +29,3 @@ const Seo = memo<SeoProps>(({ title }) => {
     </Head>
   );
 });
-
-export default Seo;

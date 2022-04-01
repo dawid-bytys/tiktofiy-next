@@ -1,5 +1,9 @@
-const MainSettings = () => {
-  return <main className="flex-1">MainSettings</main>;
-};
+import { motion } from 'framer-motion';
 
-export default MainSettings;
+import { useFadeLeftTransition } from '../../hooks/useFadeLeftTransition';
+
+export const MainSettings = () => {
+  const motionProps = useFadeLeftTransition();
+
+  return <motion.main {...motionProps} className="flex flex-1 flex-col"></motion.main>;
+};
