@@ -12,11 +12,15 @@ type FetchingState<T> =
 export const useFetch = <T extends AnyObject>(url: string) => {
   const [fetchingState, setFetchingState] = useState<FetchingState<T>>({ status: 'idle' });
 
-  const performFetching = async () => {
+  const performFetching = async (tiktokUrl: string) => {
     setFetchingState({ status: 'loading' });
 
     try {
-      const { data } = await axios.get<T>(url);
+      const { data } = await axios.get<T>(url, {
+        data: {
+          url: tiktokUrl,
+        },
+      });
 
       setFetchingState({
         status: 'success',

@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic';
 
-import type { SeoProps } from '../utils/types';
+import type { EmptyObject, SeoProps } from '../utils/types';
 import type { NextPage } from 'next';
 
 const Seo = dynamic<SeoProps>(() =>
   import(/* webpackChunkName: "Seo" */ '../components/Seo').then(mod => mod.Seo),
 );
-const MainNotFound404 = dynamic<object>(() =>
+const MainNotFound404 = dynamic<EmptyObject>(() =>
   import(/* webpackChunkName: "MainNotFound404" */ '../components/molecules/MainNotFound404').then(
     mod => mod.MainNotFound404,
   ),
