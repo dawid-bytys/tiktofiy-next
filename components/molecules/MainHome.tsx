@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 import { useFadeRightTransition } from '../../hooks/useFadeRightTransition';
-import { Input } from '../atoms/Input';
 
 import type { EmptyObject, ErrorAlertProps } from '../../utils/types';
 
@@ -22,7 +21,7 @@ export const MainHome = () => {
       className="flex items-center gap-10 flex-1 flex-col p-8 sm:py-16 sm:px-0"
     >
       <ErrorAlert errorMessage="dupa" />
-      <Input
+      <input
         placeholder="Paste a TikTok url..."
         className="p-4 bg-input w-full sm:w-96 md:w-144 xl:w-196 rounded-2xl text-sm font-medium text-foreground placeholder-subactive"
       />

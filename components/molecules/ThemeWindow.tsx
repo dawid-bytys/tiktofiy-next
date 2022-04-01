@@ -1,24 +1,42 @@
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import React, { useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 import { useClickOutside } from '../../hooks/useClickOutside';
+import { useDebounce } from '../../hooks/useDebounce';
 import { useOpacityTransition } from '../../hooks/useOpacityTransition';
 import { useThemeWindow } from '../../hooks/useThemeWindow';
-import themes from '../../utils/themes.json';
-import { Input } from '../atoms/Input';
+import themeCollection from '../../utils/themes.json';
+
+import type { MouseEvent, ChangeEvent } from 'react';
 
 export const ThemeWindow = () => {
+  const [query, setQuery] = useState('');
+  const [themes, setThemes] = useState(themeCollection);
+  const debouncedQuery = useDebounce(query, 200);
   const themeWindowRef = useRef<HTMLDivElement>(null);
   const motionProps = useOpacityTransition();
   const { toggleThemeWindow } = useThemeWindow();
   const { setTheme } = useTheme();
   useClickOutside<HTMLDivElement>(themeWindowRef, () => toggleThemeWindow(false));
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.currentTarget.value);
+  };
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     setTheme(e.currentTarget.innerText);
     toggleThemeWindow(false);
   };
+
+  const filterThemes = useCallback(() => {
+    const filteredThemes = themeCollection.filter(theme => theme.startsWith(debouncedQuery));
+    setThemes(filteredThemes);
+  }, [debouncedQuery]);
+
+  useEffect(() => {
+    filterThemes();
+  }, [debouncedQuery, filterThemes]);
 
   return (
     <motion.div
@@ -26,9 +44,10 @@ export const ThemeWindow = () => {
       {...motionProps}
       className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col w-3/4 h-3/4 2xl:w-1/2 bg-background rounded-2xl"
     >
-      <Input
+      <input
         placeholder="Search for theme..."
         className="w-full p-5 text-base text-foreground bg-input placeholder-subactive"
+        onChange={handleQueryChange}
       />
       <ul className="flex flex-col flex-1">
         {themes.map(theme => (
