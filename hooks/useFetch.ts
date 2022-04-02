@@ -9,22 +9,20 @@ type FetchingState<T> =
   | { status: 'success'; data: T }
   | { status: 'error'; errorMessage: string };
 
-export const useFetch = <T extends AnyObject>(url: string) => {
+export const useFetch = <T extends AnyObject, V = AnyObject>(url: string, data?: V) => {
   const [fetchingState, setFetchingState] = useState<FetchingState<T>>({ status: 'idle' });
 
-  const performFetching = async (tiktokUrl: string) => {
+  const performFetching = async () => {
     setFetchingState({ status: 'loading' });
 
     try {
-      const { data } = await axios.get<T>(url, {
-        data: {
-          url: tiktokUrl,
-        },
+      const response = await axios.post<T>(url, {
+        data: data,
       });
 
       setFetchingState({
         status: 'success',
-        data: data,
+        data: response.data,
       });
     } catch (err) {
       if (axios.isAxiosError(err)) {

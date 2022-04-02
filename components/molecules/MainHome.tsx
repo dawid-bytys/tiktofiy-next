@@ -2,14 +2,19 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useState } from 'react';
-import { File } from 'react-kawaii';
+import { File, Ghost } from 'react-kawaii';
 
 import { useFadeRightTransition } from '../../hooks/useFadeRightTransition';
 import { useFetch } from '../../hooks/useFetch';
 import { BASE_API_URL } from '../../utils/constants';
 import { isSongFound } from '../../utils/utils';
 
-import type { EmptyObject, ErrorAlertProps, RecognitionResult } from '../../utils/types';
+import type {
+  EmptyObject,
+  ErrorAlertProps,
+  RecognitionResult,
+  RequestData,
+} from '../../utils/types';
 import type { ChangeEvent } from 'react';
 
 const ErrorAlert = dynamic<ErrorAlertProps>(() =>
@@ -22,7 +27,10 @@ const Loading = dynamic<EmptyObject>(() =>
 export const MainHome = () => {
   const [url, setUrl] = useState('');
   const motionProps = useFadeRightTransition();
-  const { fetchingState, performFetching } = useFetch<RecognitionResult>(BASE_API_URL);
+  const { fetchingState, performFetching } = useFetch<RecognitionResult, RequestData>(
+    BASE_API_URL,
+    { url: url },
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUrl(e.currentTarget.value);
@@ -42,7 +50,7 @@ export const MainHome = () => {
         />
         <button
           aria-label="Find a song"
-          onClick={() => void performFetching(url)}
+          onClick={() => void performFetching()}
           className="mt-10 w-48 p-3 rounded-3xl bg-primary text-sm text-bold"
         >
           Find a song
@@ -71,8 +79,15 @@ export const MainHome = () => {
             case 'idle':
               return (
                 <>
-                  <File size={120} mood="ko" color="#fff" />
+                  <Ghost size={120} mood="blissful" color="#fff" />
                   <div className="text-center mt-16">come one... search for something</div>
+                </>
+              );
+            case 'error':
+              return (
+                <>
+                  <File size={120} mood="ko" color="#fff" />
+                  <div className="text-center mt-16">something went wrong...</div>
                 </>
               );
           }

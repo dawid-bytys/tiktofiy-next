@@ -24,3 +24,9 @@ type SongNotFound = {
 };
 
 export type RecognitionResult = SongFound | SongNotFound;
+
+export type RequestData = {
+  url: string;
+  from?: number;
+  to?: number;
+};

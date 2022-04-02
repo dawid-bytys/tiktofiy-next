@@ -46,7 +46,7 @@ export const ThemeWindow = () => {
     >
       <input
         placeholder="Search for theme..."
-        className="w-full p-5 text-base text-foreground bg-input placeholder-subactive"
+        className="w-full p-5 text-sm text-foreground bg-input placeholder-subactive"
         onChange={handleQueryChange}
       />
       <ul className="flex flex-col flex-1">
@@ -54,7 +54,7 @@ export const ThemeWindow = () => {
           <li key={theme}>
             <button
               aria-label="Set theme"
-              className="w-full p-5 text-left hover:bg-subactive transition-colors ease-in-out duration-300"
+              className="w-full p-5 text-left text-sm hover:bg-subactive transition-colors ease-in-out duration-300"
               onClick={handleClick}
             >
               {theme}
