@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { File, Ghost } from 'react-kawaii';
 
 import { useFadeRightTransition } from '../../hooks/useFadeRightTransition';
@@ -25,6 +25,7 @@ const Loading = dynamic<EmptyObject>(() =>
 );
 
 export const MainHome = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const [url, setUrl] = useState('');
   const motionProps = useFadeRightTransition();
   const { fetchingState, performFetching } = useFetch<RecognitionResult, RequestData>(
@@ -36,6 +37,13 @@ export const MainHome = () => {
     setUrl(e.currentTarget.value);
   };
 
+  // Hack for the server/client side difference
+  useEffect(() => setIsMounted(true), []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <motion.main
       {...motionProps}
@@ -45,13 +53,13 @@ export const MainHome = () => {
       <div className="relative flex flex-col items-center">
         <input
           placeholder="Paste a TikTok url..."
-          className="p-4 mt-10 bg-input w-full sm:w-96 md:w-144 xl:w-196 rounded-2xl text-sm font-medium text-foreground placeholder-subactive"
+          className="p-4 mt-10 bg-input w-full sm:w-96 md:w-144 xl:w-196 rounded-2xl text-sm font-robotomonomedium text-foreground placeholder-subactive"
           onChange={handleChange}
         />
         <button
           aria-label="Find a song"
           onClick={() => void performFetching()}
-          className="mt-10 w-48 p-3 rounded-3xl bg-primary text-sm text-bold"
+          className="mt-10 w-48 p-3 rounded-3xl bg-primary text-sm font-robotomonomedium"
         >
           Find a song
         </button>

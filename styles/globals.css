@@ -13,7 +13,7 @@
 #__next,
 body,
 html {
-  @apply min-h-full h-full font-robotomono bg-background text-foreground overflow-x-hidden;
+  @apply min-h-full h-full font-robotomonoregular bg-background text-foreground overflow-x-hidden;
 }
 
 html[data-theme='default'] {
@@ -50,4 +50,16 @@ html[data-theme='metaverse'] {
   --color-sub: #5e5e5e;
   --color-input: rgba(0, 0, 0, 0.1);
   --color-sub-active: #8e8e8e;
+}
+
+@font-face {
+  font-family: 'RobotoMono-Regular';
+  src: url('../assets/fonts/RobotoMono-Regular.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RobotoMono-Medium';
+  src: url('../assets/fonts/RobotoMono-Medium.ttf');
+  font-display: swap;
 }

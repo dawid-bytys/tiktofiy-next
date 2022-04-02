@@ -46,7 +46,7 @@ export const ThemeWindow = () => {
     >
       <input
         placeholder="Search for theme..."
-        className="w-full p-5 text-sm text-foreground bg-input placeholder-subactive"
+        className="w-full p-5 text-sm text-foreground bg-input placeholder-subactive font-robotomonomedium"
         onChange={handleQueryChange}
       />
       <ul className="flex flex-col flex-1">

@@ -41,7 +41,9 @@ export const Header = () => {
             <Logo className="w-full h-full fill-primary" />
           </div>
           <div className="flex items-center justify-center">
-            <h1 className="text-lg xsm:text-4xl md:text-5xl xl:text-6xl font-medium">Tiktofiy!</h1>
+            <h1 className="text-lg xsm:text-4xl md:text-5xl xl:text-6xl font-robotomonomedium">
+              Tiktofiy!
+            </h1>
           </div>
         </div>
         <div className="flex flex-row justify-between">

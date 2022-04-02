@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        robotomono: 'Roboto Mono, monospace'
+        robotomonoregular: 'RobotoMono-Regular, monospace',
+        robotomonomedium: 'RobotoMono-Medium, monospace',
       },
       colors: {
         foreground: 'var(--color-foreground)',
