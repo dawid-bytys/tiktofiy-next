@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FiSettings, FiHome } from 'react-icons/fi';
 import { RiPaletteLine } from 'react-icons/ri';
-
 import Logo from '../../assets/svg/logo.svg';
 import { useThemeWindow } from '../../hooks/useThemeWindow';
 

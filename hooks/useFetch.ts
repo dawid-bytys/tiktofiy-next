@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useState } from 'react';
-
 import type { AnyObject } from '../utils/types';
 
 type FetchingState<T> =

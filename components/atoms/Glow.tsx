@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-
 import { useOpacityTransition } from '../../hooks/useOpacityTransition';
 
 export const Glow = () => {

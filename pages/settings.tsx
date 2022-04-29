@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-
 import type { EmptyObject, SeoProps } from '../utils/types';
 import type { NextPage } from 'next';
 

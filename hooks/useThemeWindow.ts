@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-
 import { ThemeWindowContext } from '../context/ThemeWindowContext';
+import { createSafeContext } from '../context/createSafeContext';
 
-export const useThemeWindow = () => useContext(ThemeWindowContext);
+export const useThemeWindow = createSafeContext(ThemeWindowContext);

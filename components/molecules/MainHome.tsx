@@ -3,12 +3,10 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { File, Ghost } from 'react-kawaii';
-
 import { useFadeRightTransition } from '../../hooks/useFadeRightTransition';
 import { useFetch } from '../../hooks/useFetch';
 import { BASE_API_URL } from '../../utils/constants';
 import { isSongFound } from '../../utils/utils';
-
 import type {
   EmptyObject,
   ErrorAlertProps,

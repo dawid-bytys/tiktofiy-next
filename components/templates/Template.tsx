@@ -1,10 +1,8 @@
 import { AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
-
 import { useThemeWindow } from '../../hooks/useThemeWindow';
 import { Footer } from '../molecules/Footer';
 import { Header } from '../molecules/Header';
-
 import type { EmptyObject } from '../../utils/types';
 
 const Glow = dynamic<EmptyObject>(() =>

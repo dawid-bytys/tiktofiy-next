@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { ThemeWindowContext } from '../context/ThemeWindowContext';
 
 interface ThemeWindowProviderProps {
