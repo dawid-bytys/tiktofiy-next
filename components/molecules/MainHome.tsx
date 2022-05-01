@@ -48,10 +48,10 @@ export const MainHome = () => {
       className="flex items-center flex-1 flex-col p-8 sm:py-16 sm:px-0"
     >
       {fetchingState.status === 'error' && <ErrorAlert errorMessage={fetchingState.errorMessage} />}
-      <div className="relative flex flex-col items-center">
+      <div className="relative flex flex-col items-center w-full sm:w-96 md:w-144 xl:w-196">
         <input
           placeholder="Paste a TikTok url..."
-          className="p-4 mt-10 bg-input w-full sm:w-96 md:w-144 xl:w-196 rounded-2xl text-sm font-robotomonomedium text-foreground placeholder-subactive"
+          className="p-4 bg-input w-full rounded-2xl text-sm font-robotomonomedium text-foreground placeholder-subactive"
           onChange={handleChange}
         />
         <button
