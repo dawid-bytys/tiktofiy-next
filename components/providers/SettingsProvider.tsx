@@ -11,10 +11,7 @@ const initialState: Settings = {
 export const SettingsProvider = ({ children }: ChildrenProps) => {
   const [settingsState, setSettingsState] = useState(initialState);
 
-  const setSettings = <T extends SettingsKeys>(
-    key: T,
-    value: T extends 'shazamApiKey' ? string : number,
-  ) => {
+  const setSettings = <T extends SettingsKeys>(key: T, value: Settings[T]) => {
     setSettingsState(prevState => ({
       ...prevState,
       [key]: value,
