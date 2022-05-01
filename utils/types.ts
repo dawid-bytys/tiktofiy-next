@@ -1,3 +1,5 @@
+import type React from 'react';
+
 export type Theme = 'default' | 'carbon' | 'material' | 'metaverse';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -25,8 +27,19 @@ type SongNotFound = {
 
 export type RecognitionResult = SongFound | SongNotFound;
 
+export interface Settings {
+  shazamApiKey: string;
+  start: number;
+  end: number;
+}
+
 export type RequestData = {
   url: string;
-  from?: number;
-  to?: number;
+  settings: Settings;
 };
+
+export interface ChildrenProps {
+  children: React.ReactNode;
+}
+
+export type SettingsKeys = keyof Settings;

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { File, Ghost } from 'react-kawaii';
 import { useFadeRightTransition } from '../../hooks/useFadeRightTransition';
 import { useFetch } from '../../hooks/useFetch';
+import { useSettings } from '../../hooks/useSettings';
 import { BASE_API_URL } from '../../utils/constants';
 import { isSongFound } from '../../utils/utils';
 import type {
@@ -26,9 +27,13 @@ export const MainHome = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [url, setUrl] = useState('');
   const motionProps = useFadeRightTransition();
+  const { settings } = useSettings();
   const { fetchingState, performFetching } = useFetch<RecognitionResult, RequestData>(
     BASE_API_URL,
-    { url: url },
+    {
+      url: url,
+      settings: settings,
+    },
   );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

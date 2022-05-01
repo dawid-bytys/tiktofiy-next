@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import { ThemeWindowContext } from '../context/ThemeWindowContext';
+import { ThemeWindowContext } from '../../context/ThemeWindowContext';
+import type { ChildrenProps } from '../../utils/types';
 
-interface ThemeWindowProviderProps {
-  children: React.ReactNode;
-}
-
-export const ThemeWindowProvider = ({ children }: ThemeWindowProviderProps) => {
+export const ThemeWindowProvider = ({ children }: ChildrenProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleThemeWindow = (value: boolean) => {
