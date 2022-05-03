@@ -8,14 +8,22 @@ type FetchingState<T> =
   | { status: 'success'; data: T }
   | { status: 'error'; errorMessage: string };
 
-export const useFetch = <T extends AnyObject, V = AnyObject>(url: string, data?: V) => {
+type HTTPMethod = 'POST' | 'PUT' | 'GET';
+
+export const useFetch = <T extends AnyObject, U = AnyObject>(
+  method: HTTPMethod,
+  url: string,
+  data?: U,
+) => {
   const [fetchingState, setFetchingState] = useState<FetchingState<T>>({ status: 'idle' });
 
   const performFetching = async () => {
     setFetchingState({ status: 'loading' });
 
     try {
-      const response = await axios.post<T>(url, {
+      const response = await axios.request<T>({
+        method: method,
+        url: url,
         data: data,
       });
 

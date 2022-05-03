@@ -29,6 +29,7 @@ export const MainHome = () => {
   const motionProps = useFadeRightTransition();
   const { settings } = useSettings();
   const { fetchingState, performFetching } = useFetch<RecognitionResult, RequestData>(
+    'POST',
     BASE_API_URL,
     {
       url: url,

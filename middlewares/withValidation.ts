@@ -11,10 +11,12 @@ export const withValidation =
         throw new InvalidRequestDataError('Invalid request data');
       }
 
-      return endpointHandler(req, res);
+      endpointHandler(req, res);
     } catch (err) {
       if (err instanceof CustomError) {
-        res.status(err.statusCode).send(err.message);
+        return res.status(err.statusCode).send({ message: err.message });
       }
+
+      res.status(500).send({ message: 'Unexpected error has occured' });
     }
   };
