@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
-dotenv.config({ path: '../.env.prod' });
+dotenv.config({ path: 'prod.env' });
 
-export function getConfig(name: 'NODE_ENV'): 'production' | 'development';
+export function getConfig(name: 'NODE_ENV'): 'production' | 'development' | 'testing';
 export function getConfig(name: string): string;
 export function getConfig(name: string): string {
   const val = process.env[name];

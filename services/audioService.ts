@@ -25,7 +25,7 @@ import type { RecognitionResult, ShazamResponse, TikTokMetadata } from '../utils
 ffmpeg.setFfmpegPath(ffmpegPath.path);
 
 // Using node-fetch here because on Linux axios does not work as expected
-export const getFinalUrl = async (url: string) => {
+export const getTikTokFinalUrl = async (url: string) => {
   const response = await fetch(url);
   if (response.status !== 200) {
     throw new TikTokRequestError(
@@ -117,7 +117,7 @@ export const recognizeAudio = async (
       headers: {
         'content-type': 'text/plain',
         'x-rapidapi-host': 'shazam.p.rapidapi.com',
-        'x-rapidapi-key': shazamApiKey.length ? shazamApiKey : getConfig(shazamApiKey),
+        'x-rapidapi-key': shazamApiKey.length ? shazamApiKey : getConfig('SHAZAM_API_KEY'),
       },
     });
     if (typeof track === 'undefined') {
@@ -134,7 +134,7 @@ export const recognizeAudio = async (
     };
   } catch (err) {
     throw new ShazamRequestError(
-      'Shazam service is probably temporarily unavailable, try again later',
+      'Shazam service is probably temporarily unavailable, try again later or check API Key',
     );
   }
 };

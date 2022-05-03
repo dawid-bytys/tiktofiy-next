@@ -8,6 +8,9 @@ const nextConfig = {
     });
 
     return config;
+  },
+  images: {
+    domains: ['is1-ssl.mzstatic.com']
   }
 }
 

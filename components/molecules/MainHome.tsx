@@ -77,8 +77,16 @@ export const MainHome = () => {
             case 'success':
               return isSongFound(fetchingState.data) ? (
                 <>
-                  <Image src={fetchingState.data.albumImage} alt="Album image" />
-                  <div>
+                  {fetchingState.data.albumImage && (
+                    <Image
+                      src={fetchingState.data.albumImage}
+                      alt="Album image"
+                      width={112}
+                      height={112}
+                      className="mt-3 rounded-xl"
+                    />
+                  )}
+                  <div className="mt-10 text-sm md:text-lg text-center">
                     {fetchingState.data.artist} - {fetchingState.data.title}
                   </div>
                 </>
