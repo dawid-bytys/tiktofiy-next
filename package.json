@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@svgr/webpack": "^6.2.1",
     "axios": "^0.26.1",
     "crypto": "^1.0.1",
+    "fluent-ffmpeg": "^2.1.2",
     "framer-motion": "^6",
     "fs": "^0.0.1-security",
     "joi": "^17.6.0",
@@ -27,6 +29,7 @@
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.20",
     "@types/joi": "^17.2.3",
     "@types/node": "17.0.23",
     "@types/node-fetch": "2.5.10",

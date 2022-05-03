@@ -1,11 +1,15 @@
 import fs from 'fs';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
+import ffmpegPath from '@ffmpeg-installer/ffmpeg';
 import axios from 'axios';
+import ffmpeg from 'fluent-ffmpeg';
 import fetch from 'node-fetch';
 import randomUseragent from 'random-useragent';
 import { TIKTOK_API_URL } from '../utils/constants';
 import {
+  AudioConvertError,
+  AudioCutError,
   AudioDownloadError,
   InvalidUrlFormatError,
   TikTokRequestError,
@@ -13,6 +17,9 @@ import {
 } from '../utils/errors';
 import { getTikTokId, returnPath } from '../utils/utils';
 import type { TikTokMetadata } from '../utils/types';
+
+// Configure ffmpeg
+ffmpeg.setFfmpegPath(ffmpegPath.path);
 
 // Using node-fetch here because on Linux axios does not work as expected
 export const getFinalUrl = async (url: string) => {
@@ -64,4 +71,34 @@ export const downloadAudio = async (url: string, output: string) => {
   } catch (err) {
     throw new AudioDownloadError('Failed to download the audio file, try again');
   }
+};
+
+export const cutAudio = (input: string, output: string, start: number, end: number) => {
+  return new Promise((resolve, reject) => {
+    ffmpeg(returnPath(`${input}.mp3`))
+      .outputOptions('-ss', String(start), '-to', end === 0 ? '5' : String(end))
+      .output(returnPath(`${output}.mp3`))
+      .on('end', () => {
+        resolve(console.log('Successfully cut the audio'));
+      })
+      .on('error', () => {
+        reject(new AudioCutError('Could not cut the audio'));
+      })
+      .run();
+  });
+};
+
+export const convertAudio = (input: string, output: string) => {
+  return new Promise((resolve, reject) => {
+    ffmpeg(returnPath(`${input}.mp3`))
+      .outputOptions('-f', 's16le', '-ac', '1', '-ar', '44100')
+      .output(returnPath(`${output}.mp3`))
+      .on('end', () => {
+        resolve(console.log('Successfully converted the audio'));
+      })
+      .on('error', () => {
+        reject(new AudioConvertError('Could not convert the audio'));
+      })
+      .run();
+  });
 };
