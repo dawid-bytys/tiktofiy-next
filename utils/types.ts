@@ -22,7 +22,7 @@ export type SongFound = {
   readonly isFound: true;
   readonly artist: string;
   readonly title: string;
-  readonly albumImage: string;
+  readonly albumImage?: string;
 };
 
 type SongNotFound = {

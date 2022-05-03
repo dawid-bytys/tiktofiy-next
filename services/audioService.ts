@@ -6,17 +6,20 @@ import axios from 'axios';
 import ffmpeg from 'fluent-ffmpeg';
 import fetch from 'node-fetch';
 import randomUseragent from 'random-useragent';
-import { TIKTOK_API_URL } from '../utils/constants';
+import { getConfig } from '../utils/config';
+import { SHAZAM_API_URL, TIKTOK_API_URL } from '../utils/constants';
 import {
   AudioConvertError,
   AudioCutError,
   AudioDownloadError,
   InvalidUrlFormatError,
+  ShazamApiKeyError,
+  ShazamRequestError,
   TikTokRequestError,
   TikTokUnavailableError,
 } from '../utils/errors';
 import { getTikTokId, returnPath } from '../utils/utils';
-import type { TikTokMetadata } from '../utils/types';
+import type { RecognitionResult, ShazamResponse, TikTokMetadata } from '../utils/types';
 
 // Configure ffmpeg
 ffmpeg.setFfmpegPath(ffmpegPath.path);
@@ -101,4 +104,37 @@ export const convertAudio = (input: string, output: string) => {
       })
       .run();
   });
+};
+
+export const recognizeAudio = async (
+  audioBase64: string,
+  shazamApiKey: string,
+): Promise<RecognitionResult> => {
+  try {
+    const {
+      data: { track },
+    } = await axios.post<ShazamResponse>(SHAZAM_API_URL, audioBase64, {
+      headers: {
+        'content-type': 'text/plain',
+        'x-rapidapi-host': 'shazam.p.rapidapi.com',
+        'x-rapidapi-key': shazamApiKey.length ? shazamApiKey : getConfig(shazamApiKey),
+      },
+    });
+    if (typeof track === 'undefined') {
+      return {
+        isFound: false,
+      };
+    }
+
+    return {
+      isFound: true,
+      artist: track.subtitle,
+      title: track.title,
+      albumImage: track.images?.background,
+    };
+  } catch (err) {
+    throw new ShazamRequestError(
+      'Shazam service is probably temporarily unavailable, try again later',
+    );
+  }
 };
