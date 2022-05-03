@@ -6,7 +6,7 @@ import { File, Ghost } from 'react-kawaii';
 import { useFadeRightTransition } from '../../hooks/useFadeRightTransition';
 import { useFetch } from '../../hooks/useFetch';
 import { useSettings } from '../../hooks/useSettings';
-import { BASE_API_URL } from '../../utils/constants';
+import { ENDPOINT } from '../../utils/constants';
 import { isSongFound } from '../../utils/utils';
 import type {
   EmptyObject,
@@ -30,7 +30,7 @@ export const MainHome = () => {
   const { settings } = useSettings();
   const { fetchingState, performFetching } = useFetch<RecognitionResult, RequestData>(
     'POST',
-    BASE_API_URL,
+    ENDPOINT,
     {
       url: url,
       settings: settings,

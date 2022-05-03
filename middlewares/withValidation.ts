@@ -8,7 +8,7 @@ export const withValidation =
     try {
       const validationResult = schema.validate(req.body);
       if (validationResult.error) {
-        throw new InvalidRequestDataError('Invalid request data');
+        throw new InvalidRequestDataError('Invalid request data, probably url is missing');
       }
 
       endpointHandler(req, res);

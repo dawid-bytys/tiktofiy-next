@@ -150,3 +150,14 @@ export class InvalidRequestDataError extends CustomError {
     Object.setPrototypeOf(this, InvalidRequestDataError.prototype);
   }
 }
+
+export class InvalidHTTPMethodError extends CustomError {
+  statusCode: number;
+
+  constructor(message: string) {
+    super(message);
+
+    this.statusCode = 405;
+    Object.setPrototypeOf(this, InvalidHTTPMethodError.prototype);
+  }
+}

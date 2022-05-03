@@ -35,7 +35,7 @@ export const useFetch = <T extends AnyObject, U = AnyObject>(
       if (axios.isAxiosError(err)) {
         setFetchingState({
           status: 'error',
-          errorMessage: err.message,
+          errorMessage: err.response?.data.message || 'Unexpected error has occured',
         });
       }
     }
