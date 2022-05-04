@@ -48,6 +48,24 @@ export interface ChildrenProps {
 
 export type SettingsKeys = keyof Settings;
 
+export interface SavedSongs {
+  readonly id: string;
+  readonly url: string;
+  readonly artist: string;
+  readonly title: string;
+  readonly albumImage?: string;
+}
+
+export interface SuccessfulRequest {
+  readonly isSuccess: true;
+  readonly data: SavedSongs[];
+}
+
+export interface UnsuccessfulRequest {
+  readonly isSuccess: false;
+  readonly errorMessage: string;
+}
+
 export type TikTokMetadata = DeepReadonly<{
   statusCode: number;
   itemInfo: ItemInfo;

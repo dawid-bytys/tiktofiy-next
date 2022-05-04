@@ -6,7 +6,7 @@ import { File, Ghost } from 'react-kawaii';
 import { useFadeRightTransition } from '../../hooks/useFadeRightTransition';
 import { useFetch } from '../../hooks/useFetch';
 import { useSettings } from '../../hooks/useSettings';
-import { ENDPOINT } from '../../utils/constants';
+import { AUDIO_BASE_URL } from '../../utils/constants';
 import { isSongFound } from '../../utils/utils';
 import type {
   EmptyObject,
@@ -30,7 +30,7 @@ export const MainHome = () => {
   const { settings } = useSettings();
   const { fetchingState, performFetching } = useFetch<RecognitionResult, RequestData>(
     'POST',
-    ENDPOINT,
+    AUDIO_BASE_URL,
     {
       url: url,
       settings: settings,
@@ -82,7 +82,7 @@ export const MainHome = () => {
                 <>
                   <p className="text-sm text-center">look what we have just found for you</p>
                   {fetchingState.data.albumImage && (
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center mt-10">
                       <Image
                         src={fetchingState.data.albumImage}
                         alt="Album image"

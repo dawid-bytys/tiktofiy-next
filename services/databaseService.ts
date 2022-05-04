@@ -2,7 +2,7 @@ import { prisma } from '../utils/db';
 import { PrismaError } from '../utils/errors';
 import type { SongFound } from '../utils/types';
 
-export const getStoredTikTok = async (url: string) => {
+export const getSongByUrl = async (url: string) => {
   try {
     const storedTikTok = await prisma.songs.findUnique({
       where: {
@@ -16,7 +16,7 @@ export const getStoredTikTok = async (url: string) => {
   }
 };
 
-export const storeTikTok = async (song: Omit<SongFound, 'isFound'> & { url: string }) => {
+export const storeSong = async (song: Omit<SongFound, 'isFound'> & { url: string }) => {
   try {
     await prisma.songs.create({
       data: {
@@ -26,6 +26,16 @@ export const storeTikTok = async (song: Omit<SongFound, 'isFound'> & { url: stri
         albumImage: song.albumImage,
       },
     });
+  } catch (err) {
+    throw new PrismaError('Something went wrong with database connection, try again');
+  }
+};
+
+export const getAllSongs = async () => {
+  try {
+    const songs = await prisma.songs.findMany();
+
+    return songs;
   } catch (err) {
     throw new PrismaError('Something went wrong with database connection, try again');
   }

@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import type { EmptyObject, SeoProps } from '../utils/types';
-import type { NextPage } from 'next';
 
 const Seo = dynamic<SeoProps>(() =>
   import(/* webpackChunkName: "Seo" */ '../components/Seo').then(mod => mod.Seo),
@@ -11,7 +10,7 @@ const MainHome = dynamic<EmptyObject>(() =>
   ),
 );
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <>
       <Seo title="Tiktofiy! • find your favourite song" />

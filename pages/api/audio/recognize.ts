@@ -10,7 +10,7 @@ import {
   getTikTokFinalUrl,
   recognizeAudio,
 } from '../../../services/audioService';
-import { getStoredTikTok, storeTikTok } from '../../../services/databaseService';
+import { getSongByUrl, storeSong } from '../../../services/databaseService';
 import { getConfig } from '../../../utils/config';
 import { CustomError, InvalidHTTPMethodError, InvalidUrlError } from '../../../utils/errors';
 import { generateRandomString, isSongFound, returnPath } from '../../../utils/utils';
@@ -32,10 +32,10 @@ const recognizeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const audioUrl = await getTikTokAudioUrl(finalUrl);
 
     if (getConfig('NODE_ENV') !== 'testing') {
-      const storedTikTok = await getStoredTikTok(audioUrl);
+      const storedTikTok = await getSongByUrl(audioUrl);
       if (storedTikTok) {
         return res.status(200).send({
-          found: true,
+          isFound: true,
           artist: storedTikTok.artist,
           title: storedTikTok.title,
           albumImage: storedTikTok.albumImage,
@@ -57,7 +57,7 @@ const recognizeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const recognizedAudio = await recognizeAudio(audioBase64, settings.shazamApiKey);
 
     if (getConfig('NODE_ENV') !== 'testing' && isSongFound(recognizedAudio)) {
-      void storeTikTok({
+      await storeSong({
         url: audioUrl,
         artist: recognizedAudio.artist,
         title: recognizedAudio.title,

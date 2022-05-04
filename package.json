@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_ENV=development dotenv -e .env.development next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "NODE_ENV=production next start",
+    "lint": "next lint",
+    "prisma:push": "dotenv -e .env.development prisma db push",
+    "prisma:generate": "dotenv -e .env.development prisma generate",
+    "prisma:studio": "dotenv -e .env.development prisma studio"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
@@ -14,7 +17,6 @@
     "@svgr/webpack": "^6.2.1",
     "axios": "^0.26.1",
     "crypto": "^1.0.1",
-    "dotenv": "^16.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "framer-motion": "^6",
     "fs": "^0.0.1-security",

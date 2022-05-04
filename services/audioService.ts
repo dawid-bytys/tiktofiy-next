@@ -26,7 +26,7 @@ ffmpeg.setFfmpegPath(ffmpegPath.path);
 // Using node-fetch here because on Linux axios does not work as expected
 export const getTikTokFinalUrl = async (url: string) => {
   const response = await fetch(url);
-  if (response.status !== 200) {
+  if (!response.ok) {
     throw new TikTokRequestError(
       'Something went wrong while performing the TikTok request, try again',
     );
