@@ -33,11 +33,16 @@ export const useFetch = <T extends AnyObject, U = AnyObject>(
       });
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        setFetchingState({
+        return setFetchingState({
           status: 'error',
-          errorMessage: err.response?.data.message || 'Unexpected error has occured',
+          errorMessage: err.response?.data.message || 'Server error, try again later',
         });
       }
+
+      setFetchingState({
+        status: 'error',
+        errorMessage: 'Unexpected error has occured',
+      });
     }
   };
 
