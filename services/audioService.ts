@@ -13,7 +13,6 @@ import {
   AudioCutError,
   AudioDownloadError,
   InvalidUrlFormatError,
-  ShazamApiKeyError,
   ShazamRequestError,
   TikTokRequestError,
   TikTokUnavailableError,

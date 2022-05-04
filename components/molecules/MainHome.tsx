@@ -53,7 +53,11 @@ export const MainHome = () => {
       {...motionProps}
       className="flex items-center flex-1 flex-col p-8 sm:py-16 sm:px-0"
     >
-      <div className="relative flex flex-col items-center w-full sm:w-96 md:w-144 xl:w-196">
+      <div
+        className={`relative flex flex-col items-center w-full sm:w-96 md:w-144 xl:w-196 ${
+          fetchingState.status === 'loading' && 'opacity-40 pointer-events-none select-none'
+        }`}
+      >
         {fetchingState.status === 'error' && (
           <ErrorAlert errorMessage={fetchingState.errorMessage} />
         )}
@@ -69,7 +73,6 @@ export const MainHome = () => {
         >
           Find a song
         </button>
-        {fetchingState.status === 'loading' && <Loading />}
       </div>
       <div className="flex flex-col items-center mt-24">
         {(() => {
@@ -77,6 +80,7 @@ export const MainHome = () => {
             case 'success':
               return isSongFound(fetchingState.data) ? (
                 <>
+                  <div className="text-sm text-center">look what we have just found for you</div>
                   {fetchingState.data.albumImage && (
                     <Image
                       src={fetchingState.data.albumImage}
@@ -112,6 +116,8 @@ export const MainHome = () => {
                   <div className="text-center mt-16">something went wrong...</div>
                 </>
               );
+            case 'loading':
+              return <Loading />;
           }
         })()}
       </div>
