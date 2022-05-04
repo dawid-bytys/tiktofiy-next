@@ -74,46 +74,52 @@ export const MainHome = () => {
           Find a song
         </button>
       </div>
-      <div className="flex flex-col items-center mt-24">
+      <div className="mt-24">
         {(() => {
           switch (fetchingState.status) {
             case 'success':
               return isSongFound(fetchingState.data) ? (
                 <>
-                  <div className="text-sm text-center">look what we have just found for you</div>
+                  <p className="text-sm text-center">look what we have just found for you</p>
                   {fetchingState.data.albumImage && (
-                    <Image
-                      src={fetchingState.data.albumImage}
-                      alt="Album image"
-                      width={112}
-                      height={112}
-                      className="mt-3 rounded-xl"
-                    />
+                    <div className="flex items-center justify-center">
+                      <Image
+                        src={fetchingState.data.albumImage}
+                        alt="Album image"
+                        width={112}
+                        height={112}
+                        className="mt-3 rounded-xl mx-auto"
+                      />
+                    </div>
                   )}
-                  <div className="mt-10 text-sm md:text-lg text-center">
+                  <p className="mt-10 text-sm md:text-lg text-center">
                     {fetchingState.data.artist} - {fetchingState.data.title}
-                  </div>
+                  </p>
                 </>
               ) : (
                 <>
-                  <File size={120} mood="ko" color="#fff" />
-                  <div className="text-center mt-16">
-                    sorry, we weren&apost able to find anything
+                  <div className="flex items-center justify-center">
+                    <File size={120} mood="ko" color="#fff" />
                   </div>
+                  <p className="text-center mt-16">sorry, we weren&apost able to find anything</p>
                 </>
               );
             case 'idle':
               return (
                 <>
-                  <Ghost size={120} mood="blissful" color="#fff" />
-                  <div className="text-center mt-16">come one... search for something</div>
+                  <div className="flex items-center justify-center">
+                    <Ghost size={120} mood="blissful" color="#fff" />
+                  </div>
+                  <p className="text-center mt-10">come one... search for something</p>
                 </>
               );
             case 'error':
               return (
                 <>
-                  <File size={120} mood="ko" color="#fff" />
-                  <div className="text-center mt-16">something went wrong...</div>
+                  <div className="flex items-center justify-center">
+                    <File size={120} mood="ko" color="#fff" />
+                  </div>
+                  <p className="text-center mt-16">something went wrong...</p>
                 </>
               );
             case 'loading':
