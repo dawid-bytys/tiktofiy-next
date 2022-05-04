@@ -10,8 +10,10 @@ import {
   getTikTokFinalUrl,
   recognizeAudio,
 } from '../../../services/audioService';
+import { getStoredTikTok, storeTikTok } from '../../../services/databaseService';
+import { getConfig } from '../../../utils/config';
 import { CustomError, InvalidHTTPMethodError, InvalidUrlError } from '../../../utils/errors';
-import { generateRandomString, returnPath } from '../../../utils/utils';
+import { generateRandomString, isSongFound, returnPath } from '../../../utils/utils';
 import type { RequestData, DeepReadonly } from '../../../utils/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -29,6 +31,18 @@ const recognizeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const finalUrl = await getTikTokFinalUrl(url);
     const audioUrl = await getTikTokAudioUrl(finalUrl);
 
+    if (getConfig('NODE_ENV') !== 'testing') {
+      const storedTikTok = await getStoredTikTok(audioUrl);
+      if (storedTikTok) {
+        return res.status(200).send({
+          found: true,
+          artist: storedTikTok.artist,
+          title: storedTikTok.title,
+          albumImage: storedTikTok.albumImage,
+        });
+      }
+    }
+
     const audioFilename = generateRandomString();
     const cutAudioFilename = generateRandomString();
     const cutConvertedAudioFilename = generateRandomString();
@@ -41,6 +55,15 @@ const recognizeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       encoding: 'base64',
     });
     const recognizedAudio = await recognizeAudio(audioBase64, settings.shazamApiKey);
+
+    if (getConfig('NODE_ENV') !== 'testing' && isSongFound(recognizedAudio)) {
+      void storeTikTok({
+        url: audioUrl,
+        artist: recognizedAudio.artist,
+        title: recognizedAudio.title,
+        albumImage: recognizedAudio.albumImage,
+      });
+    }
 
     res.status(200).send(recognizedAudio);
   } catch (err) {
