@@ -16,7 +16,7 @@ import type {
   RequestData,
   SeoProps,
 } from '../utils/types';
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 
 const Seo = dynamic<SeoProps>(() =>
   import(/* webpackChunkName: "Seo" */ '../components/Seo').then(mod => mod.Seo),
@@ -48,6 +48,11 @@ const Home = () => {
     setUrl(e.currentTarget.value);
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    void performFetching();
+  };
+
   // Hack for the server/client side difference
   useEffect(() => setIsMounted(true), []);
 
@@ -70,18 +75,21 @@ const Home = () => {
           {fetchingState.status === 'error' && (
             <ErrorAlert errorMessage={fetchingState.errorMessage} />
           )}
-          <input
-            placeholder="Paste a TikTok url..."
-            className="p-4 bg-input w-full rounded-2xl text-sm font-robotomonomedium text-foreground placeholder-subactive"
-            onChange={handleChange}
-          />
-          <button
-            aria-label="Find a song"
-            onClick={() => void performFetching()}
-            className="mt-10 w-48 p-3 rounded-3xl bg-primary text-sm font-robotomonomedium"
-          >
-            Find a song
-          </button>
+          <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
+            <input
+              placeholder="Paste a TikTok url..."
+              aria-label="TikTok url"
+              className="p-4 bg-input w-full rounded-2xl text-sm font-robotomonomedium text-foreground placeholder-subactive"
+              onChange={handleChange}
+            />
+            <button
+              type="submit"
+              aria-label="Find a song"
+              className="mt-10 w-48 p-3 rounded-3xl bg-primary text-sm font-robotomonomedium"
+            >
+              Find a song
+            </button>
+          </form>
         </div>
         <div className="mt-24">
           {(() => {
