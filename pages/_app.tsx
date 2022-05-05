@@ -1,5 +1,4 @@
 import '../styles/globals.css';
-
 import { ThemeProvider } from 'next-themes';
 import { SettingsProvider } from '../components/providers/SettingsProvider';
 import { ThemeWindowProvider } from '../components/providers/ThemeWindowProvider';
