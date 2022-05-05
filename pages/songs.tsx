@@ -1,14 +1,16 @@
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { File } from 'react-kawaii';
-import { useTable } from 'react-table';
 import { Noti } from '../components/atoms/Noti';
-import { COLUMNS, SONGS_BASE_URL } from '../utils/constants';
+import { useFadeRightTransition } from '../hooks/useFadeRightTransition';
+import { SONGS_BASE_URL } from '../utils/constants';
 import type { SavedSongs, SuccessfulRequest, UnsuccessfulRequest } from '../utils/types';
 
 type SongsProps = SuccessfulRequest | UnsuccessfulRequest;
 
 const Songs = (props: SongsProps) => {
-  const songsTable = useTable({ columns: COLUMNS, data: props.isSuccess && props.data });
+  const motionProps = useFadeRightTransition();
 
   if (!props.isSuccess) {
     return (
@@ -19,7 +21,32 @@ const Songs = (props: SongsProps) => {
     );
   }
 
-  return <main></main>;
+  return (
+    <motion.main {...motionProps}>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Album Image</th>
+            <th>Artist</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.data.map(({ id, albumImage, artist, title }, idx) => (
+            <tr key={id}>
+              <td>{idx + 1}</td>
+              <td>
+                {albumImage && <Image src={albumImage} width={48} height={48} alt="Album image " />}
+              </td>
+              <td>{artist}</td>
+              <td>{title}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </motion.main>
+  );
 };
 
 export const getServerSideProps = async (): Promise<{ props: SongsProps }> => {
