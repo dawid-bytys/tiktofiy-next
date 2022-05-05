@@ -3,7 +3,7 @@ import { BsGithub } from 'react-icons/bs';
 
 export const Footer = () => {
   return (
-    <footer className="flex justify-center items-center py-8 text-sm">
+    <footer className="flex justify-center items-center pb-8 text-sm">
       <Link
         href="https://github.com/salvia-dev/tiktofiy-next"
         aria-label="Go to the GitHub repository"

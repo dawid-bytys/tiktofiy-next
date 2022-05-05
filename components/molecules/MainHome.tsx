@@ -8,7 +8,7 @@ import { useFetch } from '../../hooks/useFetch';
 import { useSettings } from '../../hooks/useSettings';
 import { AUDIO_BASE_URL } from '../../utils/constants';
 import { isSongFound } from '../../utils/utils';
-import { Noti } from './Noti';
+import { Noti } from '../atoms/Noti';
 import type {
   EmptyObject,
   ErrorAlertProps,
@@ -52,7 +52,7 @@ export const MainHome = () => {
   return (
     <motion.main
       {...motionProps}
-      className="flex items-center flex-1 flex-col p-8 sm:py-16 sm:px-0"
+      className="flex items-center flex-1 flex-col p-10 sm:px-0 xl:py-24"
     >
       <div
         className={`relative flex flex-col items-center w-full sm:w-96 md:w-144 xl:w-196 ${

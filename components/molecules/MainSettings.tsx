@@ -19,35 +19,42 @@ export const MainSettings = () => {
     };
 
   return (
-    <motion.main {...motionProps} className="flex justify-center flex-1 p-8 sm:py-16 sm:px-0">
-      <div className="gap-5 w-full sm:w-72">
-        <p className="text-center mb-5">shazam api key</p>
-        <input
-          type="password"
-          name="shazamApiKey"
-          placeholder="paste the key..."
-          className="bg-input p-3 rounded-xl text-sm text-center block mx-auto mb-8"
-          onChange={handleChange('shazamApiKey')}
-          onPaste={handleChange('shazamApiKey')}
-        />
-        <p className="text-center mb-5">settings</p>
-        <div className="flex flex-col items-center gap-5">
+    <motion.main {...motionProps} className="flex justify-center flex-1 p-10 sm:px-0 xl:py-24">
+      <div className="flex flex-col justify-center w-full xsm:w-72">
+        <div className="flex flex-col justify-center mb-8">
+          <div className="flex justify-center mb-5">shazam api key</div>
           <input
-            type="number"
-            name="start"
-            placeholder="from"
+            type="password"
+            name="shazamApiKey"
+            placeholder="paste the key..."
             className="bg-input p-3 rounded-xl text-sm text-center"
-            onChange={handleChange('start')}
-            onPaste={handleChange('start')}
+            aria-label="Shazam API Key"
+            onChange={handleChange('shazamApiKey')}
+            onPaste={handleChange('shazamApiKey')}
           />
-          <input
-            type="number"
-            name="end"
-            placeholder="to"
-            className="bg-input p-3 rounded-xl text-sm text-center"
-            onChange={handleChange('end')}
-            onPaste={handleChange('end')}
-          />
+        </div>
+        <div className="flex flex-col justify-center">
+          <div className="flex justify-center mb-5">audio range</div>
+          <div className="flex flex-col items-center gap-5">
+            <input
+              type="number"
+              name="start"
+              placeholder="from"
+              className="bg-input p-3 rounded-xl text-sm text-center w-full"
+              aria-label="Range start"
+              onChange={handleChange('start')}
+              onPaste={handleChange('start')}
+            />
+            <input
+              type="number"
+              name="end"
+              placeholder="to"
+              className="bg-input p-3 rounded-xl text-sm text-center w-full"
+              aria-label="Range end"
+              onChange={handleChange('end')}
+              onPaste={handleChange('end')}
+            />
+          </div>
         </div>
       </div>
     </motion.main>

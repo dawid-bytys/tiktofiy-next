@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FiSettings, FiHome } from 'react-icons/fi';
+import { MdAudiotrack } from 'react-icons/md';
 import { RiPaletteLine } from 'react-icons/ri';
 import Logo from '../../assets/svg/logo.svg';
 import { useThemeWindow } from '../../hooks/useThemeWindow';
@@ -17,6 +18,11 @@ const links = [
     icon: FiSettings,
     aria: 'Go to the settings page',
     href: '/settings',
+  },
+  {
+    icon: MdAudiotrack,
+    ariua: 'Go to the songs page',
+    href: '/songs',
   },
 ];
 
@@ -33,7 +39,7 @@ export const Header = () => {
   }
 
   return (
-    <header className="flex flex-col py-5 md:py-7 xl:py-11 items-center">
+    <header className="flex flex-col pt-8 xl:pt-12 items-center">
       <div className="flex flex-col justifiy-between gap-8">
         <div className="flex flex-row justify-between gap-5 xsm:gap-7 xl:gap-10">
           <div className="flex items-center justify-center w-7 xsm:w-14 md:w-16">
