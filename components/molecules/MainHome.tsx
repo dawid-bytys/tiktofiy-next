@@ -8,6 +8,7 @@ import { useFetch } from '../../hooks/useFetch';
 import { useSettings } from '../../hooks/useSettings';
 import { AUDIO_BASE_URL } from '../../utils/constants';
 import { isSongFound } from '../../utils/utils';
+import { Noti } from './Noti';
 import type {
   EmptyObject,
   ErrorAlertProps,
@@ -97,30 +98,24 @@ export const MainHome = () => {
                   </p>
                 </>
               ) : (
-                <>
-                  <div className="flex items-center justify-center">
-                    <File size={120} mood="ko" color="#fff" />
-                  </div>
-                  <p className="text-center mt-16">sorry, we weren&apost able to find anything</p>
-                </>
+                <Noti
+                  icon={<File size={120} mood="ko" color="#fff" />}
+                  message="sorry, we weren't able to find anything"
+                />
               );
             case 'idle':
               return (
-                <>
-                  <div className="flex items-center justify-center">
-                    <Ghost size={120} mood="blissful" color="#fff" />
-                  </div>
-                  <p className="text-center mt-10">come one... search for something</p>
-                </>
+                <Noti
+                  icon={<Ghost size={120} mood="blissful" color="#fff" />}
+                  message="come one... search for something"
+                />
               );
             case 'error':
               return (
-                <>
-                  <div className="flex items-center justify-center">
-                    <File size={120} mood="ko" color="#fff" />
-                  </div>
-                  <p className="text-center mt-16">something went wrong...</p>
-                </>
+                <Noti
+                  icon={<File size={120} mood="ko" color="#fff" />}
+                  message="something went wrong..."
+                />
               );
             case 'loading':
               return <Loading />;
