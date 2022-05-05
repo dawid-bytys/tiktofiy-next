@@ -1,8 +1,8 @@
 import type { KawaiiProps } from 'react-kawaii';
 
 interface NotiProps {
-  icon: React.ReactElement<KawaiiProps>;
-  message: string;
+  readonly icon: React.ReactElement<KawaiiProps>;
+  readonly message: string;
 }
 
 export const Noti = ({ icon, message }: NotiProps) => {
