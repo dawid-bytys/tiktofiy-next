@@ -13,28 +13,7 @@ export const SONGS_ENDPOINT = '/api/songs';
 export const AUDIO_BASE_URL = DOMAIN_URL + AUDIO_ENDPOINT;
 export const SONGS_BASE_URL = DOMAIN_URL + SONGS_ENDPOINT;
 
-export const COLUMNS = [
-  {
-    Header: 'Id',
-    accessor: 'id',
-  },
-  {
-    Header: 'Image',
-    accessor: 'albumImage',
-  },
-  {
-    Header: 'Artist',
-    accessor: 'artist',
-  },
-  {
-    Header: 'Title',
-    accessor: 'title',
-  },
-  {
-    Header: 'Audio',
-    accessor: 'url',
-  },
-];
+export const TABLE_TITLES = ['Id', 'Cover', 'Artist', 'Title'] as const;
 
 // Server
 export const TIKTOK_API_URL = 'https://tiktok.com/api/item/detail/?agent_user=&itemId=';

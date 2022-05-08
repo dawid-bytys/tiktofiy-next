@@ -26,7 +26,7 @@ const Settings = () => {
     <>
       <Seo title="Tiktofiy! • settings" />
       <motion.main {...motionProps} className="flex justify-center flex-1 p-10 sm:px-0 xl:py-24">
-        <div className="flex flex-col justify-center w-full xsm:w-72">
+        <div className="flex flex-col justify-center w-full max-w-xs">
           <div className="flex flex-col justify-center mb-8">
             <div className="flex justify-center mb-5">shazam api key</div>
             <input

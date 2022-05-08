@@ -38,10 +38,7 @@ const Home = () => {
   const { fetchingState, performFetching } = useFetch<RecognitionResult, RequestData>(
     'POST',
     AUDIO_BASE_URL,
-    {
-      url: url,
-      settings: settings,
-    },
+    { url, settings },
   );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,12 +60,9 @@ const Home = () => {
   return (
     <>
       <Seo title="Tiktofiy! • find your favourite song" />
-      <motion.main
-        {...motionProps}
-        className="flex items-center flex-1 flex-col p-10 sm:px-0 xl:py-24"
-      >
+      <motion.main {...motionProps} className="flex items-center flex-1 flex-col p-10 xl:py-24">
         <div
-          className={`relative flex flex-col items-center w-full sm:w-96 md:w-144 xl:w-196 ${
+          className={`relative flex flex-col items-center w-full max-w-xl ${
             fetchingState.status === 'loading' && 'opacity-40 pointer-events-none select-none'
           }`}
         >
