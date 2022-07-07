@@ -30,7 +30,7 @@ export const Navigation = () => {
 	const { toggleThemeWindow } = useThemeWindow();
 
 	return (
-		<nav className="flex flex-row justify-between mt-6">
+		<nav className="flex flex-row justify-between mt-4">
 			<ul className="flex flex-row">
 				{LINKS.map(link => (
 					<li key={link.href}>
@@ -49,7 +49,7 @@ export const Navigation = () => {
 			<button
 				onClick={() => toggleThemeWindow(true)}
 				aria-label="Toggle theme window"
-				className="flex flex-row items-center p-3 ml-6"
+				className="flex flex-row items-center p-3 ml-6 text-subactive"
 			>
 				{theme} <RiPaletteLine className="ml-3" />
 			</button>

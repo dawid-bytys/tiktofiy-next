@@ -1,6 +1,6 @@
-import { prisma } from '../utils/db';
-import { PrismaError } from '../utils/errors';
-import type { SongFound } from '../utils/types';
+import { prisma } from 'utils/db';
+import { PrismaError } from 'utils/errors';
+import type { SongFound } from 'utils/types';
 
 export const getSongByUrl = async (url: string) => {
 	try {

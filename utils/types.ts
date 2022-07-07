@@ -1,6 +1,14 @@
 import type React from 'react';
 
 export type Theme = 'default' | 'carbon' | 'material' | 'metaverse';
+export type Status = 'idle' | 'loading' | 'success' | 'error';
+export type HTTPMethod = 'POST' | 'PUT' | 'GET';
+
+export type Result<T> =
+	| { status: 'idle' }
+	| { status: 'loading' }
+	| { status: 'success'; data: T }
+	| { status: 'error'; errorMessage: string };
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export type AnyObject = Record<keyof any, unknown>;
@@ -16,6 +24,15 @@ export interface SeoProps {
 
 export interface ErrorAlertProps {
 	readonly errorMessage: string;
+}
+
+export interface AnnouncementProps {
+	readonly result: Result<RecognitionResult>;
+}
+
+export interface FormProps {
+	readonly handleSubmit: (e: React.SyntheticEvent) => void;
+	readonly handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export type SongFound = {

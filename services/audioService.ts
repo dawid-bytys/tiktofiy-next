@@ -6,8 +6,8 @@ import axios from 'axios';
 import ffmpeg from 'fluent-ffmpeg';
 import fetch from 'node-fetch';
 import randomUseragent from 'random-useragent';
-import { getConfig } from '../utils/config';
-import { SHAZAM_API_URL, TIKTOK_API_URL } from '../utils/constants';
+import { getConfig } from 'utils/config';
+import { SHAZAM_API_URL, TIKTOK_API_URL } from 'utils/constants';
 import {
 	AudioConvertError,
 	AudioCutError,
@@ -16,9 +16,9 @@ import {
 	ShazamRequestError,
 	TikTokRequestError,
 	TikTokUnavailableError,
-} from '../utils/errors';
-import { getTikTokId, returnPath } from '../utils/utils';
-import type { RecognitionResult, ShazamResponse, TikTokMetadata } from '../utils/types';
+} from 'utils/errors';
+import { getTikTokId, returnPath } from 'utils/utils';
+import type { RecognitionResult, ShazamResponse, TikTokMetadata } from 'utils/types';
 
 // Configure ffmpeg
 ffmpeg.setFfmpegPath(ffmpegPath.path);
@@ -67,7 +67,7 @@ export const downloadAudio = async (url: string, output: string) => {
 		});
 
 		const pipelineAsync = promisify(pipeline);
-		void pipelineAsync(response.data, fs.createWriteStream(returnPath(`${output}.mp3`)));
+		await pipelineAsync(response.data, fs.createWriteStream(returnPath(`${output}.mp3`)));
 
 		console.log('Successfully downloaded the audio file');
 	} catch (err) {

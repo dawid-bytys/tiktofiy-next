@@ -1,16 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
-import type { AnyObject } from '../utils/types';
+import type { AnyObject, Result, HTTPMethod } from 'utils/types';
 
-type Result<T> =
-	| { status: 'idle' }
-	| { status: 'loading' }
-	| { status: 'success'; data: T }
-	| { status: 'error'; errorMessage: string };
-
-type HTTPMethod = 'POST' | 'PUT' | 'GET';
-
-export const useFetch = <T extends AnyObject, U = AnyObject>(
+export const useFetch = <T extends AnyObject, U extends AnyObject = AnyObject>(
 	method: HTTPMethod,
 	url: string,
 	data?: U,
@@ -46,5 +38,5 @@ export const useFetch = <T extends AnyObject, U = AnyObject>(
 		}
 	};
 
-	return { fetchingState, performFetching };
+	return { result, performFetching };
 };
