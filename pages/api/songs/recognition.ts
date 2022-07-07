@@ -14,6 +14,7 @@ import { getSongByUrl, storeSong } from 'services/databaseService';
 import { getConfig } from 'utils/config';
 import { CustomError, InvalidHTTPMethodError, InvalidUrlError } from 'utils/errors';
 import { generateRandomString, isSongFound, returnPath } from 'utils/utils';
+import { clearMedia } from 'services/mediaService';
 import type { RequestData, DeepReadonly } from 'utils/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -64,6 +65,8 @@ const recognizeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 				albumImage: recognizedAudio.albumImage,
 			});
 		}
+
+		await clearMedia([audioFilename, cutAudioFilename, cutConvertedAudioFilename]);
 
 		res.status(200).send(recognizedAudio);
 	} catch (err) {

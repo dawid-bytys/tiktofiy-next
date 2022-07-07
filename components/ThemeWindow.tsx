@@ -43,6 +43,7 @@ export const ThemeWindow = () => {
 		>
 			<input
 				placeholder="Search for theme..."
+				aria-label="Find a theme"
 				className="w-full p-5 text-sm text-foreground bg-input placeholder-subactive font-robotomonomedium"
 				onChange={handleQueryChange}
 			/>

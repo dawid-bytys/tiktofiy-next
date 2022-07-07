@@ -33,6 +33,7 @@ export interface AnnouncementProps {
 export interface FormProps {
 	readonly handleSubmit: (e: React.SyntheticEvent) => void;
 	readonly handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	readonly isLoading: boolean;
 }
 
 export interface ParagraphProps {

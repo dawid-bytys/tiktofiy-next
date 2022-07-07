@@ -1,8 +1,13 @@
 import type { FormProps } from 'utils/types';
 
-export const Form = ({ handleSubmit, handleChange }: FormProps) => {
+export const Form = ({ handleSubmit, handleChange, isLoading }: FormProps) => {
 	return (
-		<form onSubmit={handleSubmit} className="flex flex-col mx-10 sm:mx-20 md:w-144 md:mx-auto">
+		<form
+			onSubmit={handleSubmit}
+			className={`flex flex-col mx-10 sm:mx-20 md:w-144 md:mx-auto ${
+				isLoading && 'opacity-40 pointer-events-none caret-transparent'
+			}`}
+		>
 			<input
 				type="text"
 				onChange={handleChange}

@@ -34,7 +34,11 @@ export const MainHome = () => {
 	return (
 		<motion.main {...fadeLeftTransition} className="flex-1 relative my-20">
 			{result.status === 'error' && <ErrorAlert errorMessage={result.errorMessage} />}
-			<Form handleSubmit={handleSubmit} handleChange={handleChange} />
+			<Form
+				handleSubmit={handleSubmit}
+				handleChange={handleChange}
+				isLoading={result.status === 'loading'}
+			/>
 			<Announcement result={result} />
 		</motion.main>
 	);

@@ -35,7 +35,12 @@ export const Navigation = () => {
 				{LINKS.map(link => (
 					<li key={link.href}>
 						<Link href={link.href}>
-							<a aria-label={link.ariaLabel} className="flex items-center justify-center p-3">
+							<a
+								aria-label={link.ariaLabel}
+								referrerPolicy="no-referrer"
+								rel="noreferrer noopener"
+								className="flex items-center justify-center p-3"
+							>
 								<link.icon
 									className={`w-6 h-6 transition-colors duration-200 ease-in-out ${
 										router.pathname === link.href ? 'text-subactive' : 'text-sub'
@@ -49,9 +54,9 @@ export const Navigation = () => {
 			<button
 				onClick={() => toggleThemeWindow(true)}
 				aria-label="Toggle theme window"
-				className="flex flex-row items-center p-3 ml-8 md:ml-16 text-subactive"
+				className="flex flex-row items-center p-3 ml-10 md:ml-28 text-subactive font-robotomonomedium"
 			>
-				{theme} <RiPaletteLine className="ml-3" />
+				{theme} <RiPaletteLine className="ml-3 w-6 h-6" />
 			</button>
 		</nav>
 	);

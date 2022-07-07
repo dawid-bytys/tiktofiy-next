@@ -10,6 +10,7 @@ export const Footer = () => {
 			>
 				<a
 					className="flex flex-row justify-between items-center gap-4 p-8"
+					referrerPolicy="no-referrer"
 					rel="noopener noreferrer"
 					target="_blank"
 				>

@@ -48,7 +48,7 @@ const renderSwitch = (result: Result<RecognitionResult>) => {
 				</>
 			);
 		case 'loading':
-			return <Spinner />;
+			return <Spinner className="w-36 h-auto" />;
 	}
 };
 
