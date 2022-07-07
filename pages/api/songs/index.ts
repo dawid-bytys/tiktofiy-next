@@ -1,5 +1,5 @@
-import { getAllSongs } from '../../services/databaseService';
-import { CustomError, InvalidHTTPMethodError } from '../../utils/errors';
+import { getAllSongs } from 'services/databaseService';
+import { CustomError, InvalidHTTPMethodError } from 'utils/errors';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const songsHandler = async (req: NextApiRequest, res: NextApiResponse) => {

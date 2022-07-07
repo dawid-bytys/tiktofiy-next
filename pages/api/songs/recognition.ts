@@ -1,7 +1,7 @@
 import fs from 'fs';
 import validUrl from 'valid-url';
-import { withValidation } from '../../../middlewares/withValidation';
-import { AudioSchema } from '../../../schemas/audioSchema';
+import { withValidation } from 'middlewares/withValidation';
+import { AudioSchema } from 'schemas/audioSchema';
 import {
 	convertAudio,
 	cutAudio,
@@ -9,18 +9,18 @@ import {
 	getTikTokAudioUrl,
 	getTikTokFinalUrl,
 	recognizeAudio,
-} from '../../../services/audioService';
-import { getSongByUrl, storeSong } from '../../../services/databaseService';
-import { getConfig } from '../../../utils/config';
-import { CustomError, InvalidHTTPMethodError, InvalidUrlError } from '../../../utils/errors';
-import { generateRandomString, isSongFound, returnPath } from '../../../utils/utils';
-import type { RequestData, DeepReadonly } from '../../../utils/types';
+} from 'services/audioService';
+import { getSongByUrl, storeSong } from 'services/databaseService';
+import { getConfig } from 'utils/config';
+import { CustomError, InvalidHTTPMethodError, InvalidUrlError } from 'utils/errors';
+import { generateRandomString, isSongFound, returnPath } from 'utils/utils';
+import type { RequestData, DeepReadonly } from 'utils/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const recognizeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		if (req.method !== 'POST') {
-			throw new InvalidHTTPMethodError('Only POST method is allowed');
+			throw new InvalidHTTPMethodError('Only POSTethod is allowed');
 		}
 
 		const { url, settings }: DeepReadonly<RequestData> = req.body;
