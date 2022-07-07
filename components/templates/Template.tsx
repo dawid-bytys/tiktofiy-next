@@ -6,36 +6,36 @@ import { Header } from '../molecules/Header';
 import type { EmptyObject } from '../../utils/types';
 
 const Glow = dynamic<EmptyObject>(() =>
-  import(/* webpackChunkName: "Glow" */ '../atoms/Glow').then(mod => mod.Glow),
+	import(/* webpackChunkName: "Glow" */ '../atoms/Glow').then(mod => mod.Glow),
 );
 const ThemeWindow = dynamic<EmptyObject>(() =>
-  import(/* webpackChunkName: "ThemeWindow" */ '../molecules/ThemeWindow').then(
-    mod => mod.ThemeWindow,
-  ),
+	import(/* webpackChunkName: "ThemeWindow" */ '../molecules/ThemeWindow').then(
+		mod => mod.ThemeWindow,
+	),
 );
 
 interface TemplateProps {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 export const Template = ({ children }: TemplateProps) => {
-  const { isOpen } = useThemeWindow();
+	const { isOpen } = useThemeWindow();
 
-  return (
-    <>
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <AnimatePresence>{children}</AnimatePresence>
-        <Footer />
-      </div>
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <Glow />
-            <ThemeWindow />
-          </>
-        )}
-      </AnimatePresence>
-    </>
-  );
+	return (
+		<>
+			<div className="flex flex-col min-h-screen">
+				<Header />
+				<AnimatePresence>{children}</AnimatePresence>
+				<Footer />
+			</div>
+			<AnimatePresence>
+				{isOpen && (
+					<>
+						<Glow />
+						<ThemeWindow />
+					</>
+				)}
+			</AnimatePresence>
+		</>
+	);
 };
