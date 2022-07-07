@@ -5,61 +5,61 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 #__next,
 body,
 html {
-  @apply min-h-full h-full font-robotomonoregular bg-background text-foreground overflow-x-hidden;
+	@apply min-h-full h-full font-robotomonoregular bg-background text-foreground overflow-x-hidden;
 }
 
 html[data-theme='default'] {
-  --color-foreground: #f6f0e9;
-  --color-background: #242933;
-  --color-primary: #ec4c56;
-  --color-sub: #596172;
-  --color-input: rgba(0, 0, 0, 0.1);
-  --color-sub-active: #868ea0;
+	--color-foreground: #f6f0e9;
+	--color-background: #242933;
+	--color-primary: #ec4c56;
+	--color-sub: #596172;
+	--color-input: rgba(0, 0, 0, 0.1);
+	--color-sub-active: #868ea0;
 }
 
 html[data-theme='carbon'] {
-  --color-foreground: #f5e6c8;
-  --color-background: #313131;
-  --color-primary: #f66e0d;
-  --color-sub: #616161;
-  --color-input: rgba(0, 0, 0, 0.1);
-  --color-sub-active: #909090;
+	--color-foreground: #f5e6c8;
+	--color-background: #313131;
+	--color-primary: #f66e0d;
+	--color-sub: #616161;
+	--color-input: rgba(0, 0, 0, 0.1);
+	--color-sub-active: #909090;
 }
 
 html[data-theme='material'] {
-  --color-foreground: #e6edf3;
-  --color-background: #263238;
-  --color-primary: #80cbc4;
-  --color-sub: #4c6772;
-  --color-input: rgba(0, 0, 0, 0.1);
-  --color-sub-active: #7898a5;
+	--color-foreground: #e6edf3;
+	--color-background: #263238;
+	--color-primary: #80cbc4;
+	--color-sub: #4c6772;
+	--color-input: rgba(0, 0, 0, 0.1);
+	--color-sub-active: #7898a5;
 }
 
 html[data-theme='metaverse'] {
-  --color-foreground: #e8e8e8;
-  --color-background: #232323;
-  --color-primary: #d82934;
-  --color-sub: #5e5e5e;
-  --color-input: rgba(0, 0, 0, 0.1);
-  --color-sub-active: #8e8e8e;
+	--color-foreground: #e8e8e8;
+	--color-background: #232323;
+	--color-primary: #d82934;
+	--color-sub: #5e5e5e;
+	--color-input: rgba(0, 0, 0, 0.1);
+	--color-sub-active: #8e8e8e;
 }
 
 @font-face {
-  font-family: 'RobotoMono-Regular';
-  src: url('../assets/fonts/RobotoMono-Regular.ttf');
-  font-display: swap;
+	font-family: 'RobotoMono-Regular';
+	src: url('../assets/fonts/RobotoMono-Regular.ttf');
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'RobotoMono-Medium';
-  src: url('../assets/fonts/RobotoMono-Medium.ttf');
-  font-display: swap;
+	font-family: 'RobotoMono-Medium';
+	src: url('../assets/fonts/RobotoMono-Medium.ttf');
+	font-display: swap;
 }

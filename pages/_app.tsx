@@ -7,17 +7,17 @@ import themeCollection from '../utils/themes.json';
 import type { AppProps } from 'next/app';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  return (
-    <ThemeProvider storageKey="data-theme" defaultTheme="default" themes={themeCollection}>
-      <ThemeWindowProvider>
-        <SettingsProvider>
-          <Template>
-            <Component {...pageProps} />
-          </Template>
-        </SettingsProvider>
-      </ThemeWindowProvider>
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider storageKey="data-theme" defaultTheme="default" themes={themeCollection}>
+			<ThemeWindowProvider>
+				<SettingsProvider>
+					<Template>
+						<Component {...pageProps} />
+					</Template>
+				</SettingsProvider>
+			</ThemeWindowProvider>
+		</ThemeProvider>
+	);
 };
 
 export default MyApp;
