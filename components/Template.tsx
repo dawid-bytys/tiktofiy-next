@@ -1,17 +1,13 @@
-import { AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { useThemeWindow } from '../../hooks/useThemeWindow';
-import { Footer } from '../molecules/Footer';
-import { Header } from '../molecules/Header';
-import type { EmptyObject } from '../../utils/types';
+import { AnimatePresence } from 'framer-motion';
+import { useThemeWindow } from 'hooks/useThemeWindow';
+import { Footer } from 'components/Footer/Footer';
+import { Header } from 'components/Header/Header';
+import type { EmptyObject } from 'utils/types';
 
-const Glow = dynamic<EmptyObject>(() =>
-	import(/* webpackChunkName: "Glow" */ '../atoms/Glow').then(mod => mod.Glow),
-);
+const Shadow = dynamic<EmptyObject>(() => import('components/Shadow').then(mod => mod.Shadow));
 const ThemeWindow = dynamic<EmptyObject>(() =>
-	import(/* webpackChunkName: "ThemeWindow" */ '../molecules/ThemeWindow').then(
-		mod => mod.ThemeWindow,
-	),
+	import('components/ThemeWindow').then(mod => mod.ThemeWindow),
 );
 
 interface TemplateProps {
@@ -31,7 +27,7 @@ export const Template = ({ children }: TemplateProps) => {
 			<AnimatePresence>
 				{isOpen && (
 					<>
-						<Glow />
+						<Shadow />
 						<ThemeWindow />
 					</>
 				)}

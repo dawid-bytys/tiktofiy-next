@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { useClickOutside } from '../../hooks/useClickOutside';
-import { useDebounce } from '../../hooks/useDebounce';
-import { useOpacityTransition } from '../../hooks/useOpacityTransition';
-import { useThemeWindow } from '../../hooks/useThemeWindow';
-import themeCollection from '../../utils/themes.json';
+import { useClickOutside } from 'hooks/useClickOutside';
+import { useDebounce } from 'hooks/useDebounce';
+import { opacityTransition } from 'utils/transitions';
+import { useThemeWindow } from 'hooks/useThemeWindow';
+import themeCollection from 'utils/themes.json';
 import type { MouseEvent, ChangeEvent } from 'react';
 
 export const ThemeWindow = () => {
@@ -13,7 +13,6 @@ export const ThemeWindow = () => {
 	const [themes, setThemes] = useState(themeCollection);
 	const debouncedQuery = useDebounce(query, 200);
 	const themeWindowRef = useRef<HTMLDivElement>(null);
-	const motionProps = useOpacityTransition();
 	const { toggleThemeWindow } = useThemeWindow();
 	const { setTheme } = useTheme();
 	useClickOutside<HTMLDivElement>(themeWindowRef, () => toggleThemeWindow(false));
@@ -39,7 +38,7 @@ export const ThemeWindow = () => {
 	return (
 		<motion.div
 			ref={themeWindowRef}
-			{...motionProps}
+			{...opacityTransition(0.4)}
 			className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col w-3/4 h-3/4 2xl:w-1/2 bg-background rounded-2xl"
 		>
 			<input

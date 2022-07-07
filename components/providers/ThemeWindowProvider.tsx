@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ThemeWindowContext } from '../../context/ThemeWindowContext';
-import type { ChildrenProps } from '../../utils/types';
+import { ThemeWindowContext } from 'context/ThemeWindowContext';
+import type { ChildrenProps } from 'utils/types';
 
 export const ThemeWindowProvider = ({ children }: ChildrenProps) => {
 	const [isOpen, setIsOpen] = useState(false);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { SettingsContext } from '../../context/SettingsContext';
-import type { ChildrenProps, SettingsKeys, Settings } from '../../utils/types';
+import { SettingsContext } from 'context/SettingsContext';
+import type { ChildrenProps, SettingsKeys, Settings } from 'utils/types';
 
 const initialState: Settings = {
 	shazamApiKey: '',

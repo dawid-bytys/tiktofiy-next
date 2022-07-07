@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { memo } from 'react';
-import { WEBSITE_URL, ROBOTS } from '../utils/constants';
-import type { SeoProps } from '../utils/types';
+import { DOMAIN_URL, ROBOTS } from 'utils/constants';
+import type { SeoProps } from 'utils/types';
 
 export const Seo = memo<SeoProps>(({ title }) => {
 	const router = useRouter();
-	const canonical = WEBSITE_URL + router.pathname;
+	const canonical = DOMAIN_URL + router.pathname;
 
 	return (
 		<Head>
