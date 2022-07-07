@@ -1,9 +1,11 @@
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useFetch } from 'hooks/useFetch';
 import { useSettings } from 'hooks/useSettings';
 import { Announcement } from './Announcement';
 import { ErrorAlert } from './ErrorAlert';
 import { Form } from './Form';
+import { fadeLeftTransition } from 'utils/transitions';
 import { SONGS_RECOGNITION_BASE_URL } from 'utils/constants';
 import type { RequestData, RecognitionResult } from 'utils/types';
 import type { SyntheticEvent, ChangeEvent } from 'react';
@@ -30,10 +32,10 @@ export const MainHome = () => {
 	};
 
 	return (
-		<main className="flex-1 relative my-20">
+		<motion.main {...fadeLeftTransition} className="flex-1 relative my-20">
 			{result.status === 'error' && <ErrorAlert errorMessage={result.errorMessage} />}
 			<Form handleSubmit={handleSubmit} handleChange={handleChange} />
 			<Announcement result={result} />
-		</main>
+		</motion.main>
 	);
 };
