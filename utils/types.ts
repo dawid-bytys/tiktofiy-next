@@ -35,6 +35,11 @@ export interface FormProps {
 	readonly handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface ParagraphProps {
+	readonly text: string;
+	readonly className?: string;
+}
+
 export type SongFound = {
 	readonly isFound: true;
 	readonly artist: string;
