@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import path from 'path';
 import type { RecognitionResult, SongFound } from './types';
 
 export const isSongFound = (result: RecognitionResult): result is SongFound => {
@@ -6,7 +7,7 @@ export const isSongFound = (result: RecognitionResult): result is SongFound => {
 };
 
 export const returnPath = (filename: string) => {
-	return `media/${filename}`;
+	return path.resolve('media', filename);
 };
 
 export const generateRandomString = (length = 16) => {

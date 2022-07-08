@@ -30,7 +30,7 @@ export const useFetch = <T extends AnyObject, U extends AnyObject = AnyObject>(
 
 				return setResult({
 					status: 'error',
-					errorMessage: error.response?.data.message || 'Server error, try again later',
+					errorMessage: error.response?.data?.message || 'Server error, try again later',
 				});
 			}
 

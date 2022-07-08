@@ -1,6 +1,7 @@
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import { FiSettings, FiHome } from 'react-icons/fi';
 import { MdAudiotrack } from 'react-icons/md';
 import { RiPaletteLine } from 'react-icons/ri';
@@ -25,9 +26,16 @@ const LINKS = [
 ];
 
 export const Navigation = () => {
+	const [isMounted, setIsMounted] = useState(false);
 	const router = useRouter();
 	const { theme } = useTheme();
 	const { toggleThemeWindow } = useThemeWindow();
+
+	useEffect(() => setIsMounted(true), []);
+
+	if (!isMounted) {
+		return null;
+	}
 
 	return (
 		<nav className="flex flex-row justify-between mt-4">
