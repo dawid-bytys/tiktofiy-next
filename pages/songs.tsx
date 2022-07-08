@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { MainSongs } from 'components/MainSongs/MainSongs';
-import { SONGS_BASE_URL, TABLE_TITLES } from '../utils/constants';
-import type { SavedSongs, SuccessfulRequest, UnsuccessfulRequest } from '../utils/types';
+import { SONGS_BASE_URL } from '../utils/constants';
+import type {
+	ErrorResponse,
+	SavedSongs,
+	SuccessfulRequest,
+	UnsuccessfulRequest,
+} from '../utils/types';
+import type { AxiosError } from 'axios';
 
 type SongsProps = SuccessfulRequest | UnsuccessfulRequest;
 
@@ -21,10 +27,12 @@ export const getServerSideProps = async (): Promise<{ props: SongsProps }> => {
 		};
 	} catch (err) {
 		if (axios.isAxiosError(err)) {
+			const error = err as AxiosError<ErrorResponse>;
+
 			return {
 				props: {
 					isSuccess: false,
-					errorMessage: err.response?.data.message,
+					errorMessage: error.response?.data.message || 'Server error has occured',
 				},
 			};
 		}

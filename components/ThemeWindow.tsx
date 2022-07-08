@@ -3,9 +3,9 @@ import { useTheme } from 'next-themes';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { useDebounce } from 'hooks/useDebounce';
-import { opacityTransition } from 'utils/transitions';
 import { useThemeWindow } from 'hooks/useThemeWindow';
 import themeCollection from 'utils/themes.json';
+import { opacityTransition } from 'utils/transitions';
 import type { MouseEvent, ChangeEvent } from 'react';
 
 export const ThemeWindow = () => {

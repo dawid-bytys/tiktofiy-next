@@ -1,8 +1,8 @@
-import Spinner from 'assets/svg/spinner.svg';
 import Image from 'next/image';
-import { Paragraph } from './Paragraph';
 import { File } from 'react-kawaii';
+import Spinner from 'assets/svg/spinner.svg';
 import { isSongFound } from 'utils/utils';
+import { Paragraph } from './Paragraph';
 import type { Status, RecognitionResult, AnnouncementProps, Result } from 'utils/types';
 
 const renderSwitch = (result: Result<RecognitionResult>) => {

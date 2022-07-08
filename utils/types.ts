@@ -4,6 +4,10 @@ export type Theme = 'default' | 'carbon' | 'material' | 'metaverse';
 export type Status = 'idle' | 'loading' | 'success' | 'error';
 export type HTTPMethod = 'POST' | 'PUT' | 'GET';
 
+export interface ErrorResponse {
+	readonly message: string;
+}
+
 export type Result<T> =
 	| { status: 'idle' }
 	| { status: 'loading' }

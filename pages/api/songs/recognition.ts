@@ -11,20 +11,27 @@ import {
 	recognizeAudio,
 } from 'services/audioService';
 import { getSongByUrl, storeSong } from 'services/databaseService';
+import { clearMedia } from 'services/mediaService';
 import { getConfig } from 'utils/config';
 import { CustomError, InvalidHTTPMethodError, InvalidUrlError } from 'utils/errors';
 import { generateRandomString, isSongFound, returnPath } from 'utils/utils';
-import { clearMedia } from 'services/mediaService';
-import type { RequestData, DeepReadonly } from 'utils/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import type { RequestData, DeepReadonly, AnyObject } from 'utils/types';
 
-const recognizeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+interface CustomNextApiRequest<T extends AnyObject> extends NextApiRequest {
+	readonly body: T;
+}
+
+const recognitionHandler = async (
+	req: CustomNextApiRequest<DeepReadonly<RequestData>>,
+	res: NextApiResponse,
+) => {
 	try {
 		if (req.method !== 'POST') {
-			throw new InvalidHTTPMethodError('Only POSTethod is allowed');
+			throw new InvalidHTTPMethodError('Only POST method is allowed');
 		}
 
-		const { url, settings }: DeepReadonly<RequestData> = req.body;
+		const { url, settings } = req.body;
 		if (!validUrl.isUri(url)) {
 			throw new InvalidUrlError('Invalid url has been provided');
 		}
@@ -78,4 +85,4 @@ const recognizeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-export default withValidation(AudioSchema, recognizeHandler);
+export default withValidation(AudioSchema, recognitionHandler);

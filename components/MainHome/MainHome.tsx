@@ -2,13 +2,13 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useFetch } from 'hooks/useFetch';
 import { useSettings } from 'hooks/useSettings';
+import { SONGS_RECOGNITION_BASE_URL } from 'utils/constants';
+import { fadeLeftTransition } from 'utils/transitions';
 import { Announcement } from './Announcement';
 import { ErrorAlert } from './ErrorAlert';
 import { Form } from './Form';
-import { fadeLeftTransition } from 'utils/transitions';
-import { SONGS_RECOGNITION_BASE_URL } from 'utils/constants';
-import type { RequestData, RecognitionResult } from 'utils/types';
 import type { SyntheticEvent, ChangeEvent } from 'react';
+import type { RequestData, RecognitionResult } from 'utils/types';
 
 export const MainHome = () => {
 	const [url, setUrl] = useState('');

@@ -1,13 +1,16 @@
-import dynamic from 'next/dynamic';
 import { AnimatePresence } from 'framer-motion';
-import { useThemeWindow } from 'hooks/useThemeWindow';
+import dynamic from 'next/dynamic';
 import { Footer } from 'components/Footer/Footer';
 import { Header } from 'components/Header/Header';
-import type { EmptyObject } from 'utils/types';
+import { useThemeWindow } from 'hooks/useThemeWindow';
 
-const Shadow = dynamic<EmptyObject>(() => import('components/Shadow').then(mod => mod.Shadow));
-const ThemeWindow = dynamic<EmptyObject>(() =>
-	import('components/ThemeWindow').then(mod => mod.ThemeWindow),
+const Shadow = dynamic<{}>(() =>
+	import(/* webpackChunkName: 'Shadow' */ 'components/Shadow').then(mod => mod.Shadow),
+);
+const ThemeWindow = dynamic<{}>(() =>
+	import(/* webpackChunkName: 'ThemeWindow' */ 'components/ThemeWindow').then(
+		mod => mod.ThemeWindow,
+	),
 );
 
 interface TemplateProps {

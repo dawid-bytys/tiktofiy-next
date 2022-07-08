@@ -11,7 +11,7 @@ export const withValidation =
 				throw new InvalidRequestDataError('Invalid request data, probably url is missing');
 			}
 
-			endpointHandler(req, res);
+			void endpointHandler(req, res);
 		} catch (err) {
 			if (err instanceof CustomError) {
 				return res.status(err.statusCode).send({ message: err.message });

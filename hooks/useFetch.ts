@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
-import type { AnyObject, Result, HTTPMethod } from 'utils/types';
+import type { AxiosError } from 'axios';
+import type { AnyObject, Result, HTTPMethod, ErrorResponse } from 'utils/types';
 
 export const useFetch = <T extends AnyObject, U extends AnyObject = AnyObject>(
 	method: HTTPMethod,
@@ -25,9 +26,11 @@ export const useFetch = <T extends AnyObject, U extends AnyObject = AnyObject>(
 			});
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
+				const error = err as AxiosError<ErrorResponse>;
+
 				return setResult({
 					status: 'error',
-					errorMessage: err.response?.data.message || 'Server error, try again later',
+					errorMessage: error.response?.data.message || 'Server error, try again later',
 				});
 			}
 

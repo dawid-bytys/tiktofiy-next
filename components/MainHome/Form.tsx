@@ -5,7 +5,7 @@ export const Form = ({ handleSubmit, handleChange, isLoading }: FormProps) => {
 		<form
 			onSubmit={handleSubmit}
 			className={`flex flex-col mx-10 sm:mx-20 md:w-144 md:mx-auto ${
-				isLoading && 'opacity-40 pointer-events-none caret-transparent'
+				isLoading ? 'opacity-40 pointer-events-none caret-transparent' : ''
 			}`}
 		>
 			<input
