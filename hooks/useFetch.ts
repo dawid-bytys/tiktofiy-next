@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import type { AxiosError } from 'axios';
 import type { AnyObject, Result, HTTPMethod, ErrorResponse } from 'utils/types';
 
@@ -10,7 +10,7 @@ export const useFetch = <T extends AnyObject, U extends AnyObject = AnyObject>(
 ) => {
 	const [result, setResult] = useState<Result<T>>({ status: 'idle' });
 
-	const performFetching = async () => {
+	const performFetching = useCallback(async () => {
 		setResult({ status: 'loading' });
 
 		try {
@@ -39,7 +39,7 @@ export const useFetch = <T extends AnyObject, U extends AnyObject = AnyObject>(
 				errorMessage: 'Unexpected error has occured',
 			});
 		}
-	};
+	}, [data, method, url]);
 
 	return { result, performFetching };
 };
