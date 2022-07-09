@@ -14,7 +14,7 @@ import { getSongByUrl, storeSong } from 'services/databaseService';
 import { clearMedia } from 'services/mediaService';
 import { getConfig } from 'utils/config';
 import { CustomError, InvalidHTTPMethodError, InvalidUrlError } from 'utils/errors';
-import { generateRandomString, isSongFound, returnPath } from 'utils/utils';
+import { generateRandomString, isSongFound, getMediaPath } from 'utils/utils';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { RequestData, DeepReadonly, AnyObject } from 'utils/types';
 
@@ -59,7 +59,7 @@ const recognitionHandler = async (
 		await cutAudio(audioFilename, cutAudioFilename, settings.start, settings.end);
 		await convertAudio(cutAudioFilename, cutConvertedAudioFilename);
 
-		const audioBase64 = fs.readFileSync(returnPath(`${cutConvertedAudioFilename}.mp3`), {
+		const audioBase64 = fs.readFileSync(getMediaPath(cutConvertedAudioFilename), {
 			encoding: 'base64',
 		});
 		const recognizedAudio = await recognizeAudio(audioBase64, settings.shazamApiKey);
