@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import type { FormProps } from 'utils/types';
 
-export const Form = ({ handleSubmit, handleChange, isLoading }: FormProps) => {
+export const Form = memo<FormProps>(({ handleSubmit, handleChange, isLoading }) => {
 	return (
 		<form
 			onSubmit={handleSubmit}
@@ -11,6 +12,7 @@ export const Form = ({ handleSubmit, handleChange, isLoading }: FormProps) => {
 			<input
 				type="text"
 				onChange={handleChange}
+				aria-label="Pase a TikTok URL"
 				placeholder="Paste a TikTok URL..."
 				className="bg-input p-4 rounded-2xl font-robotomonomedium text-foreground text-sm"
 			/>
@@ -19,4 +21,4 @@ export const Form = ({ handleSubmit, handleChange, isLoading }: FormProps) => {
 			</button>
 		</form>
 	);
-};
+});

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useFetch } from 'hooks/useFetch';
 import { useSettings } from 'hooks/useSettings';
 import { SONGS_RECOGNITION_BASE_URL } from 'utils/constants';
@@ -22,17 +22,20 @@ export const MainHome = () => {
 		},
 	);
 
-	const handleSubmit = (e: SyntheticEvent) => {
-		e.preventDefault();
-		void performFetching();
-	};
+	const handleSubmit = useCallback(
+		(e: SyntheticEvent) => {
+			e.preventDefault();
+			void performFetching();
+		},
+		[performFetching],
+	);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		setUrl(e.currentTarget.value);
-	};
+	}, []);
 
 	return (
-		<motion.main {...fadeLeftTransition} className="flex-1 relative my-20">
+		<motion.main {...fadeLeftTransition} className="flex-1 relative my-24">
 			{result.status === 'error' && <ErrorAlert errorMessage={result.errorMessage} />}
 			<Form
 				handleSubmit={handleSubmit}

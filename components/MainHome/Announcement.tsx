@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { memo } from 'react';
 import { BiMessageError, BiSearchAlt } from 'react-icons/bi';
 import { RiEmotionSadLine } from 'react-icons/ri';
 import Spinner from 'assets/svg/spinner.svg';
@@ -51,6 +52,6 @@ const renderSwitch = (result: Result<RecognitionResult>) => {
 	}
 };
 
-export const Announcement = ({ result }: AnnouncementProps) => {
+export const Announcement = memo<AnnouncementProps>(({ result }) => {
 	return <div className="flex flex-col items-center mt-24">{renderSwitch(result)}</div>;
-};
+});
