@@ -17,7 +17,7 @@ import {
 	TikTokRequestError,
 	TikTokUnavailableError,
 } from 'utils/errors';
-import { getTikTokId, returnPath } from 'utils/utils';
+import { getTikTokId, getMediaPath } from 'utils/utils';
 import type { RecognitionResult, ShazamResponse, TikTokMetadata } from 'utils/types';
 
 // Configure ffmpeg
@@ -67,7 +67,7 @@ export const downloadAudio = async (url: string, output: string) => {
 		});
 
 		const pipelineAsync = promisify(pipeline);
-		await pipelineAsync(response.data, fs.createWriteStream(returnPath(`${output}.mp3`)));
+		await pipelineAsync(response.data, fs.createWriteStream(getMediaPath(`${output}.mp3`)));
 
 		console.log('Successfully downloaded the audio file');
 	} catch (err) {
@@ -77,9 +77,9 @@ export const downloadAudio = async (url: string, output: string) => {
 
 export const cutAudio = (input: string, output: string, start: number, end: number) => {
 	return new Promise((resolve, reject) => {
-		ffmpeg(returnPath(`${input}.mp3`))
+		ffmpeg(getMediaPath(input))
 			.outputOptions('-ss', String(start), '-to', end === 0 ? '5' : String(end))
-			.output(returnPath(`${output}.mp3`))
+			.output(getMediaPath(`${output}.mp3`))
 			.on('end', () => {
 				resolve(console.log('Successfully cut the audio'));
 			})
@@ -92,9 +92,9 @@ export const cutAudio = (input: string, output: string, start: number, end: numb
 
 export const convertAudio = (input: string, output: string) => {
 	return new Promise((resolve, reject) => {
-		ffmpeg(returnPath(`${input}.mp3`))
+		ffmpeg(getMediaPath(input))
 			.outputOptions('-f', 's16le', '-ac', '1', '-ar', '44100')
-			.output(returnPath(`${output}.mp3`))
+			.output(getMediaPath(`${output}.mp3`))
 			.on('end', () => {
 				resolve(console.log('Successfully converted the audio'));
 			})
@@ -116,7 +116,7 @@ export const recognizeAudio = async (
 			headers: {
 				'content-type': 'text/plain',
 				'x-rapidapi-host': 'shazam.p.rapidapi.com',
-				'x-rapidapi-key': shazamApiKey.length ? shazamApiKey : getConfig('SHAZAM_API_KEY'),
+				'x-rapidapi-key': !!shazamApiKey.length ? shazamApiKey : getConfig('SHAZAM_API_KEY'),
 			},
 		});
 		if (typeof track === 'undefined') {
