@@ -1,22 +1,39 @@
-import { CustomError, InvalidRequestDataError } from '../utils/errors';
-import type { Schema } from 'joi';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { ValidationError } from 'yup';
+import { CustomError, InvalidHTTPMethodError } from 'utils/errors';
+import type { NextApiResponse } from 'next';
+import type { HTTPMethod, CustomNextApiRequest } from 'utils/types';
+import type { InferType, Schema } from 'yup';
 
-export const withValidation =
-	(schema: Schema, endpointHandler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>) =>
-	(req: NextApiRequest, res: NextApiResponse) => {
-		try {
-			const validationResult = schema.validate(req.body);
-			if (validationResult.error) {
-				throw new InvalidRequestDataError('Invalid request data, probably url is missing');
+export const withValidation = <T extends Schema<any>>(methods: HTTPMethod[], bodySchema?: T) => {
+	return <V extends CustomNextApiRequest<InferType<T>>>(
+		handler: (req: V, res: NextApiResponse) => Promise<unknown> | unknown,
+	) => {
+		return async (req: V, res: NextApiResponse) => {
+			try {
+				if (!methods.includes(req.method as HTTPMethod)) {
+					throw new InvalidHTTPMethodError(
+						`Only ${methods.join('/')} requests are allowed on this endpoint`,
+					);
+				}
+
+				if (typeof bodySchema !== 'undefined') {
+					await bodySchema.validate(req.body);
+				}
+
+				await handler(req, res);
+			} catch (err) {
+				if (err instanceof ValidationError) {
+					return res.status(422).send({ message: 'Invalid request data' });
+				}
+
+				if (err instanceof CustomError) {
+					return res.status(err.statusCode).send({
+						message: err.message,
+					});
+				}
+
+				res.status(500).send({ error: 'Unexpected error has occured' });
 			}
-
-			void endpointHandler(req, res);
-		} catch (err) {
-			if (err instanceof CustomError) {
-				return res.status(err.statusCode).send({ message: err.message });
-			}
-
-			res.status(500).send({ message: 'Unexpected error has occured' });
-		}
+		};
 	};
+};

@@ -1,4 +1,6 @@
+import type { NextApiRequest } from 'next';
 import type React from 'react';
+import type { AnySchema } from 'yup';
 
 export type Theme = 'default' | 'carbon' | 'material' | 'metaverse';
 export type Status = 'idle' | 'loading' | 'success' | 'error';
@@ -14,9 +16,13 @@ export type Result<T> =
 	| { status: 'success'; data: T }
 	| { status: 'error'; errorMessage: string };
 
+export type CustomNextApiRequest<T> = Omit<NextApiRequest, 'body'> & {
+	readonly body: T;
+};
+export type SomeSchema = AnySchema<any, any, any>;
+
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export type AnyObject = Record<keyof any, unknown>;
-export type EmptyObject = Record<keyof any, never>;
 
 export type DeepReadonly<T extends AnyObject> = {
 	+readonly [K in keyof T]: T[K] extends AnyObject ? DeepReadonly<T[K]> : T[K];

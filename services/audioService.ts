@@ -6,7 +6,6 @@ import axios from 'axios';
 import ffmpeg from 'fluent-ffmpeg';
 import fetch from 'node-fetch';
 import randomUseragent from 'random-useragent';
-import { getConfig } from 'utils/config';
 import { SHAZAM_API_URL, TIKTOK_API_URL } from 'utils/constants';
 import {
 	AudioConvertError,
@@ -76,9 +75,11 @@ export const downloadAudio = async (url: string, output: string) => {
 };
 
 export const cutAudio = (input: string, output: string, start: number, end: number) => {
+	const newEnd = end === 0 ? 5 : end;
+
 	return new Promise((resolve, reject) => {
-		ffmpeg(getMediaPath(input))
-			.outputOptions('-ss', String(start), '-to', end === 0 ? '5' : String(end))
+		ffmpeg(getMediaPath(`${input}.mp3`))
+			.outputOptions('-ss', `${start}`, '-to', `${newEnd}`)
 			.output(getMediaPath(`${output}.mp3`))
 			.on('end', () => {
 				resolve(console.log('Successfully cut the audio'));
@@ -92,7 +93,7 @@ export const cutAudio = (input: string, output: string, start: number, end: numb
 
 export const convertAudio = (input: string, output: string) => {
 	return new Promise((resolve, reject) => {
-		ffmpeg(getMediaPath(input))
+		ffmpeg(getMediaPath(`${input}.mp3`))
 			.outputOptions('-f', 's16le', '-ac', '1', '-ar', '44100')
 			.output(getMediaPath(`${output}.mp3`))
 			.on('end', () => {
@@ -116,7 +117,7 @@ export const recognizeAudio = async (
 			headers: {
 				'content-type': 'text/plain',
 				'x-rapidapi-host': 'shazam.p.rapidapi.com',
-				'x-rapidapi-key': !!shazamApiKey.length ? shazamApiKey : getConfig('SHAZAM_API_KEY'),
+				'x-rapidapi-key': shazamApiKey,
 			},
 		});
 		if (typeof track === 'undefined') {
