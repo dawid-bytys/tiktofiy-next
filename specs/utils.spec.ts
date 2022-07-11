@@ -10,7 +10,6 @@ describe('testing utils functions', () => {
       artist: 'Bruno Major',
       albumImage: 'https://i.ytimg.com/vi/QH2-TGUlwu4/default.jpg',
     };
-
     expect(isSongFound(song)).toBe(true);
   });
 
@@ -18,7 +17,6 @@ describe('testing utils functions', () => {
     const song: SongNotFound = {
       isFound: false,
     };
-
     expect(isSongFound(song)).toBe(false);
   });
 
@@ -43,7 +41,6 @@ describe('testing utils functions', () => {
       'https://www.tiktok.com/@sherryj_054/video/7119104964017933594?is_copy_url=1&is_from_webapp=v1',
       'https://vm.tiktok.com/ZMNP6b5wU',
     ];
-
     validTikTokUrls.map(url => expect(getTikTokId(url)).toHaveLength(19));
   });
 });

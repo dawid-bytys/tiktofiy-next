@@ -58,7 +58,7 @@ export type SongFound = {
   readonly albumImage?: string;
 };
 
-type SongNotFound = {
+export type SongNotFound = {
   readonly isFound: false;
 };
 

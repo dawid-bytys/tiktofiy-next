@@ -43,9 +43,9 @@ export default withValidation(
     }
   }
 
-  const audioFilename = generateRandomString();
-  const cutAudioFilename = generateRandomString();
-  const cutConvertedAudioFilename = generateRandomString();
+  const audioFilename = generateRandomString(16);
+  const cutAudioFilename = generateRandomString(16);
+  const cutConvertedAudioFilename = generateRandomString(16);
 
   await downloadAudio(audioUrl, audioFilename);
   await cutAudio(audioFilename, cutAudioFilename, start, end);
