@@ -3,40 +3,40 @@ import { PrismaError } from 'utils/errors';
 import type { SongFound } from 'utils/types';
 
 export const getSongByUrl = async (url: string) => {
-	try {
-		const storedTikTok = await prisma.songs.findUnique({
-			where: {
-				url: url,
-			},
-		});
+  try {
+    const storedTikTok = await prisma.songs.findUnique({
+      where: {
+        url: url,
+      },
+    });
 
-		return storedTikTok;
-	} catch (err) {
-		throw new PrismaError('Something went wrong with database connection, try again');
-	}
+    return storedTikTok;
+  } catch (err) {
+    throw new PrismaError('Something went wrong with database connection, try again');
+  }
 };
 
 export const storeSong = async (song: Omit<SongFound, 'isFound'> & { url: string }) => {
-	try {
-		await prisma.songs.create({
-			data: {
-				url: song.url,
-				artist: song.artist,
-				title: song.title,
-				albumImage: song.albumImage,
-			},
-		});
-	} catch (err) {
-		throw new PrismaError('Something went wrong with database connection, try again');
-	}
+  try {
+    await prisma.songs.create({
+      data: {
+        url: song.url,
+        artist: song.artist,
+        title: song.title,
+        albumImage: song.albumImage,
+      },
+    });
+  } catch (err) {
+    throw new PrismaError('Something went wrong with database connection, try again');
+  }
 };
 
 export const getAllSongs = async () => {
-	try {
-		const songs = await prisma.songs.findMany();
+  try {
+    const songs = await prisma.songs.findMany();
 
-		return songs;
-	} catch (err) {
-		throw new PrismaError('Something went wrong with database connection, try again');
-	}
+    return songs;
+  } catch (err) {
+    throw new PrismaError('Something went wrong with database connection, try again');
+  }
 };

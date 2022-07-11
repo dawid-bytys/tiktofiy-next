@@ -2,10 +2,10 @@ import { getConfig } from './config';
 
 // Client
 export const ROBOTS =
-	'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+  'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
 
 export const DOMAIN_URL =
-	getConfig('NODE_ENV') === 'production' ? 'https://tiktofiy.com' : 'http://localhost:3000';
+  getConfig('NODE_ENV') === 'production' ? 'https://tiktofiy.com' : 'http://localhost:3000';
 
 export const SONGS_ENDPOINT = '/api/songs';
 export const SONGS_RECOGNITION_ENDPOINT = SONGS_ENDPOINT + '/recognition';

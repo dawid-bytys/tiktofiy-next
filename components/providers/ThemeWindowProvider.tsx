@@ -3,15 +3,15 @@ import { ThemeWindowContext } from 'context/ThemeWindowContext';
 import type { ChildrenProps } from 'utils/types';
 
 export const ThemeWindowProvider = ({ children }: ChildrenProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-	const toggleThemeWindow = (value: boolean) => {
-		setIsOpen(value);
-	};
+  const toggleThemeWindow = (value: boolean) => {
+    setIsOpen(value);
+  };
 
-	return (
-		<ThemeWindowContext.Provider value={{ isOpen, toggleThemeWindow }}>
-			{children}
-		</ThemeWindowContext.Provider>
-	);
+  return (
+    <ThemeWindowContext.Provider value={{ isOpen, toggleThemeWindow }}>
+      {children}
+    </ThemeWindowContext.Provider>
+  );
 };

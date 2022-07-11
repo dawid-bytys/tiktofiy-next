@@ -11,38 +11,38 @@ import type { SyntheticEvent, ChangeEvent } from 'react';
 import type { RequestData, RecognitionResult } from 'utils/types';
 
 export const MainHome = () => {
-	const [url, setUrl] = useState('');
-	const { settings } = useSettings();
-	const { result, performFetching } = useFetch<RecognitionResult, RequestData>(
-		'POST',
-		SONGS_RECOGNITION_BASE_URL,
-		{
-			url,
-			settings,
-		},
-	);
+  const [url, setUrl] = useState('');
+  const { settings } = useSettings();
+  const { result, performFetching } = useFetch<RecognitionResult, RequestData>(
+    'POST',
+    SONGS_RECOGNITION_BASE_URL,
+    {
+      url,
+      settings,
+    },
+  );
 
-	const handleSubmit = useCallback(
-		(e: SyntheticEvent) => {
-			e.preventDefault();
-			void performFetching();
-		},
-		[performFetching],
-	);
+  const handleSubmit = useCallback(
+    (e: SyntheticEvent) => {
+      e.preventDefault();
+      void performFetching();
+    },
+    [performFetching],
+  );
 
-	const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setUrl(e.currentTarget.value);
-	}, []);
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setUrl(e.currentTarget.value);
+  }, []);
 
-	return (
-		<motion.main {...fadeLeftTransition} className="flex-1 relative my-24">
-			{result.status === 'error' && <ErrorAlert errorMessage={result.errorMessage} />}
-			<Form
-				handleSubmit={handleSubmit}
-				handleChange={handleChange}
-				isLoading={result.status === 'loading'}
-			/>
-			<Announcement result={result} />
-		</motion.main>
-	);
+  return (
+    <motion.main {...fadeLeftTransition} className="flex-1 relative my-24">
+      {result.status === 'error' && <ErrorAlert errorMessage={result.errorMessage} />}
+      <Form
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        isLoading={result.status === 'loading'}
+      />
+      <Announcement result={result} />
+    </motion.main>
+  );
 };
