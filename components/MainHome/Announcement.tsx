@@ -40,7 +40,7 @@ const renderSwitch = (result: Result<RecognitionResult>) => {
               />
             )}
           </div>
-          <p className="mt-8 text-xl text-center font-robotomonomedium">
+          <p className="mt-8 text-xl text-center font-medium">
             {result.data.artist} - {result.data.title}
           </p>
         </>

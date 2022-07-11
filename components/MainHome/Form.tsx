@@ -14,9 +14,9 @@ export const Form = memo<FormProps>(({ handleSubmit, handleChange, isLoading }) 
         onChange={handleChange}
         aria-label="Pase a TikTok URL"
         placeholder="Paste a TikTok URL..."
-        className="bg-input p-4 rounded-2xl font-robotomonomedium text-foreground text-sm"
+        className="bg-input p-4 rounded-2xl font-medium text-foreground text-sm"
       />
-      <button className="rounded-3xl bg-primary mt-8 py-4 w-40 mx-auto font-robotomonomedium text-sm">
+      <button className="rounded-3xl bg-primary mt-8 py-4 w-40 mx-auto font-medium text-sm">
         Find a song
       </button>
     </form>

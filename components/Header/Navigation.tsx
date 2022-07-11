@@ -62,7 +62,7 @@ export const Navigation = () => {
       <button
         onClick={() => toggleThemeWindow(true)}
         aria-label="Toggle theme window"
-        className="flex flex-row items-center p-3 ml-10 md:ml-28 text-subactive font-robotomonomedium"
+        className="flex flex-row items-center p-3 ml-10 md:ml-28 text-subactive font-medium"
       >
         {theme} <RiPaletteLine className="ml-3 w-6 h-6" />
       </button>

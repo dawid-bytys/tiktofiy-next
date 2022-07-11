@@ -3,8 +3,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        robotomonoregular: 'RobotoMono-Regular, monospace',
-        robotomonomedium: 'RobotoMono-Medium, monospace',
+        sans: ['Roboto Mono', 'monospace'],
       },
       colors: {
         foreground: 'var(--color-foreground)',

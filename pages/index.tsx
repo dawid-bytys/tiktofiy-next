@@ -1,15 +1,10 @@
-import dynamic from 'next/dynamic';
+import { NextSeo } from 'next-seo';
 import { MainHome } from 'components/MainHome/MainHome';
-import type { SeoProps } from '../utils/types';
-
-const Seo = dynamic<SeoProps>(() =>
-  import(/* webpackChunkName: 'Seo' */ 'components/Seo').then(mod => mod.Seo),
-);
 
 const Home = () => {
   return (
     <>
-      <Seo title="Tiktofiy! • find your favourite song" />
+      <NextSeo title="Tiktofiy! • find your favourite song" canonical="https://tiktofiy.com" />
       <MainHome />
     </>
   );

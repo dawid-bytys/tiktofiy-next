@@ -17,9 +17,9 @@ export const ThemeWindow = () => {
   const { setTheme } = useTheme();
   useClickOutside<HTMLDivElement>(themeWindowRef, () => toggleThemeWindow(false));
 
-  const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleQueryChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.currentTarget.value);
-  };
+  }, []);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     setTheme(e.currentTarget.innerText);
@@ -44,7 +44,7 @@ export const ThemeWindow = () => {
       <input
         placeholder="Search for theme..."
         aria-label="Find a theme"
-        className="w-full p-5 text-sm text-foreground bg-input placeholder-subactive font-robotomonomedium"
+        className="w-full p-5 text-sm text-foreground bg-input placeholder-subactive font-medium"
         onChange={handleQueryChange}
       />
       <ul className="flex flex-col flex-1">
