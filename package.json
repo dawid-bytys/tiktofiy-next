@@ -9,7 +9,8 @@
 		"lint": "next lint",
 		"prisma:push": "dotenv -e .env.development prisma db push",
 		"prisma:generate": "dotenv -e .env.development prisma generate",
-		"prisma:studio": "dotenv -e .env.development prisma studio"
+		"prisma:studio": "dotenv -e .env.development prisma studio",
+		"test:unit": "NODE_ENV=testing dotenv -e .env.development jest"
 	},
 	"dependencies": {
 		"@ffmpeg-installer/ffmpeg": "^1.1.0",
@@ -33,6 +34,7 @@
 	},
 	"devDependencies": {
 		"@types/fluent-ffmpeg": "^2.1.20",
+		"@types/jest": "^28.1.4",
 		"@types/node": "18.0.3",
 		"@types/node-fetch": "2.5.10",
 		"@types/random-useragent": "^0.3.1",
@@ -47,10 +49,13 @@
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-import": "^2.26.0",
 		"eslint-plugin-prettier": "^4.2.1",
+		"jest": "^28.1.2",
+		"node-mocks-http": "^1.11.0",
 		"postcss": "^8.4.14",
 		"prettier": "^2.7.1",
 		"prisma": "^4.0.0",
 		"tailwindcss": "^3.1.5",
+		"ts-jest": "^28.0.5",
 		"typescript": "4.7.4"
 	}
 }

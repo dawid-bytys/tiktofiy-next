@@ -17,7 +17,8 @@ export const withValidation = <T extends Schema<any>>(methods: HTTPMethod[], bod
 				}
 
 				if (typeof bodySchema !== 'undefined') {
-					await bodySchema.validate(req.body);
+					const validatedBody = await bodySchema.validate(req.body);
+					req.body = validatedBody;
 				}
 
 				await handler(req, res);
@@ -32,7 +33,7 @@ export const withValidation = <T extends Schema<any>>(methods: HTTPMethod[], bod
 					});
 				}
 
-				res.status(500).send({ error: 'Unexpected error has occured' });
+				res.status(500).send({ message: 'Unexpected error has occured' });
 			}
 		};
 	};

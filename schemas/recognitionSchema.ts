@@ -8,8 +8,8 @@ export const recognitionSchema = object({
 			.default(getConfig('SHAZAM_API_KEY'))
 			.nullable()
 			.required()
-			.transform(value => (typeof value === 'string' ? value : undefined)),
-		start: number().required(),
-		end: number().required(),
+			.transform(value => (typeof value === 'string' && !!value.length ? value : undefined)),
+		start: number().required().min(0),
+		end: number().required().min(0),
 	}).required(),
 }).required();

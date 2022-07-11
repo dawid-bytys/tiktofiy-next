@@ -11,7 +11,7 @@ import {
 	recognizeAudio,
 } from 'services/audioService';
 import { getSongByUrl, storeSong } from 'services/databaseService';
-import { clearMedia } from 'services/mediaService';
+import { clearLocalMedia } from 'services/mediaService';
 import { getConfig } from 'utils/config';
 import { InvalidUrlError } from 'utils/errors';
 import { generateRandomString, isSongFound, getMediaPath } from 'utils/utils';
@@ -65,7 +65,7 @@ export default withValidation(
 		});
 	}
 
-	await clearMedia([audioFilename, cutAudioFilename, cutConvertedAudioFilename]);
+	await clearLocalMedia([audioFilename, cutAudioFilename, cutConvertedAudioFilename]);
 
 	res.status(200).send(recognizedAudio);
 });

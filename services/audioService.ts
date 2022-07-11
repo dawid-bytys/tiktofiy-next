@@ -66,7 +66,7 @@ export const downloadAudio = async (url: string, output: string) => {
 		});
 
 		const pipelineAsync = promisify(pipeline);
-		await pipelineAsync(response.data, fs.createWriteStream(getMediaPath(`${output}.mp3`)));
+		await pipelineAsync(response.data, fs.createWriteStream(getMediaPath(output)));
 
 		console.log('Successfully downloaded the audio file');
 	} catch (err) {
@@ -78,9 +78,9 @@ export const cutAudio = (input: string, output: string, start: number, end: numb
 	const newEnd = end === 0 ? 5 : end;
 
 	return new Promise((resolve, reject) => {
-		ffmpeg(getMediaPath(`${input}.mp3`))
+		ffmpeg(getMediaPath(input))
 			.outputOptions('-ss', `${start}`, '-to', `${newEnd}`)
-			.output(getMediaPath(`${output}.mp3`))
+			.output(getMediaPath(output))
 			.on('end', () => {
 				resolve(console.log('Successfully cut the audio'));
 			})
@@ -93,9 +93,9 @@ export const cutAudio = (input: string, output: string, start: number, end: numb
 
 export const convertAudio = (input: string, output: string) => {
 	return new Promise((resolve, reject) => {
-		ffmpeg(getMediaPath(`${input}.mp3`))
+		ffmpeg(getMediaPath(input))
 			.outputOptions('-f', 's16le', '-ac', '1', '-ar', '44100')
-			.output(getMediaPath(`${output}.mp3`))
+			.output(getMediaPath(output))
 			.on('end', () => {
 				resolve(console.log('Successfully converted the audio'));
 			})

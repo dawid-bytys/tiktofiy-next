@@ -2,7 +2,7 @@ import fs from 'fs';
 import { ClearMediaError } from 'utils/errors';
 import { getMediaPath } from 'utils/utils';
 
-export const clearMedia = async (filenames: string[]) => {
+export const clearLocalMedia = async (filenames: string[]) => {
 	const unlinks = filenames.map(filename => fs.promises.unlink(getMediaPath(filename)));
 
 	try {

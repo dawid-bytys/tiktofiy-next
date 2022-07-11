@@ -17,7 +17,7 @@ export type Result<T> =
 	| { status: 'error'; errorMessage: string };
 
 export type CustomNextApiRequest<T> = Omit<NextApiRequest, 'body'> & {
-	readonly body: T;
+	body: T;
 };
 export type SomeSchema = AnySchema<any, any, any>;
 

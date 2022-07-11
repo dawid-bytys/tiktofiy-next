@@ -7,7 +7,7 @@ export const isSongFound = (result: RecognitionResult): result is SongFound => {
 };
 
 export const getMediaPath = (filename: string) => {
-	return path.resolve('media', filename);
+	return path.resolve('media', `${filename}.mp3`);
 };
 
 export const generateRandomString = (length = 16) => {
