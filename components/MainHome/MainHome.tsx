@@ -18,7 +18,7 @@ export const MainHome = () => {
     SONGS_RECOGNITION_BASE_URL,
     {
       url,
-      settings,
+      ...settings,
     },
   );
 

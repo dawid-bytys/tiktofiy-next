@@ -65,14 +65,16 @@ export type SongNotFound = {
 export type RecognitionResult = SongFound | SongNotFound;
 
 export interface Settings {
-  shazamApiKey: string;
+  shazamApiKey?: string | null;
   start: number;
   end: number;
 }
 
 export type RequestData = {
   url: string;
-  settings: Settings;
+  shazamApiKey: string;
+  start: number;
+  end: number;
 };
 
 export interface ChildrenProps {
@@ -81,13 +83,13 @@ export interface ChildrenProps {
 
 export type SettingsKeys = keyof Settings;
 
-export interface SavedSongs {
-  readonly id: string;
-  readonly url: string;
-  readonly artist: string;
-  readonly title: string;
-  readonly albumImage?: string;
-}
+export type SavedSongs = Readonly<{
+  id: string;
+  url: string;
+  artist: string;
+  title: string;
+  albumImage?: string;
+}>;
 
 export interface SuccessfulRequest {
   readonly isSuccess: true;

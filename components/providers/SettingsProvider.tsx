@@ -3,9 +3,9 @@ import { SettingsContext } from 'context/SettingsContext';
 import type { ChildrenProps, SettingsKeys, Settings } from 'utils/types';
 
 const initialState: Settings = {
-  shazamApiKey: '',
+  shazamApiKey: null,
   start: 0,
-  end: 0,
+  end: 5,
 };
 
 export const SettingsProvider = ({ children }: ChildrenProps) => {

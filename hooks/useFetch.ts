@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import type { AxiosError } from 'axios';
 import type { AnyObject, Result, HTTPMethod, ErrorResponse } from 'utils/types';
 
-export const useFetch = <T extends AnyObject, U extends AnyObject = AnyObject>(
+export const useFetch = <T extends AnyObject, U extends AnyObject | undefined = undefined>(
   method: HTTPMethod,
   url: string,
   data?: U,
