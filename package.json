@@ -49,6 +49,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "http-request-mock": "^1.7.17",
     "jest": "^28.1.2",
     "node-mocks-http": "^1.11.0",
     "postcss": "^8.4.14",

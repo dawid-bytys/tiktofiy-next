@@ -1,3 +1,5 @@
+import HttpRequestMock from 'http-request-mock';
+
 // recognitionSchema mocks
 export const validRecognitionSchemaMocks = [
   {
@@ -91,3 +93,16 @@ export const invalidRecognitionSchemaMocks = [
     end: 10,
   },
 ];
+
+// HTTP request mocks
+export const validSchemaHttpRequestMocks = validRecognitionSchemaMocks.map(mock => ({
+  url: 'api/songs/recognition',
+  method: 'POST',
+  body: mock,
+}));
+
+export const invalidSchemaHttpRequestMocks = invalidRecognitionSchemaMocks.map(mock => ({
+  url: 'api/songs/recognition',
+  method: 'POST',
+  body: mock,
+}));

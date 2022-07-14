@@ -4,8 +4,11 @@ import type { NextApiResponse } from 'next';
 import type { HTTPMethod, CustomNextApiRequest, SomeSchema } from 'utils/types';
 import type { InferType } from 'yup';
 
-export const withValidation = <T extends SomeSchema>(methods: HTTPMethod[], bodySchema?: T) => {
-  return <V extends CustomNextApiRequest<InferType<T>>>(
+export const withValidation = <T extends SomeSchema | undefined = undefined>(
+  methods: HTTPMethod[],
+  bodySchema?: T,
+) => {
+  return <V extends CustomNextApiRequest<T extends SomeSchema ? InferType<T> : undefined>>(
     handler: (req: V, res: NextApiResponse) => Promise<unknown> | unknown,
   ) => {
     return async (req: V, res: NextApiResponse) => {
@@ -16,6 +19,7 @@ export const withValidation = <T extends SomeSchema>(methods: HTTPMethod[], body
           );
         }
 
+        /* eslint-disable @typescript-eslint/no-unsafe-assignment */ // it is safe but TypeScript is dumb and is not able to infer
         if (typeof bodySchema !== 'undefined') {
           const validatedBody = await bodySchema.validate(req.body);
           req.body = validatedBody;
