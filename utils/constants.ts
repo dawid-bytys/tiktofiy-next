@@ -3,7 +3,7 @@ export const ROBOTS =
   'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
 
 const DOMAIN_URL =
-  process.env.NODE_ENV === 'production' ? 'https://tiktofiy.com' : 'http://localhost:3000';
+  process.env.NODE_ENV === 'production' ? 'https://www.tiktofiy.com' : 'http://localhost:3000';
 
 export const SONGS_ENDPOINT = '/api/songs';
 export const SONGS_RECOGNITION_ENDPOINT = SONGS_ENDPOINT + '/recognition';
