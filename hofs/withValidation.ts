@@ -1,10 +1,10 @@
 import { ValidationError } from 'yup';
 import { CustomError, InvalidHTTPMethodError } from 'utils/errors';
 import type { NextApiResponse } from 'next';
-import type { HTTPMethod, CustomNextApiRequest } from 'utils/types';
-import type { InferType, Schema } from 'yup';
+import type { HTTPMethod, CustomNextApiRequest, SomeSchema } from 'utils/types';
+import type { InferType } from 'yup';
 
-export const withValidation = <T extends Schema<any>>(methods: HTTPMethod[], bodySchema?: T) => {
+export const withValidation = <T extends SomeSchema>(methods: HTTPMethod[], bodySchema?: T) => {
   return <V extends CustomNextApiRequest<InferType<T>>>(
     handler: (req: V, res: NextApiResponse) => Promise<unknown> | unknown,
   ) => {
