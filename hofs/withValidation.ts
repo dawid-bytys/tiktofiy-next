@@ -24,7 +24,7 @@ export const withValidation = <T extends Schema<any>>(methods: HTTPMethod[], bod
         await handler(req, res);
       } catch (err) {
         if (err instanceof ValidationError) {
-          return res.status(422).send({ message: 'Invalid request data' });
+          return res.status(422).send({ message: err.message });
         }
 
         if (err instanceof CustomError) {

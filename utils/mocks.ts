@@ -2,62 +2,92 @@
 export const validRecognitionSchemaMocks = [
   {
     url: 'https://www.google.com/',
-    settings: {
-      shazamApiKey: null,
-      start: 0,
-      end: 0,
-    },
+    shazamApiKey: 'some-key',
+    start: 0,
+    end: 10,
   },
   {
     url: 'https://www.google.com/',
-    settings: {
-      shazamApiKey: null,
-      start: 0,
-      end: 7,
-    },
+    start: 0,
+    end: 10,
   },
   {
     url: 'https://www.google.com/',
-    settings: {
-      shazamApiKey: 'some-key',
-      start: 0,
-      end: 7,
-    },
+    shazamApiKey: null,
+    start: 0,
+    end: 10,
+  },
+  {
+    url: 'https://www.google.com/',
+    shazamApiKey: '',
+    start: 0,
+    end: 10,
+  },
+  {
+    url: 'https://www.google.com/',
+    shazamApiKey: '',
+  },
+  {
+    url: 'https://www.google.com/',
   },
 ];
 
 export const invalidRecognitionSchemaMocks = [
   {
     url: 'https://www.google.com/',
-    settings: {
-      shazamApiKey: null,
-      start: 0,
-      end: -1,
-    },
+    shazamApiKey: 'some-key',
+    start: 10,
+    end: 0,
   },
   {
     url: 'https://www.google.com/',
-    settings: {
-      shazamApiKey: null,
-      start: -1,
-      end: 0,
-    },
+    shazamApiKey: 'some-key',
+    start: 0,
+    end: 0,
+  },
+  {
+    url: '',
+    shazamApiKey: 'some-key',
+    start: 0,
+    end: 10,
+  },
+  {
+    url: null,
+    shazamApiKey: 'some-key',
+    start: 0,
+    end: 10,
+  },
+  {
+    shazamApiKey: 'some-key',
+    start: 0,
+    end: 10,
   },
   {
     url: 'https://www.google.com/',
-    settings: {
-      shazamApiKey: null,
-      end: 0,
-    },
+    shazamApiKey: 'some-key',
+    start: -1,
+    end: -1,
   },
   {
     url: 'https://www.google.com/',
-    settings: {
-      shazamApiKey: null,
-      start: 0,
-    },
+    shazamApiKey: 'some-key',
+    start: -1,
+    end: 10,
   },
   {
     url: 'https://www.google.com/',
+    shazamApiKey: 'some-key',
+    start: 0,
+    end: -1,
+  },
+  {
+    url: 'https://www.google.com/',
+    shazamApiKey: 'some-key',
+    start: 0,
+  },
+  {
+    url: 'https://www.google.com/',
+    shazamApiKey: 'some-key',
+    end: 10,
   },
 ];

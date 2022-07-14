@@ -30,7 +30,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "valid-url": "^1.0.9",
-    "yup": "^1.0.0-beta.4"
+    "yup": "0.32.11"
   },
   "devDependencies": {
     "@types/fluent-ffmpeg": "^2.1.20",

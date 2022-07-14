@@ -74,12 +74,10 @@ export const downloadAudio = async (url: string, output: string) => {
   }
 };
 
-export const cutAudio = (input: string, output: string, start: number, end: number) => {
-  const newEnd = end === 0 ? 5 : end;
-
+export const cutAudio = (input: string, output: string, start?: number, end?: number) => {
   return new Promise((resolve, reject) => {
     ffmpeg(getMediaPath(input))
-      .outputOptions('-ss', `${start}`, '-to', `${newEnd}`)
+      .outputOptions('-ss', `${start || 0}`, '-to', `${end || 5}`)
       .output(getMediaPath(output))
       .on('end', () => {
         resolve(console.log('Successfully cut the audio'));
