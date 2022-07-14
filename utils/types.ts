@@ -72,7 +72,7 @@ export interface Settings {
 
 export type RequestData = {
   url: string;
-  shazamApiKey: string;
+  shazamApiKey?: string | null;
   start: number;
   end: number;
 };
