@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { useState, useCallback } from 'react';
 import { isApiError } from 'utils/typeguards';
-import type { AxiosError } from 'axios';
-import type { AnyObject, Result, HTTPMethod, ErrorResponse } from 'utils/types';
+import type { AnyObject, Result, HTTPMethod } from 'utils/types';
 
 export const useFetch = <T extends AnyObject, U extends AnyObject | undefined = undefined>(
   method: HTTPMethod,
@@ -27,9 +26,10 @@ export const useFetch = <T extends AnyObject, U extends AnyObject | undefined = 
       });
     } catch (err) {
       if (isApiError(err)) {
-        setResult({
+        return setResult({
           status: 'error',
-          errorMessage: err.status === '500' ? 'Internal server error' : err.response.data.message,
+          errorMessage:
+            err.response.status === 500 ? 'Internal server error' : err.response.data.message,
         });
       }
 
