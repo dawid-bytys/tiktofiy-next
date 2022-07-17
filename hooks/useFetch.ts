@@ -29,7 +29,9 @@ export const useFetch = <T extends AnyObject, U extends AnyObject | undefined = 
         return setResult({
           status: 'error',
           errorMessage:
-            err.response.status === 500 ? 'Internal server error' : err.response.data.message,
+            err.response.status === 503
+              ? 'Server is currently not available'
+              : err.response.data.message,
         });
       }
 
