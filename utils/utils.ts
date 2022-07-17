@@ -1,10 +1,5 @@
 import crypto from 'crypto';
 import path from 'path';
-import type { RecognitionResult, SongFound } from './types';
-
-export const isSongFound = (result: RecognitionResult): result is SongFound => {
-  return result.isFound;
-};
 
 export const getMediaPath = (filename: string) => {
   return path.resolve('media', `${filename}.mp3`);

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useCallback } from 'react';
+import { isApiError } from 'utils/typeguards';
 import type { AxiosError } from 'axios';
 import type { AnyObject, Result, HTTPMethod, ErrorResponse } from 'utils/types';
 
@@ -25,12 +26,10 @@ export const useFetch = <T extends AnyObject, U extends AnyObject | undefined = 
         data: response.data,
       });
     } catch (err) {
-      if (axios.isAxiosError(err)) {
-        const error = err as AxiosError<ErrorResponse>;
-
-        return setResult({
+      if (isApiError(err)) {
+        setResult({
           status: 'error',
-          errorMessage: error.response?.data?.message || 'Server error, try again later',
+          errorMessage: err.response.data.message,
         });
       }
 

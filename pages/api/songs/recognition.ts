@@ -12,13 +12,16 @@ import {
 import { getSongByUrl, storeSong } from 'services/databaseService';
 import { clearLocalMedia } from 'services/mediaService';
 import { getConfig } from 'utils/config';
-import { generateRandomString, isSongFound, getMediaPath } from 'utils/utils';
+import { isSongFound } from 'utils/typeguards';
+import { generateRandomString, getMediaPath } from 'utils/utils';
 
 export default withValidation(
   ['POST'],
   recognitionSchema,
 )(async (req, res) => {
   const { url, shazamApiKey, start, end } = req.body;
+  const ipAddress = req.socket.remoteAddress;
+  console.log(ipAddress);
 
   const finalUrl = await getTikTokFinalUrl(url);
   const audioUrl = await getTikTokAudioUrl(finalUrl);

@@ -6,6 +6,8 @@ export type Theme = 'default' | 'carbon' | 'material' | 'metaverse';
 export type Status = 'idle' | 'loading' | 'success' | 'error';
 export type HTTPMethod = 'POST' | 'PUT' | 'GET';
 
+export type OneRequired<T, V extends keyof T> = T & { [P in V]-?: T[P] };
+
 export interface ErrorResponse {
   readonly message: string;
 }
