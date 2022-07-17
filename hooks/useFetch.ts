@@ -29,7 +29,7 @@ export const useFetch = <T extends AnyObject, U extends AnyObject | undefined = 
       if (isApiError(err)) {
         setResult({
           status: 'error',
-          errorMessage: err.response.data.message,
+          errorMessage: err.status === '500' ? 'Internal server error' : err.response.data.message,
         });
       }
 
