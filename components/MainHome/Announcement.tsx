@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { BiMessageError, BiSearchAlt } from 'react-icons/bi';
 import { RiEmotionSadLine } from 'react-icons/ri';
 import Spinner from 'assets/svg/spinner.svg';
-import { isSongFound } from 'utils/utils';
+import { isSongFound } from 'utils/typeguards';
 import { Paragraph } from './Paragraph';
 import type { RecognitionResult, AnnouncementProps, Result } from 'utils/types';
 
