@@ -22,16 +22,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: 'Create .env file and put the secrets inside'
+        run: |
+          touch .env
+          echo SHAZAM_API_KEY=${{ secrets.SHAZAM_API_KEY }} >> .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+          cat .env
+
       - name: 'Install dependencies and build'
         run: |
           yarn install
           yarn build
-
-      - name: 'Create .env file and put the secrets inside'
-        run: |
-          touch .env
-          echo SHAZAM_API_KEY=${{ secrets.SHAZAM_API_KEY }} > .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} > .env
 
       - name: 'Restart pm2'
         run: |
