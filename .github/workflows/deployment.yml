@@ -8,7 +8,7 @@ on:
 jobs:
   Production:
     runs-on: self-hosted
-    enviroment: Production
+    environment: Production
 
     strategy:
       matrix:
