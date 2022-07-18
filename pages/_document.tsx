@@ -8,14 +8,13 @@ const Document = () => {
           name="description"
           content="Tiktofiy! - a web application which helps with TikTok songs recognition. Just paste a url and search for the song you absolutely must find."
         />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <meta name="author" content="salvia-dev (Dawid Bytys)" />
         <meta
           name="keywords"
           content="tiktok songs recognition, songs recognition, find tiktok song, recognize tiktok song"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta key="og:type" property="og:type" content="website" />
-        <meta key="og:title" property="og:title" content="Tiktofiy! • find a song from TikTok" />
         <meta key="og:site_name" property="og:site_name" content="Tiktofiy!" />
         <meta name="robots" content="noindex, nofollow" />
         <link key="profile" rel="profile" href="https://gmpg.org/xfn/11" />
