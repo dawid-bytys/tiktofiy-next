@@ -4,7 +4,7 @@ import { MainHome } from 'components/MainHome/MainHome';
 const Home = () => {
   return (
     <>
-      <NextSeo title="Tiktofiy! • find your favourite song" canonical="https://tiktofiy.com" />
+      <NextSeo title="Tiktofiy! • find a song from TikTok" canonical="https://tiktofiy.com" />
       <MainHome />
     </>
   );

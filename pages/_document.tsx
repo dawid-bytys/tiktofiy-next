@@ -5,12 +5,19 @@ const Document = () => {
     <Html lang="en">
       <Head>
         <meta
-          key="description"
           name="description"
-          content="Tiktofiy! - a web application which helps with TikTok songs recognition. Just paste the url and search for your favourite song."
+          content="Tiktofiy! - a web application which helps with TikTok songs recognition. Just paste a url and search for the song you absolutely must find."
         />
+        <meta name="author" content="salvia-dev (Dawid Bytys)" />
+        <meta
+          name="keywords"
+          content="tiktok songs recognition, songs recognition, find tiktok song, recognize tiktok song"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta key="og:type" property="og:type" content="website" />
+        <meta key="og:title" property="og:title" content="Tiktofiy! • find a song from TikTok" />
         <meta key="og:site_name" property="og:site_name" content="Tiktofiy!" />
+        <meta name="robots" content="noindex, nofollow" />
         <link key="profile" rel="profile" href="https://gmpg.org/xfn/11" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

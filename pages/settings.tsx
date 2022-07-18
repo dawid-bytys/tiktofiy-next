@@ -5,7 +5,7 @@ const Settings = () => {
   return (
     <>
       <NextSeo
-        title="Tiktofiy! • find your favourite song"
+        title="Tiktofiy! • find a song from TikTok"
         canonical="https://tiktofiy.com/settings"
       />
       <MainSettings />

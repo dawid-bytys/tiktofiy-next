@@ -15,10 +15,7 @@ type SongsProps = SuccessfulRequest | UnsuccessfulRequest;
 const Songs = (props: SongsProps) => {
   return (
     <>
-      <NextSeo
-        title="Tiktofiy! • find your favourite song"
-        canonical="https://tiktofiy.com/songs"
-      />
+      <NextSeo title="Tiktofiy! • find a song from TikTok" canonical="https://tiktofiy.com/songs" />
       <MainSongs />
     </>
   );
