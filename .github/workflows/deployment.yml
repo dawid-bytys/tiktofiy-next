@@ -9,10 +9,11 @@ jobs:
   Production:
     runs-on: self-hosted
     environment: Production
+    url: 'https://tiktofiy.com'
 
     strategy:
       matrix:
-        node-version: [17.9.1]
+        node-version: [18.6.0]
 
     steps:
       - uses: actions/checkout@v2
@@ -21,13 +22,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: 'Create .env file and put the secrets inside'
-        run: |
-          touch .env
-          echo SHAZAM_API_KEY=${{ secrets.SHAZAM_API_KEY }} >> .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
-          cat .env
 
       - name: 'Install dependencies and build'
         run: |
