@@ -20,8 +20,6 @@ export default withValidation(
   recognitionSchema,
 )(async (req, res) => {
   const { url, shazamApiKey, start, end } = req.body;
-  const ipAddress = req.socket.remoteAddress;
-  console.log(ipAddress);
 
   const finalUrl = await getTikTokFinalUrl(url);
   const audioUrl = await getTikTokAudioUrl(finalUrl);
