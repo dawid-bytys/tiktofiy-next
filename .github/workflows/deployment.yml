@@ -8,8 +8,9 @@ on:
 jobs:
   Production:
     runs-on: self-hosted
-    environment: Production
-    url: 'https://tiktofiy.com'
+    environment:
+      name: Production
+      url: https://tiktofiy.com
 
     strategy:
       matrix:
