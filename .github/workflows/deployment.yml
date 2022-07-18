@@ -36,5 +36,5 @@ jobs:
 
       - name: 'Restart pm2'
         run: |
-          npx pm2 restart 0
+          npx pm2 restart 0 --update-env
           npx pm2 save
