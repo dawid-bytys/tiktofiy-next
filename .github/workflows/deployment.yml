@@ -30,8 +30,8 @@ jobs:
       - name: 'Create .env file and put the secrets inside'
         run: |
           touch .env
-          echo SHAZAM_API_KEY=${{ secrets.SHAZAM_API_KEY }} >> .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+          echo SHAZAM_API_KEY=${{ secrets.SHAZAM_API_KEY }} > .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} > .env
 
       - name: 'Restart pm2'
         run: |
