@@ -22,7 +22,7 @@ export const SettingsProvider = ({ children }: ChildrenProps) => {
     <SettingsContext.Provider
       value={{
         settings: settingsState,
-        setSettings: setSettings,
+        setSettings,
       }}
     >
       {children}
