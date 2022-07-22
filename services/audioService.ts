@@ -1,10 +1,8 @@
 import fs from 'fs';
-import { pipeline } from 'stream';
-import { promisify } from 'util';
+import { pipeline } from 'stream/promises';
 import ffmpegPath from '@ffmpeg-installer/ffmpeg';
 import axios from 'axios';
 import ffmpeg from 'fluent-ffmpeg';
-import fetch from 'node-fetch';
 import randomUseragent from 'random-useragent';
 import { SHAZAM_API_URL, TIKTOK_API_URL } from 'utils/constants';
 import {
@@ -17,22 +15,26 @@ import {
   TikTokUnavailableError,
 } from 'utils/errors';
 import { getTikTokId, getMediaPath } from 'utils/utils';
-import type { RecognitionResult, ShazamResponse, TikTokMetadata } from 'utils/types';
+import type {
+  RecognitionResult,
+  ShazamResponse,
+  TikTokMetadata,
+  ExtendedAxiosResponse,
+} from 'utils/types';
 
 // Configure ffmpeg
 ffmpeg.setFfmpegPath(ffmpegPath.path);
 
-// Using node-fetch here because on Linux axios does not work as expected
 export const getTikTokFinalUrl = async (url: string) => {
-  const response = await fetch(url);
-  if (!response.ok) {
+  const response: ExtendedAxiosResponse = await axios.get(url);
+  if (response.status !== 200 || typeof response.request === 'undefined') {
     throw new TikTokRequestError(
       'Something went wrong while performing the TikTok request, try again',
     );
   }
 
-  const tiktokId = getTikTokId(response.url);
-  if (!tiktokId) {
+  const tiktokId = getTikTokId(response.request?.res.responseUrl);
+  if (tiktokId === undefined) {
     throw new InvalidUrlFormatError('Provide a valid format of TikTok url');
   }
 
@@ -47,10 +49,9 @@ export const getTikTokAudioUrl = async (url: string) => {
         'user-agent': randomUseragent.getRandom(),
       },
     });
-    if (response.data.statusCode === 10217) {
-      throw new TikTokUnavailableError('Provided TikTok is currently not available');
+    if (response.status === 10217) {
+      throw new TikTokUnavailableError('Provided TikTok is not available');
     }
-
     return response.data.itemInfo.itemStruct.music.playUrl;
   } catch (err) {
     throw new TikTokRequestError(
@@ -64,23 +65,24 @@ export const downloadAudio = async (url: string, output: string) => {
     const response = await axios.get(url, {
       responseType: 'stream',
     });
-
-    const pipelineAsync = promisify(pipeline);
-    await pipelineAsync(response.data, fs.createWriteStream(getMediaPath(output)));
-
-    console.log('Successfully downloaded the audio file');
+    await pipeline(response.data, fs.createWriteStream(getMediaPath(output)));
   } catch (err) {
     throw new AudioDownloadError('Failed to download the audio file, try again');
   }
 };
 
-export const cutAudio = (input: string, output: string, start?: number, end?: number) => {
+export const cutAudio = (
+  input: string,
+  output: string,
+  start?: number,
+  end?: number,
+): Promise<void> => {
   return new Promise((resolve, reject) => {
     ffmpeg(getMediaPath(input))
       .outputOptions('-ss', `${start || 0}`, '-to', `${end || 5}`)
       .output(getMediaPath(output))
       .on('end', () => {
-        resolve(console.log('Successfully cut the audio'));
+        resolve();
       })
       .on('error', () => {
         reject(new AudioCutError('Could not cut the audio'));
@@ -89,13 +91,13 @@ export const cutAudio = (input: string, output: string, start?: number, end?: nu
   });
 };
 
-export const convertAudio = (input: string, output: string) => {
+export const convertAudio = (input: string, output: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     ffmpeg(getMediaPath(input))
       .outputOptions('-f', 's16le', '-ac', '1', '-ar', '44100')
       .output(getMediaPath(output))
       .on('end', () => {
-        resolve(console.log('Successfully converted the audio'));
+        resolve();
       })
       .on('error', () => {
         reject(new AudioConvertError('Could not convert the audio'));
