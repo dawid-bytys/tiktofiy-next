@@ -23,7 +23,7 @@ export const MainSettings = () => {
   };
 
   return (
-    <motion.main {...fadeRightTransition} className="flex-1 flex items-center justify-center">
+    <motion.main {...fadeRightTransition} className="flex-1 flex justify-center py-24">
       <div className="flex flex-col">
         <SingleSetting
           label="rapidapi shazam key"

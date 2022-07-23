@@ -86,8 +86,8 @@ export interface Settings {
 export type RequestData = {
   url: string;
   shazamApiKey?: string | null;
-  start: number;
-  end: number;
+  startTime: number;
+  duration: number;
 };
 
 export interface ChildrenProps {
