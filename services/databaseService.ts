@@ -9,7 +9,6 @@ export const getSongByUrl = async (url: string) => {
         url: url,
       },
     });
-
     return storedTikTok;
   } catch (err) {
     throw new PrismaError('Something went wrong with database connection, try again');
@@ -34,7 +33,6 @@ export const storeSong = async (song: Omit<SongFound, 'isFound'> & { url: string
 export const getAllSongs = async () => {
   try {
     const songs = await prisma.songs.findMany();
-
     return songs;
   } catch (err) {
     throw new PrismaError('Something went wrong with database connection, try again');

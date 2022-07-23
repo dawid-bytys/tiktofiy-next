@@ -1,5 +1,8 @@
-import type { NextApiRequest } from 'next';
+import type { AxiosResponse } from 'axios';
+import type { IncomingMessage } from 'http';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import type React from 'react';
+import type { Writable } from 'stream';
 import type { AnySchema } from 'yup';
 
 export type Theme = 'default' | 'carbon' | 'material' | 'metaverse';
@@ -7,6 +10,14 @@ export type Status = 'idle' | 'loading' | 'success' | 'error';
 export type HTTPMethod = 'POST' | 'PUT' | 'GET';
 
 export type OneRequired<T, V extends keyof T> = T & { [P in V]-?: T[P] };
+
+type ExtendedIncomingMessage = IncomingMessage & { readonly responseUrl: string };
+
+export type ExtendedAxiosResponse = Omit<AxiosResponse, 'request'> & {
+  readonly request?: {
+    readonly res: ExtendedIncomingMessage;
+  };
+};
 
 export interface ErrorResponse {
   readonly message: string;
@@ -68,15 +79,15 @@ export type RecognitionResult = SongFound | SongNotFound;
 
 export interface Settings {
   shazamApiKey?: string | null;
-  start: number;
-  end: number;
+  startTime: number;
+  duration: number;
 }
 
 export type RequestData = {
   url: string;
   shazamApiKey?: string | null;
-  start: number;
-  end: number;
+  startTime: number;
+  duration: number;
 };
 
 export interface ChildrenProps {
