@@ -3,7 +3,7 @@ import { recognitionSchema } from 'schemas/recognitionSchema';
 import {
   getAudioStream,
   getConvertedAudioBase64,
-  recognizeAudio,
+  getRecognizedAudio,
   getTikTokFinalUrl,
   getTikTokAudioUrl,
 } from 'services/audioService';
@@ -34,7 +34,7 @@ export default withValidation(
 
   const readStream = await getAudioStream(audioUrl);
   const audioBase64 = await getConvertedAudioBase64(readStream, startTime, duration);
-  const recognizedAudio = await recognizeAudio(audioBase64, shazamApiKey as string); // yup is not able to infer that shazamApiKey is a string because of .transform() so the assertion is safe here
+  const recognizedAudio = await getRecognizedAudio(audioBase64, shazamApiKey as string); // yup is not able to infer that shazamApiKey is a string because of .transform() so the assertion is safe here
 
   if (getConfig('NODE_ENV') !== 'testing' && isSongFound(recognizedAudio)) {
     await storeSong({

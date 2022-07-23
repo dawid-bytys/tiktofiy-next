@@ -100,7 +100,7 @@ export const getConvertedAudioBase64 = (
   });
 };
 
-export const recognizeAudio = async (
+export const getRecognizedAudio = async (
   audioBase64: string,
   shazamApiKey: string,
 ): Promise<RecognitionResult> => {
