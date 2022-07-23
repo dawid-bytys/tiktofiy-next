@@ -15,6 +15,7 @@ import {
   TikTokUnavailableError,
 } from 'utils/errors';
 import { getTikTokId, getMediaPath } from 'utils/utils';
+import type { Readable, Stream, Writable } from 'stream';
 import type {
   RecognitionResult,
   ShazamResponse,
@@ -60,49 +61,40 @@ export const getTikTokAudioUrl = async (url: string) => {
   }
 };
 
-export const downloadAudio = async (url: string, output: string) => {
+export const getAudioStream = async (url: string) => {
   try {
-    const response = await axios.get(url, {
+    const response = await axios.get<Readable>(url, {
       responseType: 'stream',
     });
-    await pipeline(response.data, fs.createWriteStream(getMediaPath(output)));
+    if (response.data === undefined) {
+      throw new AudioDownloadError('Audio not available for this TikTok');
+    }
+    return response.data;
   } catch (err) {
     throw new AudioDownloadError('Failed to download the audio file, try again');
   }
 };
 
-export const cutAudio = (
-  input: string,
-  output: string,
-  start?: number,
-  end?: number,
+export const convertAudio = (
+  readStream: Readable,
+  writeStream: Writable,
+  startTime?: number,
+  duration?: number,
 ): Promise<void> => {
   return new Promise((resolve, reject) => {
-    ffmpeg(getMediaPath(input))
-      .outputOptions('-ss', `${start || 0}`, '-to', `${end || 5}`)
-      .output(getMediaPath(output))
+    ffmpeg(readStream)
+      .setStartTime(startTime || 0)
+      .setDuration(duration || 5)
+      .format('s16le')
+      .audioChannels(1)
+      .audioFrequency(44100)
       .on('end', () => {
         resolve();
       })
       .on('error', () => {
-        reject(new AudioCutError('Could not cut the audio'));
+        reject(new AudioConvertError('Failed to convert the audio file, try again'));
       })
-      .run();
-  });
-};
-
-export const convertAudio = (input: string, output: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    ffmpeg(getMediaPath(input))
-      .outputOptions('-f', 's16le', '-ac', '1', '-ar', '44100')
-      .output(getMediaPath(output))
-      .on('end', () => {
-        resolve();
-      })
-      .on('error', () => {
-        reject(new AudioConvertError('Could not convert the audio'));
-      })
-      .run();
+      .writeToStream(writeStream, { end: true });
   });
 };
 

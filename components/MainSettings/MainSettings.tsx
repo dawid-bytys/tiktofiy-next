@@ -11,7 +11,7 @@ export const MainSettings = () => {
   const handleChange = (key: SettingsKeys) => (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    if (key === 'start' || key === 'end') {
+    if (key === 'startTime' || key === 'duration') {
       return setSettings(key, +value);
     }
 
@@ -34,24 +34,24 @@ export const MainSettings = () => {
           onChange={handleChange('shazamApiKey')}
         />
         <SingleSetting
-          label="start"
-          id="start"
+          label="startTime"
+          id="startTime"
           inputType="number"
           min="0"
-          placeholder="start"
-          ariaLabel="Provide a start"
+          placeholder="startTime"
+          ariaLabel="Provide a startTime"
           className="mt-5"
-          onChange={handleChange('start')}
+          onChange={handleChange('startTime')}
         />
         <SingleSetting
-          label="end"
-          id="end"
+          label="duration"
+          id="duration"
           inputType="number"
           min="1"
-          placeholder="end"
-          ariaLabel="Provide en end"
+          placeholder="duration"
+          ariaLabel="Provide a duration"
           className="mt-5"
-          onChange={handleChange('end')}
+          onChange={handleChange('duration')}
         />
       </div>
     </motion.main>

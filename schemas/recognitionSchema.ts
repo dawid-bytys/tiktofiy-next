@@ -9,23 +9,23 @@ export const recognitionSchema = object().shape(
       .nullable()
       .default(getConfig('SHAZAM_API_KEY'))
       .transform((value: string | null) => value || getConfig('SHAZAM_API_KEY')),
-    start: number()
-      .min(0, 'Start must not be negative')
+    startTime: number()
+      .min(0, 'startTime must not be negative')
       .when('end', {
         is: (end?: number) => typeof end === 'number',
-        then: number().required('Start is required when an end is provided'),
+        then: number().required('startTime is required when a duration is provided'),
       }),
-    end: number()
-      .min(1, 'End must be positive')
+    duration: number()
+      .min(1, 'Duration must be positive')
       .when('start', {
         is: (start?: number) => typeof start === 'number',
         then: number()
-          .required('End is required when a start is provided')
-          .moreThan(ref<number>('start'), 'End must be greater than start'),
+          .required('Duration is required when a startTime is provided')
+          .moreThan(ref<number>('startTime'), 'Duration must be greater than startTime'),
       }),
   },
   [
-    ['start', 'end'],
-    ['end', 'start'],
+    ['startTime', 'duration'],
+    ['duration', 'startTime'],
   ],
 );

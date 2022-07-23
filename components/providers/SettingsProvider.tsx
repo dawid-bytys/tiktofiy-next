@@ -4,8 +4,8 @@ import type { ChildrenProps, SettingsKeys, Settings } from 'utils/types';
 
 const initialState: Settings = {
   shazamApiKey: null,
-  start: 0,
-  end: 5,
+  startTime: 0,
+  duration: 5,
 };
 
 export const SettingsProvider = ({ children }: ChildrenProps) => {

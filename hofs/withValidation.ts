@@ -1,5 +1,8 @@
+import fs from 'fs';
+import path from 'path';
 import { ValidationError } from 'yup';
 import { CustomError, InvalidHTTPMethodError } from 'utils/errors';
+import { generateRandomString } from 'utils/utils';
 import type { NextApiResponse } from 'next';
 import type { HTTPMethod, CustomNextApiRequest, SomeSchema } from 'utils/types';
 import type { InferType } from 'yup';
@@ -9,9 +12,11 @@ export const withValidation = <T extends SomeSchema | undefined = undefined>(
   bodySchema?: T,
 ) => {
   return <V extends CustomNextApiRequest<T extends SomeSchema ? InferType<T> : undefined>>(
-    handler: (req: V, res: NextApiResponse) => Promise<unknown>,
+    handler: (req: V, res: NextApiResponse, tempFilePath: string) => Promise<unknown>,
   ) => {
     return async (req: V, res: NextApiResponse) => {
+      const tempFilePath = path.resolve('temp', `${generateRandomString(8)}.raw`);
+
       try {
         if (!methods.includes(req.method as HTTPMethod)) {
           throw new InvalidHTTPMethodError(
@@ -25,7 +30,7 @@ export const withValidation = <T extends SomeSchema | undefined = undefined>(
           req.body = validatedBody;
         }
 
-        await handler(req, res);
+        await handler(req, res, tempFilePath);
       } catch (err) {
         if (err instanceof ValidationError) {
           return res.status(422).send({ message: err.message });
@@ -38,6 +43,8 @@ export const withValidation = <T extends SomeSchema | undefined = undefined>(
         }
 
         res.status(500).send({ message: 'Unexpected error has occured' });
+      } finally {
+        fs.unlinkSync(tempFilePath);
       }
     };
   };

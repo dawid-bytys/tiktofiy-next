@@ -1,7 +1,8 @@
 import type { AxiosResponse } from 'axios';
 import type { IncomingMessage } from 'http';
-import type { NextApiRequest } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import type React from 'react';
+import type { Writable } from 'stream';
 import type { AnySchema } from 'yup';
 
 export type Theme = 'default' | 'carbon' | 'material' | 'metaverse';
@@ -78,8 +79,8 @@ export type RecognitionResult = SongFound | SongNotFound;
 
 export interface Settings {
   shazamApiKey?: string | null;
-  start: number;
-  end: number;
+  startTime: number;
+  duration: number;
 }
 
 export type RequestData = {
