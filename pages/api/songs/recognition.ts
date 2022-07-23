@@ -1,10 +1,8 @@
-import fs from 'fs';
-import path from 'path';
 import { withValidation } from 'hofs/withValidation';
 import { recognitionSchema } from 'schemas/recognitionSchema';
 import {
   getAudioStream,
-  convertAudio,
+  getConvertedAudioBase64,
   recognizeAudio,
   getTikTokFinalUrl,
   getTikTokAudioUrl,
@@ -16,7 +14,7 @@ import { isSongFound } from 'utils/typeguards';
 export default withValidation(
   ['POST'],
   recognitionSchema,
-)(async (req, res, tempFilePath) => {
+)(async (req, res) => {
   const { url, shazamApiKey, startTime, duration } = req.body;
 
   const finalUrl = await getTikTokFinalUrl(url);
@@ -35,10 +33,7 @@ export default withValidation(
   }
 
   const readStream = await getAudioStream(audioUrl);
-  const writeStream = fs.createWriteStream(tempFilePath);
-  await convertAudio(readStream, writeStream, startTime, duration);
-
-  const audioBase64 = fs.readFileSync(tempFilePath, 'base64');
+  const audioBase64 = await getConvertedAudioBase64(readStream, startTime, duration);
   const recognizedAudio = await recognizeAudio(audioBase64, shazamApiKey as string); // yup is not able to infer that shazamApiKey is a string because of .transform() so the assertion is safe here
 
   if (getConfig('NODE_ENV') !== 'testing' && isSongFound(recognizedAudio)) {

@@ -1,5 +1,3 @@
-import fs from 'fs';
-import { pipeline } from 'stream/promises';
 import ffmpegPath from '@ffmpeg-installer/ffmpeg';
 import axios from 'axios';
 import ffmpeg from 'fluent-ffmpeg';
@@ -14,8 +12,8 @@ import {
   TikTokRequestError,
   TikTokUnavailableError,
 } from 'utils/errors';
-import { getTikTokId, getMediaPath } from 'utils/utils';
-import type { Readable, Stream, Writable } from 'stream';
+import { getTikTokId } from 'utils/utils';
+import type { Readable } from 'stream';
 import type {
   RecognitionResult,
   ShazamResponse,
@@ -75,26 +73,30 @@ export const getAudioStream = async (url: string) => {
   }
 };
 
-export const convertAudio = (
+// It's a pretty clever hack using a PassThrough stream to avoid storing a temp file ;)
+export const getConvertedAudioBase64 = (
   readStream: Readable,
-  writeStream: Writable,
   startTime?: number,
   duration?: number,
-): Promise<void> => {
+): Promise<string> => {
   return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
     ffmpeg(readStream)
       .setStartTime(startTime || 0)
       .setDuration(duration || 5)
       .format('s16le')
       .audioChannels(1)
       .audioFrequency(44100)
+      .pipe()
+      .on('data', (chunk: Buffer) => {
+        chunks.push(chunk);
+      })
       .on('end', () => {
-        resolve();
+        resolve(Buffer.concat(chunks).toString('base64'));
       })
       .on('error', () => {
-        reject(new AudioConvertError('Failed to convert the audio file, try again'));
-      })
-      .writeToStream(writeStream, { end: true });
+        reject(new AudioConvertError('Failed to convert the audio, try again'));
+      });
   });
 };
 
