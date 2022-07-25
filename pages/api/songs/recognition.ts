@@ -11,10 +11,9 @@ import { getSongByUrl, storeSong } from 'services/databaseService';
 import { getConfig } from 'utils/config';
 import { isSongFound } from 'utils/typeguards';
 
-export default withValidation(
-  ['POST'],
-  recognitionSchema,
-)(async (req, res) => {
+export default withValidation(['POST'], {
+  body: recognitionSchema,
+})(async (req, res) => {
   const { url, shazamApiKey, startTime, duration } = req.body;
 
   const finalUrl = await getTikTokFinalUrl(url);
@@ -22,7 +21,7 @@ export default withValidation(
 
   if (getConfig('NODE_ENV') !== 'testing') {
     const storedTikTok = await getSongByUrl(audioUrl);
-    if (storedTikTok) {
+    if (storedTikTok !== null) {
       return res.status(200).send({
         isFound: true,
         artist: storedTikTok.artist,

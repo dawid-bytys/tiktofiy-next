@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import { isApiError } from 'utils/typeguards';
 import type { AnyObject, Result, HTTPMethod } from 'utils/types';
 
-export const useFetch = <T extends AnyObject, U extends AnyObject | undefined = undefined>(
+export const useFetch = <T extends unknown, U extends AnyObject | undefined = undefined>(
   method: HTTPMethod,
   url: string,
   data?: U,

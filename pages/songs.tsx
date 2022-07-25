@@ -1,51 +1,44 @@
 import axios from 'axios';
 import { NextSeo } from 'next-seo';
 import { MainSongs } from 'components/MainSongs/MainSongs';
-import { SONGS_BASE_URL } from '../utils/constants';
-import type {
-  ErrorResponse,
-  SavedSongs,
-  SuccessfulRequest,
-  UnsuccessfulRequest,
-} from '../utils/types';
-import type { AxiosError } from 'axios';
+import { SONGS_BASE_URL } from 'utils/constants';
+import { isApiError } from 'utils/typeguards';
+import type { Song, SongsResponse } from 'utils/types';
 
-type SongsProps = SuccessfulRequest | UnsuccessfulRequest;
-
-const Songs = (props: SongsProps) => {
+const Songs = (props: SongsResponse) => {
   return (
     <>
       <NextSeo title="Tiktofiy! • find a song from TikTok" canonical="https://tiktofiy.com/songs" />
-      <MainSongs />
+      <MainSongs result={props} />
     </>
   );
 };
 
-export const getServerSideProps = async (): Promise<{ props: SongsProps }> => {
+export const getServerSideProps = async (): Promise<{ props: SongsResponse }> => {
   try {
-    const songs = await axios.get<SavedSongs[]>(SONGS_BASE_URL);
-
+    const { data } = await axios.get<Song[]>(`${SONGS_BASE_URL}?skip=0&take=10`);
     return {
       props: {
-        isSuccess: true,
-        data: songs.data,
+        status: 'success',
+        data,
       },
     };
   } catch (err) {
-    if (axios.isAxiosError(err)) {
-      const error = err as AxiosError<ErrorResponse>;
-
+    if (isApiError(err)) {
       return {
         props: {
-          isSuccess: false,
-          errorMessage: error.response?.data.message || 'Server error has occured',
+          status: 'error',
+          errorMessage:
+            err.response.status === 503
+              ? 'Server is currently not available'
+              : err.response.data.message,
         },
       };
     }
 
     return {
       props: {
-        isSuccess: false,
+        status: 'error',
         errorMessage: 'Unexpected error has occured',
       },
     };

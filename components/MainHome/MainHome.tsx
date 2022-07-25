@@ -35,10 +35,7 @@ export const MainHome = () => {
   }, []);
 
   return (
-    <motion.main
-      {...fadeLeftTransition}
-      className="flex-1 flex flex-col items-center py-24 px-10 sm:px-20 md:px-0"
-    >
+    <motion.main {...fadeLeftTransition} className="flex-1 px-10 sm:px-20 md:px-0">
       {result.status === 'error' && <ErrorAlert errorMessage={result.errorMessage} />}
       <Form
         handleSubmit={handleSubmit}

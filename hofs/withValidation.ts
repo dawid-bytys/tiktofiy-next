@@ -1,14 +1,23 @@
-import { ValidationError } from 'yup';
+import { ValidationError, object } from 'yup';
 import { CustomError, InvalidHTTPMethodError } from 'utils/errors';
 import type { NextApiResponse } from 'next';
 import type { HTTPMethod, CustomNextApiRequest, SomeSchema } from 'utils/types';
-import type { InferType } from 'yup';
+import type { InferType, ObjectSchema } from 'yup';
 
-export const withValidation = <T extends SomeSchema | undefined = undefined>(
+export const withValidation = <
+  T extends
+    | {}
+    | {
+        readonly body?: ObjectSchema<SomeSchema>;
+        readonly query?: ObjectSchema<SomeSchema>;
+      },
+>(
   methods: HTTPMethod[],
-  bodySchema?: T,
+  schema: T,
 ) => {
-  return <V extends CustomNextApiRequest<T extends SomeSchema ? InferType<T> : undefined>>(
+  const schemaObj = object().shape(schema).unknown(true);
+
+  return <V extends CustomNextApiRequest<InferType<typeof schemaObj>>>(
     handler: (req: V, res: NextApiResponse) => Promise<unknown>,
   ) => {
     return async (req: V, res: NextApiResponse) => {
@@ -19,13 +28,8 @@ export const withValidation = <T extends SomeSchema | undefined = undefined>(
           );
         }
 
-        /* eslint-disable @typescript-eslint/no-unsafe-assignment */ // it is safe but TypeScript is dumb and is not able to infer
-        if (typeof bodySchema !== 'undefined') {
-          const validatedBody = await bodySchema.validate(req.body);
-          req.body = validatedBody;
-        }
-
-        await handler(req, res);
+        const validatedValues = await schemaObj.validate(req);
+        await handler({ ...req, ...validatedValues }, res);
       } catch (err) {
         if (err instanceof ValidationError) {
           return res.status(422).send({ message: err.message });

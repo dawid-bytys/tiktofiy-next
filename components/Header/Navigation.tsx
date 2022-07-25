@@ -38,7 +38,7 @@ export const Navigation = () => {
   }
 
   return (
-    <nav className="flex flex-row justify-between mt-4">
+    <nav className="flex flex-row justify-center mt-6">
       <ul className="flex flex-row">
         {LINKS.map(link => (
           <li key={link.href}>
@@ -62,7 +62,7 @@ export const Navigation = () => {
       <button
         onClick={() => toggleThemeWindow(true)}
         aria-label="Toggle theme window"
-        className="flex flex-row items-center p-3 ml-10 md:ml-28 text-subactive font-medium"
+        className="flex flex-row items-center p-3 ml-6 md:ml-24 text-subactive font-medium"
       >
         {theme} <RiPaletteLine className="ml-3 w-6 h-6" />
       </button>

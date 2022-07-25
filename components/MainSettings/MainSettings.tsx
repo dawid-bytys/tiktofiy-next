@@ -23,8 +23,8 @@ export const MainSettings = () => {
   };
 
   return (
-    <motion.main {...fadeRightTransition} className="flex-1 flex justify-center py-24">
-      <div className="flex flex-col">
+    <motion.main {...fadeRightTransition} className="flex-1">
+      <div className="max-w-[16rem] mx-auto">
         <SingleSetting
           label="rapidapi shazam key"
           id="shazamApiKey"
@@ -37,7 +37,6 @@ export const MainSettings = () => {
           label="startTime"
           id="startTime"
           inputType="number"
-          min="0"
           placeholder="startTime"
           ariaLabel="Provide a startTime"
           className="mt-5"
@@ -47,7 +46,6 @@ export const MainSettings = () => {
           label="duration"
           id="duration"
           inputType="number"
-          min="1"
           placeholder="duration"
           ariaLabel="Provide a duration"
           className="mt-5"

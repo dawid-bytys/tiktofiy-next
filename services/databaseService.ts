@@ -30,9 +30,12 @@ export const storeSong = async (song: Omit<SongFound, 'isFound'> & { url: string
   }
 };
 
-export const getAllSongs = async () => {
+export const getSongs = async (skip?: number, take?: number) => {
   try {
-    const songs = await prisma.songs.findMany();
+    const songs = await prisma.songs.findMany({
+      skip,
+      take,
+    });
     return songs;
   } catch (err) {
     throw new PrismaError('Something went wrong with database connection, try again');

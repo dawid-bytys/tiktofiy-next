@@ -4,7 +4,6 @@ interface SingleSettingProps {
   readonly label?: string;
   readonly id: string;
   readonly inputType: 'password' | 'number';
-  readonly min?: string;
   readonly placeholder: string;
   readonly ariaLabel: string;
   readonly className?: string;
@@ -17,12 +16,11 @@ export const SingleSetting = ({
   inputType,
   placeholder,
   ariaLabel,
-  min,
   className,
   onChange,
 }: SingleSettingProps) => {
   return (
-    <div className={`flex flex-col ${typeof className === 'string' ? className : ''}`}>
+    <div className={`${typeof className === 'string' ? className : ''}`}>
       {typeof label === 'string' && (
         <label htmlFor={id} className="flex items-center justify-center text-center">
           {label}
@@ -33,7 +31,7 @@ export const SingleSetting = ({
         placeholder={placeholder}
         aria-label={ariaLabel}
         id={id}
-        className="mt-3 text-center bg-input p-3 rounded-2xl font-medium text-foreground text-sm md:w-64"
+        className="mt-3 text-center bg-input p-3 rounded-2xl font-medium text-foreground text-sm w-full"
         onChange={onChange}
       />
     </div>

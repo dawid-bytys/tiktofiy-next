@@ -1,9 +1,8 @@
 import type { AxiosResponse } from 'axios';
 import type { IncomingMessage } from 'http';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest } from 'next';
 import type React from 'react';
-import type { Writable } from 'stream';
-import type { AnySchema } from 'yup';
+import type { AnySchema, ObjectSchema } from 'yup';
 
 export type Theme = 'default' | 'carbon' | 'material' | 'metaverse';
 export type Status = 'idle' | 'loading' | 'success' | 'error';
@@ -23,19 +22,33 @@ export interface ErrorResponse {
   readonly message: string;
 }
 
+interface SongsSuccessResponse {
+  readonly status: 'success';
+  readonly data: Song[];
+}
+
+interface SongsErrorResponse {
+  readonly status: 'error';
+  readonly errorMessage: string;
+}
+
+export type SongsResponse = SongsSuccessResponse | SongsErrorResponse;
+
 export type Result<T> =
   | { status: 'idle' }
   | { status: 'loading' }
   | { status: 'success'; data: T }
   | { status: 'error'; errorMessage: string };
 
-export type CustomNextApiRequest<T> = Omit<NextApiRequest, 'body'> & {
-  body: T;
-};
-export type SomeSchema = AnySchema<any, any, any>;
+export type CustomNextApiRequest<
+  T extends
+    | {}
+    | { readonly body?: ObjectSchema<SomeSchema>; readonly query?: ObjectSchema<SomeSchema> },
+> = Omit<NextApiRequest, 'body' | 'query'> & T;
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-export type AnyObject = Record<keyof any, unknown>;
+export type SomeSchema = Record<string, AnySchema<any, any, any>>;
+
+export type AnyObject = Record<PropertyKey, unknown>;
 
 export type DeepReadonly<T extends AnyObject> = {
   +readonly [K in keyof T]: T[K] extends AnyObject ? DeepReadonly<T[K]> : T[K];
@@ -81,6 +94,14 @@ export interface Settings {
   shazamApiKey?: string | null;
   startTime: number;
   duration: number;
+}
+
+export interface Song {
+  readonly id: string;
+  readonly artist: string;
+  readonly title: string;
+  readonly albumImage: string | null;
+  readonly url: string;
 }
 
 export type RequestData = {
