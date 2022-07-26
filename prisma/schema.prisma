@@ -8,8 +8,9 @@ datasource db {
 }
 
 model Songs {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
-  url        String  @unique
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime @default(now())
+  url        String   @unique
   artist     String
   title      String
   albumImage String?

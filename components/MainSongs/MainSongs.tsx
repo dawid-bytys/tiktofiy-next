@@ -14,7 +14,7 @@ const renderSwitch = (result: SongsResponse) => {
       return <ErrorAlert errorMessage={result.errorMessage} />;
     case 'success':
       if (result.data.length === 0) {
-        return <p>No songs found</p>;
+        return <h2 className="m-auto text-center text-xl md:text-3xl">No songs found</h2>;
       }
       return <SongsList songs={result.data} />;
   }

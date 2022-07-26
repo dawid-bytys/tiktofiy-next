@@ -1,10 +1,14 @@
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import Image from 'next/image';
 import type { Song } from 'utils/types';
 
-export const SongTile = ({ artist, title, albumImage, url }: Song) => {
+dayjs.extend(localizedFormat);
+
+export const SongTile = ({ createdAt, artist, title, albumImage, url }: Song) => {
   return (
     <li className="mb-10 shadow-md last:mb-0">
-      <a href={url} className="flex flex-col md:flex-row bg-gray-700 rounded-xl p-5">
+      <a href={url} className="relative flex flex-col md:flex-row bg-gray-700 rounded-xl p-5">
         <div className="w-20 md:w-32 aspect-square shadow-xl">
           <Image
             src={albumImage || '/images/no-album-image.jpg'}
@@ -22,6 +26,9 @@ export const SongTile = ({ artist, title, albumImage, url }: Song) => {
           </p>
           <p className="text-sm md:text-base mt-1 font-medium">{title}</p>
         </div>
+        <p className="absolute bottom-0 right-0 mb-5 mr-5 text-xs text-gray-400 font-medium">
+          <i>{dayjs(createdAt).format('lll')}</i>
+        </p>
       </a>
     </li>
   );

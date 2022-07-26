@@ -98,6 +98,7 @@ export interface Settings {
 
 export interface Song {
   readonly id: string;
+  readonly createdAt: string;
   readonly artist: string;
   readonly title: string;
   readonly albumImage: string | null;

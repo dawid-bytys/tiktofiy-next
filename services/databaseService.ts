@@ -35,6 +35,9 @@ export const getSongs = async (skip?: number, take?: number) => {
     const songs = await prisma.songs.findMany({
       skip,
       take,
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
     return songs;
   } catch (err) {
