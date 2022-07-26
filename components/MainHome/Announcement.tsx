@@ -48,7 +48,7 @@ const renderSwitch = (result: Result<RecognitionResult>) => {
     case 'error':
       return <BiMessageError size={120} fill="#fff" className="mx-auto" />;
     case 'loading':
-      return <Spinner className="w-36 aspect-square mx-auto" />;
+      return <Spinner className="w-36 h-auto" />;
   }
 };
 

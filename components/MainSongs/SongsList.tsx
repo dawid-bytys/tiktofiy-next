@@ -1,6 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Spinner from 'assets/svg/spinner.svg';
+import { ErrorAlert } from 'components/MainHome/ErrorAlert';
 import { useFetch } from 'hooks/useFetch';
 import { SONGS_BASE_URL } from 'utils/constants';
 import { SongTile } from './SongTile';
@@ -18,10 +19,6 @@ export const SongsList = ({ songs }: SongsListProps) => {
     `${SONGS_BASE_URL}?skip=${additionalSongs.length}&take=10`,
   );
 
-  const getMoreSongs = useCallback(() => {
-    void performFetching();
-  }, [performFetching]);
-
   useEffect(() => {
     if (result.status === 'success') {
       setAdditionalSongs(prevState => [...prevState, ...result.data]);
@@ -29,11 +26,15 @@ export const SongsList = ({ songs }: SongsListProps) => {
     }
   }, [result]);
 
+  if (result.status === 'error') {
+    return <ErrorAlert errorMessage={result.errorMessage} />;
+  }
+
   return (
     <ul className="max-w-2xl mx-auto">
       <InfiniteScroll
         dataLength={additionalSongs.length}
-        next={getMoreSongs}
+        next={performFetching}
         hasMore={hasMore}
         loader={<Spinner className="w-24 h-auto" />}
       >
