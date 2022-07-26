@@ -6,7 +6,7 @@ import type { RecognitionResult, RequestData } from 'utils/types';
 
 export const useRecognitionQuery = (body: RequestData) => {
   const result: UseQueryResult<RecognitionResult, Error> = useQuery(
-    ['recognition'],
+    ['recognition', body],
     () => recognizeSong(body),
     {
       enabled: false,
