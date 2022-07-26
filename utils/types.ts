@@ -1,3 +1,4 @@
+import type { FetchStatus } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import type { IncomingMessage } from 'http';
 import type { NextApiRequest } from 'next';
@@ -63,7 +64,10 @@ export interface ErrorAlertProps {
 }
 
 export interface AnnouncementProps {
-  readonly result: Result<RecognitionResult>;
+  readonly resultStatus: 'success' | 'error' | 'loading';
+  readonly fetchStatus: FetchStatus;
+  readonly error?: ErrorResponse;
+  readonly data?: RecognitionResult;
 }
 
 export interface FormProps {
@@ -103,6 +107,10 @@ export interface Song {
   readonly title: string;
   readonly albumImage: string | null;
   readonly url: string;
+}
+
+export interface SongsListProps {
+  readonly songs: Song[];
 }
 
 export type RequestData = {

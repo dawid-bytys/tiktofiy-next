@@ -2,7 +2,7 @@ import { AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { Footer } from 'components/Footer/Footer';
 import { Header } from 'components/Header/Header';
-import { useThemeWindow } from 'hooks/useThemeWindow';
+import { useThemeWindowContext } from 'hooks/useThemeWindowContext';
 
 const Shadow = dynamic<{}>(() =>
   import(/* webpackChunkName: 'Shadow' */ 'components/Shadow').then(mod => mod.Shadow),
@@ -18,7 +18,7 @@ interface TemplateProps {
 }
 
 export const Template = ({ children }: TemplateProps) => {
-  const { isOpen } = useThemeWindow();
+  const { isOpen } = useThemeWindowContext();
 
   return (
     <>

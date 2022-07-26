@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { FiSettings, FiHome } from 'react-icons/fi';
 import { MdAudiotrack } from 'react-icons/md';
 import { RiPaletteLine } from 'react-icons/ri';
-import { useThemeWindow } from 'hooks/useThemeWindow';
+import { useThemeWindowContext } from 'hooks/useThemeWindowContext';
 
 const LINKS = [
   {
@@ -29,7 +29,7 @@ export const Navigation = () => {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const { theme } = useTheme();
-  const { toggleThemeWindow } = useThemeWindow();
+  const { toggleThemeWindow } = useThemeWindowContext();
 
   useEffect(() => setIsMounted(true), []);
 

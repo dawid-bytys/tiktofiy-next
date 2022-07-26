@@ -1,33 +1,35 @@
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { useCallback, useState } from 'react';
-import { useFetch } from 'hooks/useFetch';
-import { useSettings } from 'hooks/useSettings';
-import { SONGS_RECOGNITION_BASE_URL } from 'utils/constants';
+import { useRecognitionQuery } from 'hooks/useRecognitionQuery';
+import { useSettingsContext } from 'hooks/useSettingsContext';
 import { fadeLeftTransition } from 'utils/transitions';
-import { Announcement } from './Announcement';
-import { ErrorAlert } from './ErrorAlert';
 import { Form } from './Form';
 import type { SyntheticEvent, ChangeEvent } from 'react';
-import type { RequestData, RecognitionResult } from 'utils/types';
+import type { ErrorAlertProps, AnnouncementProps } from 'utils/types';
+
+const ErrorAlert = dynamic<ErrorAlertProps>(() =>
+  import(/* webpackChunkName: 'ErrorAlert' */ 'components/MainHome/ErrorAlert').then(
+    mod => mod.ErrorAlert,
+  ),
+);
+const Announcement = dynamic<AnnouncementProps>(() =>
+  import(/* webpackChunkName: 'Announcement' */ 'components/MainHome/Announcement').then(
+    mod => mod.Announcement,
+  ),
+);
 
 export const MainHome = () => {
   const [url, setUrl] = useState('');
-  const { settings } = useSettings();
-  const { result, performFetching } = useFetch<RecognitionResult, RequestData>(
-    'POST',
-    SONGS_RECOGNITION_BASE_URL,
-    {
-      url,
-      ...settings,
-    },
-  );
+  const { settings } = useSettingsContext();
+  const { status, error, data, fetchStatus, refetch } = useRecognitionQuery({ url, ...settings });
 
   const handleSubmit = useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      void performFetching();
+      void refetch();
     },
-    [performFetching],
+    [refetch],
   );
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -36,13 +38,13 @@ export const MainHome = () => {
 
   return (
     <motion.main {...fadeLeftTransition} className="flex-1 px-10 sm:px-20 md:px-0">
-      {result.status === 'error' && <ErrorAlert errorMessage={result.errorMessage} />}
+      {status === 'error' && <ErrorAlert errorMessage={error.message} />}
       <Form
         handleSubmit={handleSubmit}
         handleChange={handleChange}
-        isLoading={result.status === 'loading'}
+        isLoading={fetchStatus === 'fetching'}
       />
-      <Announcement result={result} />
+      <Announcement resultStatus={status} fetchStatus={fetchStatus} data={data} />
     </motion.main>
   );
 };

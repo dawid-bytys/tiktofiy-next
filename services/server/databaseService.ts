@@ -2,7 +2,7 @@ import { prisma } from 'utils/db';
 import { PrismaError } from 'utils/errors';
 import type { SongFound } from 'utils/types';
 
-export const getSongByUrl = async (url: string) => {
+export const getDatabaseSongByUrl = async (url: string) => {
   try {
     const storedTikTok = await prisma.songs.findUnique({
       where: {
@@ -15,7 +15,7 @@ export const getSongByUrl = async (url: string) => {
   }
 };
 
-export const storeSong = async (song: Omit<SongFound, 'isFound'> & { url: string }) => {
+export const storeDatabaseSong = async (song: Omit<SongFound, 'isFound'> & { url: string }) => {
   try {
     await prisma.songs.create({
       data: {
@@ -30,7 +30,7 @@ export const storeSong = async (song: Omit<SongFound, 'isFound'> & { url: string
   }
 };
 
-export const getSongs = async (skip?: number, take?: number) => {
+export const getDatabaseSongs = async (skip?: number, take?: number) => {
   try {
     const songs = await prisma.songs.findMany({
       skip,

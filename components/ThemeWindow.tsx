@@ -3,7 +3,7 @@ import { useTheme } from 'next-themes';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { useDebounce } from 'hooks/useDebounce';
-import { useThemeWindow } from 'hooks/useThemeWindow';
+import { useThemeWindowContext } from 'hooks/useThemeWindowContext';
 import themeCollection from 'utils/themes.json';
 import { opacityTransition } from 'utils/transitions';
 import type { MouseEvent, ChangeEvent } from 'react';
@@ -13,7 +13,7 @@ export const ThemeWindow = () => {
   const [themes, setThemes] = useState(themeCollection);
   const debouncedQuery = useDebounce(query, 200);
   const themeWindowRef = useRef<HTMLDivElement>(null);
-  const { toggleThemeWindow } = useThemeWindow();
+  const { toggleThemeWindow } = useThemeWindowContext();
   const { setTheme } = useTheme();
   useClickOutside<HTMLDivElement>(themeWindowRef, () => toggleThemeWindow(false));
 

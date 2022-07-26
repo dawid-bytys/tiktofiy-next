@@ -1,40 +1,38 @@
-import { useCallback, useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Spinner from 'assets/svg/spinner.svg';
-import { ErrorAlert } from 'components/MainHome/ErrorAlert';
-import { useFetch } from 'hooks/useFetch';
-import { SONGS_BASE_URL } from 'utils/constants';
+import { useSongsQuery } from 'hooks/useSongsQuery';
 import { SongTile } from './SongTile';
-import type { Song } from 'utils/types';
+import type { ErrorAlertProps, Song, SongsListProps } from 'utils/types';
 
-interface SongsListProps {
-  readonly songs: Song[];
-}
+const ErrorAlert = dynamic<ErrorAlertProps>(() =>
+  import(/* webpackChunkName: 'ErrorAlert' */ 'components/MainHome/ErrorAlert').then(
+    mod => mod.ErrorAlert,
+  ),
+);
 
 export const SongsList = ({ songs }: SongsListProps) => {
   const [hasMore, setHasMore] = useState(true);
   const [additionalSongs, setAdditionalSongs] = useState(songs);
-  const { result, performFetching } = useFetch<Song[]>(
-    'GET',
-    `${SONGS_BASE_URL}?skip=${additionalSongs.length}&take=10`,
-  );
+  const { status, error, data, refetch } = useSongsQuery(additionalSongs.length);
 
   useEffect(() => {
-    if (result.status === 'success') {
-      setAdditionalSongs(prevState => [...prevState, ...result.data]);
-      setHasMore(result.data.length === 10);
+    if (status === 'success') {
+      setAdditionalSongs(prevState => [...prevState, ...data]);
+      setHasMore(data.length === 10);
     }
-  }, [result]);
+  }, [data, status]);
 
-  if (result.status === 'error') {
-    return <ErrorAlert errorMessage={result.errorMessage} />;
+  if (status === 'error') {
+    return <ErrorAlert errorMessage={error.message} />;
   }
 
   return (
     <ul className="max-w-2xl mx-auto">
       <InfiniteScroll
         dataLength={additionalSongs.length}
-        next={performFetching}
+        next={refetch}
         hasMore={hasMore}
         loader={<Spinner className="w-24 h-auto" />}
       >

@@ -6,8 +6,8 @@ import {
   getRecognizedAudio,
   getTikTokFinalUrl,
   getTikTokAudioUrl,
-} from 'services/audioService';
-import { getSongByUrl, storeSong } from 'services/databaseService';
+} from 'services/server/audioService';
+import { getDatabaseSongByUrl, storeDatabaseSong } from 'services/server/databaseService';
 import { getConfig } from 'utils/config';
 import { isSongFound } from 'utils/typeguards';
 
@@ -20,7 +20,7 @@ export default withValidation(['POST'], {
   const audioUrl = await getTikTokAudioUrl(finalUrl);
 
   if (getConfig('NODE_ENV') !== 'testing') {
-    const storedTikTok = await getSongByUrl(audioUrl);
+    const storedTikTok = await getDatabaseSongByUrl(audioUrl);
     if (storedTikTok !== null) {
       return res.status(200).send({
         isFound: true,
@@ -36,7 +36,7 @@ export default withValidation(['POST'], {
   const recognizedAudio = await getRecognizedAudio(audioBase64, shazamApiKey as string); // yup is not able to infer that shazamApiKey is a string because of .transform() so the assertion is safe here
 
   if (getConfig('NODE_ENV') !== 'testing' && isSongFound(recognizedAudio)) {
-    await storeSong({
+    await storeDatabaseSong({
       url: audioUrl,
       artist: recognizedAudio.artist,
       title: recognizedAudio.title,

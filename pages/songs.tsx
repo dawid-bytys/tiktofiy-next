@@ -16,7 +16,12 @@ const Songs = (props: SongsResponse) => {
 
 export const getServerSideProps = async (): Promise<{ props: SongsResponse }> => {
   try {
-    const { data } = await axios.get<Song[]>(`${SONGS_BASE_URL}?skip=0&take=10`);
+    const { data } = await axios.get<Song[]>(SONGS_BASE_URL, {
+      params: {
+        skip: 0,
+        take: 10,
+      },
+    });
     return {
       props: {
         status: 'success',

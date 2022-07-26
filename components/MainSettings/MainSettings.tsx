@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import { useSettings } from 'hooks/useSettings';
+import { useSettingsContext } from 'hooks/useSettingsContext';
 import { fadeRightTransition } from 'utils/transitions';
 import { SingleSetting } from './SingleSetting';
 import type { ChangeEvent } from 'react';
 import type { SettingsKeys } from 'utils/types';
 
 export const MainSettings = () => {
-  const { setSettings } = useSettings();
+  const { setSettings } = useSettingsContext();
 
   const handleChange = (key: SettingsKeys) => (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
