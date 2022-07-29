@@ -5,7 +5,7 @@ import type { ImageProps } from 'next/image';
 import type { Song } from 'utils/types';
 
 const Image = dynamic<ImageProps>(import(/* webpackChunkName: 'Image' */ 'next/image'), {
-  ssr: false,
+  ssr: true,
 });
 
 dayjs.extend(localizedFormat);

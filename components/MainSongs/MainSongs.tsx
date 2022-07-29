@@ -9,7 +9,7 @@ const ErrorAlert = dynamic<ErrorAlertProps>(
       mod => mod.ErrorAlert,
     ),
   {
-    ssr: false,
+    ssr: true,
   },
 );
 const SongsList = dynamic<SongsListProps>(
@@ -18,7 +18,7 @@ const SongsList = dynamic<SongsListProps>(
       mod => mod.SongsList,
     ),
   {
-    ssr: false,
+    ssr: true,
   },
 );
 

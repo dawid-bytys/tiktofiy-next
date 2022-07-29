@@ -14,7 +14,7 @@ const ErrorAlert = dynamic<ErrorAlertProps>(
       mod => mod.ErrorAlert,
     ),
   {
-    ssr: false,
+    ssr: true,
   },
 );
 const Announcement = dynamic<AnnouncementProps>(
@@ -23,7 +23,7 @@ const Announcement = dynamic<AnnouncementProps>(
       mod => mod.Announcement,
     ),
   {
-    ssr: false,
+    ssr: true,
   },
 );
 
