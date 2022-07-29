@@ -1,4 +1,3 @@
-import { SettingsContext } from 'context/SettingsContext';
-import { createSafeContext } from 'context/createSafeContext';
+import { useSafeContext } from 'components/providers/SettingsProvider';
 
-export const useSettingsContext = createSafeContext(SettingsContext);
+export const useSettingsContext = useSafeContext;

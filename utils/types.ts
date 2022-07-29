@@ -9,6 +9,8 @@ export type Theme = 'default' | 'carbon' | 'material' | 'metaverse';
 export type Status = 'idle' | 'loading' | 'success' | 'error';
 export type HTTPMethod = 'POST' | 'PUT' | 'GET';
 
+export type Primitive = bigint | boolean | number | string | symbol;
+
 export type OneRequired<T, V extends keyof T> = T & { [P in V]-?: T[P] };
 
 type ExtendedIncomingMessage = IncomingMessage & { readonly responseUrl: string };

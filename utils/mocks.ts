@@ -1,5 +1,3 @@
-import HttpRequestMock from 'http-request-mock';
-
 // recognitionSchema mocks
 export const validRecognitionSchemaMocks = [
   {

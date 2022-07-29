@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SettingsContext } from 'context/SettingsContext';
+import { createSafeContext } from 'context/createSafeContext';
 import type { ChildrenProps, SettingsKeys, Settings } from 'utils/types';
 
 const initialState: Settings = {
@@ -7,6 +7,13 @@ const initialState: Settings = {
   startTime: 0,
   duration: 5,
 };
+
+type SettingsContext = {
+  settings: Settings;
+  setSettings: <T extends SettingsKeys>(key: T, value: Settings[T]) => void;
+};
+
+export const [useSafeContext, Provider] = createSafeContext<SettingsContext>();
 
 export const SettingsProvider = ({ children }: ChildrenProps) => {
   const [settingsState, setSettingsState] = useState(initialState);
@@ -19,13 +26,13 @@ export const SettingsProvider = ({ children }: ChildrenProps) => {
   };
 
   return (
-    <SettingsContext.Provider
+    <Provider
       value={{
         settings: settingsState,
         setSettings,
       }}
     >
       {children}
-    </SettingsContext.Provider>
+    </Provider>
   );
 };

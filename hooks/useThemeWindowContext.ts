@@ -1,4 +1,3 @@
-import { ThemeWindowContext } from 'context/ThemeWindowContext';
-import { createSafeContext } from 'context/createSafeContext';
+import { useSafeContext } from 'components/providers/ThemeWindowProvider';
 
-export const useThemeWindowContext = createSafeContext(ThemeWindowContext);
+export const useThemeWindowContext = useSafeContext;

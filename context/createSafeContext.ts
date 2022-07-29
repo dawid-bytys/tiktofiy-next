@@ -1,13 +1,16 @@
-import { useContext } from 'react';
-import type { Context } from 'react';
+import { createContext, useContext } from 'react';
+import type { AnyObject, Primitive } from 'utils/types';
 
-export const createSafeContext =
-  <T>(context: Context<T | undefined>) =>
-  (): T => {
-    const contextValue = useContext(context);
-    if (!contextValue) {
-      throw new Error('Context must be used within the proper provider');
+export const createSafeContext = <T extends Primitive | AnyObject | null>() => {
+  const context = createContext<T | undefined>(undefined);
+
+  const useSafeContext = () => {
+    const value = useContext(context);
+    if (value === undefined) {
+      throw new Error('useContext must be used within the proper provider');
     }
-
-    return contextValue;
+    return value;
   };
+
+  return [useSafeContext, context.Provider] as const;
+};

@@ -1,6 +1,13 @@
 import { useState } from 'react';
-import { ThemeWindowContext } from 'context/ThemeWindowContext';
+import { createSafeContext } from 'context/createSafeContext';
 import type { ChildrenProps } from 'utils/types';
+
+type ThemeWindowContext = {
+  isOpen: boolean;
+  toggleThemeWindow: (value: boolean) => void;
+};
+
+export const [useSafeContext, Provider] = createSafeContext<ThemeWindowContext>();
 
 export const ThemeWindowProvider = ({ children }: ChildrenProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,9 +16,5 @@ export const ThemeWindowProvider = ({ children }: ChildrenProps) => {
     setIsOpen(value);
   };
 
-  return (
-    <ThemeWindowContext.Provider value={{ isOpen, toggleThemeWindow }}>
-      {children}
-    </ThemeWindowContext.Provider>
-  );
+  return <Provider value={{ isOpen, toggleThemeWindow }}>{children}</Provider>;
 };

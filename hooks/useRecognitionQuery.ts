@@ -1,4 +1,3 @@
-import { url } from '@ffmpeg-installer/ffmpeg';
 import { useQuery } from '@tanstack/react-query';
 import { recognizeSong } from 'services/client/recognitionService';
 import type { UseQueryResult } from '@tanstack/react-query';
