@@ -19,24 +19,21 @@ export default withValidation(['POST'], {
   const finalUrl = await getTikTokFinalUrl(url);
   const audioUrl = await getTikTokAudioUrl(finalUrl);
 
-  if (getConfig('NODE_ENV') !== 'testing') {
-    const song = await getDatabaseSongByUrl(audioUrl);
-    if (song !== null) {
-      return res.status(200).send({
-        isFound: true,
-        artist: song.artist,
-        title: song.title,
-        albumImage: song.albumImage,
-      });
-    }
+  const song = await getDatabaseSongByUrl(audioUrl);
+  if (song !== null) {
+    return res.status(200).send({
+      isFound: true,
+      artist: song.artist,
+      title: song.title,
+      albumImage: song.albumImage,
+    });
   }
-
   const audioStream = await getAudioStream(audioUrl);
   const audioBase64 = await getConvertedAudioBase64(audioStream, startTime, duration);
   // yup is not able to infer that shazamApiKey is a string because of .transform() so the assertion is safe here
   const recognizedAudio = await getRecognizedAudio(audioBase64, shazamApiKey as string);
 
-  if (getConfig('NODE_ENV') !== 'testing' && isSongFound(recognizedAudio)) {
+  if (isSongFound(recognizedAudio)) {
     await storeDatabaseSong({
       url: audioUrl,
       artist: recognizedAudio.artist,

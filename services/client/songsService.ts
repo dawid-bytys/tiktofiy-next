@@ -16,7 +16,6 @@ export const getSongs = async (skip: number) => {
     if (isApiError(err)) {
       throw new Error(err.response.data.message);
     }
-
     throw new Error('Unexpected error has occured');
   }
 };
