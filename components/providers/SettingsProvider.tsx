@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { createSafeContext } from 'context/createSafeContext';
 import type { ChildrenProps, SettingsKeys, Settings } from 'utils/types';
 
@@ -18,12 +18,12 @@ export const [useSafeContext, Provider] = createSafeContext<SettingsContext>();
 export const SettingsProvider = ({ children }: ChildrenProps) => {
   const [settingsState, setSettingsState] = useState(initialState);
 
-  const setSettings = <T extends SettingsKeys>(key: T, value: Settings[T]) => {
+  const setSettings = useCallback(<T extends SettingsKeys>(key: T, value: Settings[T]) => {
     setSettingsState(prevState => ({
       ...prevState,
       [key]: value,
     }));
-  };
+  }, []);
 
   return (
     <Provider

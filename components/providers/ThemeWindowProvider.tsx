@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { createSafeContext } from 'context/createSafeContext';
 import type { ChildrenProps } from 'utils/types';
 
@@ -12,9 +12,9 @@ export const [useSafeContext, Provider] = createSafeContext<ThemeWindowContext>(
 export const ThemeWindowProvider = ({ children }: ChildrenProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleThemeWindow = (value: boolean) => {
+  const toggleThemeWindow = useCallback((value: boolean) => {
     setIsOpen(value);
-  };
+  }, []);
 
   return <Provider value={{ isOpen, toggleThemeWindow }}>{children}</Provider>;
 };
