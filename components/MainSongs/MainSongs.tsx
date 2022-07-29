@@ -1,12 +1,16 @@
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { fadeRightTransition } from 'utils/transitions';
-import { SongsList } from './SongsList';
 import type { ErrorAlertProps, SongsListProps, SongsResponse } from 'utils/types';
 
 const ErrorAlert = dynamic<ErrorAlertProps>(() =>
   import(/* webpackChunkName: 'ErrorAlert' */ 'components/MainHome/ErrorAlert').then(
     mod => mod.ErrorAlert,
+  ),
+);
+const SongsList = dynamic<SongsListProps>(() =>
+  import(/* webpackChunkName: 'SongsListProps' */ 'components/MainSongs/SongsList').then(
+    mod => mod.SongsList,
   ),
 );
 

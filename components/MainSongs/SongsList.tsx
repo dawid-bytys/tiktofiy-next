@@ -1,14 +1,20 @@
 import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Spinner from 'assets/svg/spinner.svg';
 import { useSongsQuery } from 'hooks/useSongsQuery';
-import { SongTile } from './SongTile';
 import type { ErrorAlertProps, Song, SongsListProps } from 'utils/types';
 
+const Spinner = dynamic<{ className: string }>(
+  import(/* webpackChunkName: 'Spinner' */ 'assets/svg/spinner.svg'),
+);
 const ErrorAlert = dynamic<ErrorAlertProps>(() =>
   import(/* webpackChunkName: 'ErrorAlert' */ 'components/MainHome/ErrorAlert').then(
     mod => mod.ErrorAlert,
+  ),
+);
+const SongTile = dynamic<Song>(() =>
+  import(/* webpackChunkName: 'SongTile' */ 'components/MainSongs/SongTile').then(
+    mod => mod.SongTile,
   ),
 );
 

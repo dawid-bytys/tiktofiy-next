@@ -1,11 +1,20 @@
-import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { memo } from 'react';
 import { BiMessageError, BiSearchAlt } from 'react-icons/bi';
 import { RiEmotionSadLine } from 'react-icons/ri';
-import Spinner from 'assets/svg/spinner.svg';
 import { isSongFound } from 'utils/typeguards';
-import { Paragraph } from './Paragraph';
-import type { AnnouncementProps } from 'utils/types';
+import type { ImageProps } from 'next/image';
+import type { AnnouncementProps, ParagraphProps } from 'utils/types';
+
+const Image = dynamic<ImageProps>(import(/* webpackChunkName: 'Image' */ 'next/image'));
+const Spinner = dynamic<{ className: string }>(
+  import(/* webpackChunkName: 'Spinner' */ 'assets/svg/spinner.svg'),
+);
+const Paragraph = dynamic<ParagraphProps>(() =>
+  import(/* webpackChunkName: 'Paragraph' */ 'components/MainHome/Paragraph').then(
+    mod => mod.Paragraph,
+  ),
+);
 
 const returnCorrectAnnouncement = ({ resultStatus, fetchStatus, data }: AnnouncementProps) => {
   if (fetchStatus === 'idle' && resultStatus === 'loading') {
