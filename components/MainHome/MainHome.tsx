@@ -8,15 +8,23 @@ import { Form } from './Form';
 import type { SyntheticEvent, ChangeEvent } from 'react';
 import type { ErrorAlertProps, AnnouncementProps } from 'utils/types';
 
-const ErrorAlert = dynamic<ErrorAlertProps>(() =>
-  import(/* webpackChunkName: 'ErrorAlert' */ 'components/MainHome/ErrorAlert').then(
-    mod => mod.ErrorAlert,
-  ),
+const ErrorAlert = dynamic<ErrorAlertProps>(
+  () =>
+    import(/* webpackChunkName: 'ErrorAlert' */ 'components/MainHome/ErrorAlert').then(
+      mod => mod.ErrorAlert,
+    ),
+  {
+    ssr: false,
+  },
 );
-const Announcement = dynamic<AnnouncementProps>(() =>
-  import(/* webpackChunkName: 'Announcement' */ 'components/MainHome/Announcement').then(
-    mod => mod.Announcement,
-  ),
+const Announcement = dynamic<AnnouncementProps>(
+  () =>
+    import(/* webpackChunkName: 'Announcement' */ 'components/MainHome/Announcement').then(
+      mod => mod.Announcement,
+    ),
+  {
+    ssr: false,
+  },
 );
 
 export const MainHome = () => {

@@ -6,7 +6,9 @@ import { isSongFound } from 'utils/typeguards';
 import type { ImageProps } from 'next/image';
 import type { AnnouncementProps, ParagraphProps } from 'utils/types';
 
-const Image = dynamic<ImageProps>(import(/* webpackChunkName: 'Image' */ 'next/image'));
+const Image = dynamic<ImageProps>(import(/* webpackChunkName: 'Image' */ 'next/image'), {
+  ssr: false,
+});
 const Spinner = dynamic<{ className: string }>(
   import(/* webpackChunkName: 'Spinner' */ 'assets/svg/spinner.svg'),
 );
