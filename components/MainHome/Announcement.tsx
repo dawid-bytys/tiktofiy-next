@@ -11,11 +11,18 @@ const Image = dynamic<ImageProps>(import(/* webpackChunkName: 'Image' */ 'next/i
 });
 const Spinner = dynamic<{ className: string }>(
   import(/* webpackChunkName: 'Spinner' */ 'assets/svg/spinner.svg'),
+  {
+    ssr: true,
+  },
 );
-const Paragraph = dynamic<ParagraphProps>(() =>
-  import(/* webpackChunkName: 'Paragraph' */ 'components/MainHome/Paragraph').then(
-    mod => mod.Paragraph,
-  ),
+const Paragraph = dynamic<ParagraphProps>(
+  () =>
+    import(/* webpackChunkName: 'Paragraph' */ 'components/MainHome/Paragraph').then(
+      mod => mod.Paragraph,
+    ),
+  {
+    ssr: true,
+  },
 );
 
 const returnCorrectAnnouncement = ({ resultStatus, fetchStatus, data }: AnnouncementProps) => {

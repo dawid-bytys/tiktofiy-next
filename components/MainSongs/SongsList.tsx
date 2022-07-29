@@ -6,16 +6,27 @@ import type { ErrorAlertProps, Song, SongsListProps } from 'utils/types';
 
 const Spinner = dynamic<{ className: string }>(
   import(/* webpackChunkName: 'Spinner' */ 'assets/svg/spinner.svg'),
+  {
+    ssr: true,
+  },
 );
-const ErrorAlert = dynamic<ErrorAlertProps>(() =>
-  import(/* webpackChunkName: 'ErrorAlert' */ 'components/MainHome/ErrorAlert').then(
-    mod => mod.ErrorAlert,
-  ),
+const ErrorAlert = dynamic<ErrorAlertProps>(
+  () =>
+    import(/* webpackChunkName: 'ErrorAlert' */ 'components/MainHome/ErrorAlert').then(
+      mod => mod.ErrorAlert,
+    ),
+  {
+    ssr: false,
+  },
 );
-const SongTile = dynamic<Song>(() =>
-  import(/* webpackChunkName: 'SongTile' */ 'components/MainSongs/SongTile').then(
-    mod => mod.SongTile,
-  ),
+const SongTile = dynamic<Song>(
+  () =>
+    import(/* webpackChunkName: 'SongTile' */ 'components/MainSongs/SongTile').then(
+      mod => mod.SongTile,
+    ),
+  {
+    ssr: false,
+  },
 );
 
 export const SongsList = ({ songs }: SongsListProps) => {
