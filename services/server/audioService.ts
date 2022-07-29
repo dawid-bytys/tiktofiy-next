@@ -25,33 +25,39 @@ import type {
 ffmpeg.setFfmpegPath(ffmpegPath.path);
 
 export const getTikTokFinalUrl = async (url: string) => {
-  const response: ExtendedAxiosResponse = await axios.get(url);
-  if (response.status !== 200 || typeof response.request === 'undefined') {
+  try {
+    const { request }: ExtendedAxiosResponse = await axios.get(url);
+    if (request === undefined) {
+      throw new TikTokRequestError(
+        'Something went wrong while performing the TikTok request, try again',
+      );
+    }
+
+    const tiktokId = getTikTokId(request?.res.responseUrl);
+    if (tiktokId === undefined) {
+      throw new InvalidUrlFormatError('Provide a valid format of TikTok url');
+    }
+
+    return TIKTOK_API_URL + tiktokId;
+  } catch (err) {
     throw new TikTokRequestError(
       'Something went wrong while performing the TikTok request, try again',
     );
   }
-
-  const tiktokId = getTikTokId(response.request?.res.responseUrl);
-  if (tiktokId === undefined) {
-    throw new InvalidUrlFormatError('Provide a valid format of TikTok url');
-  }
-
-  return TIKTOK_API_URL + tiktokId;
 };
 
 // User-Agent header is required by TikTok to perform a successful request
 export const getTikTokAudioUrl = async (url: string) => {
   try {
-    const response = await axios.get<TikTokMetadata>(url, {
+    const { status, data } = await axios.get<TikTokMetadata>(url, {
       headers: {
         'user-agent': randomUseragent.getRandom(),
       },
     });
-    if (response.status === 10217) {
+    if (status === 10217) {
       throw new TikTokUnavailableError('Provided TikTok is not available');
     }
-    return response.data.itemInfo.itemStruct.music.playUrl;
+    return data.itemInfo.itemStruct.music.playUrl;
   } catch (err) {
     throw new TikTokRequestError(
       'Something went wrong while performing the TikTok request, try again',
@@ -61,13 +67,13 @@ export const getTikTokAudioUrl = async (url: string) => {
 
 export const getAudioStream = async (url: string) => {
   try {
-    const response = await axios.get<Readable>(url, {
+    const { data } = await axios.get<Readable>(url, {
       responseType: 'stream',
     });
-    if (response.data === undefined) {
+    if (data === undefined) {
       throw new AudioDownloadError('Audio not available for this TikTok');
     }
-    return response.data;
+    return data;
   } catch (err) {
     throw new AudioDownloadError('Failed to download the audio file, try again');
   }
@@ -114,7 +120,7 @@ export const getRecognizedAudio = async (
         'x-rapidapi-key': shazamApiKey,
       },
     });
-    if (typeof track === 'undefined') {
+    if (track === undefined) {
       return {
         isFound: false,
       };

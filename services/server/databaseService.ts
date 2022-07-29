@@ -4,12 +4,12 @@ import type { SongFound } from 'utils/types';
 
 export const getDatabaseSongByUrl = async (url: string) => {
   try {
-    const storedTikTok = await prisma.songs.findUnique({
+    const song = await prisma.songs.findUnique({
       where: {
-        url: url,
+        url,
       },
     });
-    return storedTikTok;
+    return song;
   } catch (err) {
     throw new PrismaError('Something went wrong with database connection, try again');
   }
