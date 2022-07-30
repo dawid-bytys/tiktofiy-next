@@ -5,7 +5,7 @@ export const Form = memo<FormProps>(({ handleSubmit, handleChange, isLoading }) 
   return (
     <form
       onSubmit={handleSubmit}
-      className={`flex flex-col justify-center w-full max-w-xl mx-auto ${
+      className={`flex flex-col justify-center ${
         isLoading ? 'opacity-40 pointer-events-none caret-transparent' : ''
       }`}
     >

@@ -59,7 +59,7 @@ const returnCorrectAnnouncement = ({ resultStatus, fetchStatus, data }: Announce
             className="rounded-3xl"
           />
         </div>
-        <p className="mt-8 text-xl text-center font-medium w-full max-w-xl mx-auto">
+        <p className="mt-8 text-xl text-center font-medium">
           {data.artist} - {data.title}
         </p>
       </>

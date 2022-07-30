@@ -1,4 +1,11 @@
-import LogoImage from 'assets/svg/logo.svg';
+import dynamic from 'next/dynamic';
+
+const LogoImage = dynamic<{ className: string }>(
+  import(/* webpackChunkName: 'LogoImage' */ 'assets/svg/logo.svg'),
+  {
+    ssr: true,
+  },
+);
 
 export const Logo = () => {
   return (

@@ -41,7 +41,7 @@ const renderSwitch = (result: SongsResponse) => {
 export const MainSongs = ({ result }: MainSongsProps) => {
   return (
     <motion.main {...fadeRightTransition} className="flex-1 px-10 sm:px-20 md:px-0">
-      {renderSwitch(result)}
+      <div className="mx-auto max-w-2xl">{renderSwitch(result)}</div>
     </motion.main>
   );
 };

@@ -46,13 +46,15 @@ export const MainHome = () => {
 
   return (
     <motion.main {...fadeLeftTransition} className="flex-1 px-10 sm:px-20 md:px-0">
-      {status === 'error' && <ErrorAlert errorMessage={error.message} />}
-      <Form
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        isLoading={fetchStatus === 'fetching'}
-      />
-      <Announcement resultStatus={status} fetchStatus={fetchStatus} data={data} />
+      <div className="max-w-xl mx-auto">
+        {status === 'error' && <ErrorAlert errorMessage={error.message} />}
+        <Form
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          isLoading={fetchStatus === 'fetching'}
+        />
+        <Announcement resultStatus={status} fetchStatus={fetchStatus} data={data} />
+      </div>
     </motion.main>
   );
 };

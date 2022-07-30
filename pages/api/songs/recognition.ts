@@ -8,7 +8,6 @@ import {
   getTikTokAudioUrl,
 } from 'services/server/audioService';
 import { getDatabaseSongByUrl, storeDatabaseSong } from 'services/server/databaseService';
-import { getConfig } from 'utils/config';
 import { isSongFound } from 'utils/typeguards';
 
 export default withValidation(['POST'], {
@@ -28,6 +27,7 @@ export default withValidation(['POST'], {
       albumImage: song.albumImage,
     });
   }
+
   const audioStream = await getAudioStream(audioUrl);
   const audioBase64 = await getConvertedAudioBase64(audioStream, startTime, duration);
   // yup is not able to infer that shazamApiKey is a string because of .transform() so the assertion is safe here

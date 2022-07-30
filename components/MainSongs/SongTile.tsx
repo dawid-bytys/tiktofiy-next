@@ -31,9 +31,9 @@ export const SongTile = ({ createdAt, artist, title, albumImage, url }: Song) =>
           </p>
           <p className="text-sm md:text-base mt-1 font-medium">{title}</p>
         </div>
-        <p className="absolute bottom-5 right-5 text-xs text-gray-400 font-medium">
+        <time className="absolute bottom-5 right-5 text-xs text-gray-400 font-medium">
           <i>{dayjs(createdAt).format('lll')}</i>
-        </p>
+        </time>
       </a>
     </li>
   );

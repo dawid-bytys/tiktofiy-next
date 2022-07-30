@@ -46,7 +46,7 @@ export const SongsList = ({ songs }: SongsListProps) => {
   }
 
   return (
-    <ul className="max-w-2xl mx-auto">
+    <ul>
       <InfiniteScroll
         dataLength={additionalSongs.length}
         next={refetch}
