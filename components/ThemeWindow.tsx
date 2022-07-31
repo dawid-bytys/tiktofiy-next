@@ -1,24 +1,23 @@
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { useClickOutside } from 'hooks/useClickOutside';
-import { useDebounce } from 'hooks/useDebounce';
+import { useFilteredThemes } from 'hooks/useFilteredThemes';
 import { useThemeWindowContext } from 'hooks/useThemeWindowContext';
 import themeCollection from 'utils/themes.json';
 import { opacityTransition } from 'utils/transitions';
 import type { MouseEvent, ChangeEvent } from 'react';
 
 export const ThemeWindow = () => {
-  const [query, setQuery] = useState('');
-  const [themes, setThemes] = useState(themeCollection);
-  const debouncedQuery = useDebounce(query, 200);
+  const [filter, setFilter] = useState('');
+  const filteredThemes = useFilteredThemes(themeCollection, filter, 200);
   const themeWindowRef = useRef<HTMLDivElement>(null);
   const { toggleThemeWindow } = useThemeWindowContext();
   const { setTheme } = useTheme();
   useClickOutside<HTMLDivElement>(themeWindowRef, () => toggleThemeWindow(false));
 
-  const handleQueryChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.currentTarget.value);
+  const handleFilterChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.currentTarget.value);
   }, []);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -26,29 +25,20 @@ export const ThemeWindow = () => {
     toggleThemeWindow(false);
   };
 
-  const filterThemes = useCallback(() => {
-    const filteredThemes = themeCollection.filter(theme => theme.startsWith(debouncedQuery));
-    setThemes(filteredThemes);
-  }, [debouncedQuery]);
-
-  useEffect(() => {
-    filterThemes();
-  }, [debouncedQuery, filterThemes]);
-
   return (
     <motion.div
       ref={themeWindowRef}
       {...opacityTransition()}
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 max-w-[55em] max-h-[40rem] bg-background rounded-2xl"
+      className="overflow-hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 max-w-[55rem] max-h-[40rem] bg-background rounded-2xl"
     >
       <input
         placeholder="Search for theme..."
         aria-label="Find a theme"
         className="w-full p-5 text-sm text-foreground bg-input placeholder-subactive font-medium"
-        onChange={handleQueryChange}
+        onChange={handleFilterChange}
       />
-      <ul className="flex flex-col flex-1">
-        {themes.map(theme => (
+      <ul>
+        {filteredThemes.map(theme => (
           <li key={theme}>
             <button
               aria-label="Set theme"

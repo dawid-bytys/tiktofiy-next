@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
 
+// it doesn't work on iOS Safari
 export const useBlockScroll = (shouldBlock: boolean) => {
   useEffect(() => {
-    if (shouldBlock) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    document.body.style.overflow = shouldBlock ? 'hidden' : 'auto';
   }, [shouldBlock]);
 };

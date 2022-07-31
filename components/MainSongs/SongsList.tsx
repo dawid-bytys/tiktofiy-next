@@ -16,7 +16,7 @@ const ErrorAlert = dynamic<ErrorAlertProps>(
       mod => mod.ErrorAlert,
     ),
   {
-    ssr: true,
+    ssr: false,
   },
 );
 const SongTile = dynamic<Song>(

@@ -16,6 +16,7 @@ export const Footer = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
+            <span className="sr-only">GitHub repository</span>
             salvia-dev/tiktofiy-next
           </a>
         </Link>
