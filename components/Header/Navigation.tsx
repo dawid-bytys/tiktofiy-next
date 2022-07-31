@@ -1,11 +1,7 @@
-import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
 import { FiSettings, FiHome } from 'react-icons/fi';
 import { MdAudiotrack } from 'react-icons/md';
-import { RiPaletteLine } from 'react-icons/ri';
-import { useThemeWindowContext } from 'hooks/useThemeWindowContext';
 
 const LINKS = [
   {

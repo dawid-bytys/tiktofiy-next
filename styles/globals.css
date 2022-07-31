@@ -16,17 +16,6 @@ html {
   @apply min-h-screen bg-background text-foreground;
 }
 
-@layer utilities {
-  @responsive {
-    .scrolling-touch {
-      -webkit-overflow-scrolling: touch;
-    }
-    .scrolling-auto {
-      -webkit-overflow-scrolling: auto;
-    }
-  }
-}
-
 html[data-theme='default'] {
   --color-foreground: #f6f0e9;
   --color-background: #242933;

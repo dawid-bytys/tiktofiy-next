@@ -25,7 +25,7 @@ const SongTile = dynamic<Song>(
       mod => mod.SongTile,
     ),
   {
-    ssr: true,
+    ssr: false,
   },
 );
 
