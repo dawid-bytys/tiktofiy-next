@@ -14,7 +14,7 @@ interface SingleSettingProps {
 export const SingleSetting = memo<SingleSettingProps>(
   ({ label, id, inputType, placeholder, ariaLabel, className, onChange }) => {
     return (
-      <div className={`${typeof className === 'string' ? className : ''}`}>
+      <div className={className}>
         {typeof label === 'string' && (
           <label htmlFor={id} className="flex items-center justify-center text-center">
             {label}

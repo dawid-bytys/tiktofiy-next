@@ -13,7 +13,18 @@
 #__next,
 body,
 html {
-  @apply min-h-full h-full bg-background text-foreground;
+  @apply min-h-screen bg-background text-foreground;
+}
+
+@layer utilities {
+  @responsive {
+    .scrolling-touch {
+      -webkit-overflow-scrolling: touch;
+    }
+    .scrolling-auto {
+      -webkit-overflow-scrolling: auto;
+    }
+  }
 }
 
 html[data-theme='default'] {

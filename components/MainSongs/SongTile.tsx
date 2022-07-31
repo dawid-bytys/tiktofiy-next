@@ -12,9 +12,9 @@ dayjs.extend(localizedFormat);
 
 export const SongTile = ({ createdAt, artist, title, albumImage, url }: Song) => {
   return (
-    <li className="mb-10 shadow-md last:mb-0">
-      <a href={url} className="relative flex flex-col md:flex-row bg-gray-700 rounded-xl p-5">
-        <div className="w-20 md:w-32 aspect-square shadow-xl">
+    <li className="mb-10 shadow-md last:mb-0 rounded-xl shadow-xl">
+      <a href={url} className="relative flex flex-col md:flex-row bg-gray-700 p-5 rounded-xl">
+        <div className="w-20 md:w-32 aspect-square shadow-xl rounded-lg">
           <Image
             src={albumImage || '/images/no-album-image.jpg'}
             alt="Album Image"
