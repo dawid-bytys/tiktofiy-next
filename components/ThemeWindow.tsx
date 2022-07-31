@@ -39,7 +39,7 @@ export const ThemeWindow = () => {
     <motion.div
       ref={themeWindowRef}
       {...opacityTransition()}
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 max-w-3xl bg-background rounded-2xl"
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 max-w-[55em] max-h-[40rem] bg-background rounded-2xl"
     >
       <input
         placeholder="Search for theme..."
