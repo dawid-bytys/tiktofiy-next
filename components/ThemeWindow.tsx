@@ -29,27 +29,29 @@ export const ThemeWindow = () => {
     <motion.div
       ref={themeWindowRef}
       {...opacityTransition()}
-      className="overflow-hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 max-w-[55rem] max-h-[40rem] bg-background rounded-2xl"
+      className="overflow-hidden flex flex-col absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 max-w-[55rem] max-h-[40rem] bg-background rounded-2xl"
     >
       <input
         placeholder="Search for theme..."
         aria-label="Find a theme"
-        className="w-full p-5 text-sm text-foreground bg-input placeholder-subactive font-medium"
+        className="p-5 text-sm text-foreground bg-input placeholder-subactive font-medium"
         onChange={handleFilterChange}
       />
-      <ul>
-        {filteredThemes.map(theme => (
-          <li key={theme}>
-            <button
-              aria-label="Set theme"
-              className="w-full p-5 text-left text-sm hover:bg-subactive transition-colors ease-in-out duration-300"
-              onClick={handleClick}
-            >
-              {theme}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <div className="flex-1 relative">
+        <ul className="overflow-y-auto absolute inset-0">
+          {filteredThemes.map(theme => (
+            <li key={theme}>
+              <button
+                aria-label="Set theme"
+                className="w-full p-5 text-left text-sm hover:bg-subactive transition-colors ease-in-out duration-300"
+                onClick={handleClick}
+              >
+                {theme}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </motion.div>
   );
 };
