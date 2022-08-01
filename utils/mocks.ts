@@ -94,6 +94,35 @@ export const invalidRecognitionSchemaMocks = [
   },
 ];
 
+// songsParamsSchema mocks
+export const validSongsParamsSchemaMocks = [
+  {
+    skip: 10,
+    take: 3,
+  },
+  {
+    take: 3,
+  },
+  {
+    skip: 10,
+  },
+  {},
+];
+
+export const invalidSongsParamsSchemaMocks = [
+  {
+    skip: -1,
+  },
+  {
+    take: -1,
+  },
+  {
+    skip: 3,
+    take: 10,
+    other: 12,
+  },
+];
+
 // HTTP mocks
 export const mockRequest = {
   method: 'POST',
