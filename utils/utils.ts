@@ -1,20 +1,24 @@
-import crypto from 'crypto';
-import path from 'path';
+// could have used 'crypto' but for numeric string it's easier for me to implement it myself
+export const generateRandomString = (length: number, numeric = false) => {
+  const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const digits = '0123456789';
 
-export const getMediaPath = (filename: string) => {
-  return path.resolve('media', `${filename}.mp3`);
-};
-
-export const generateRandomString = (length: number) => {
-  if (length < 1) {
+  if (length <= 0) {
     throw new Error('Length must be greater than 0');
   }
 
-  if (length % 2 !== 0) {
-    throw new Error('Length must be even');
+  const randomString: string[] = [];
+  for (let i = 0; i < length; i++) {
+    let randomChar: string;
+    if (numeric) {
+      randomChar = digits[Math.floor(Math.random() * digits.length)];
+    } else {
+      randomChar = (letters + digits)[Math.floor(Math.random() * (letters + digits).length)];
+    }
+    randomString.push(randomChar);
   }
 
-  return crypto.randomBytes(length / 2).toString('hex');
+  return randomString.join('');
 };
 
 export const getTikTokId = (url: string) => {

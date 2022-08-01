@@ -6,8 +6,7 @@
       "jsx": true
     },
     "ecmaVersion": 2020,
-    "sourceType": "module",
-    "project": "tsconfig.json"
+    "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "prettier", "import"],
   "extends": [

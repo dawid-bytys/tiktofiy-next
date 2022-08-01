@@ -1,27 +1,29 @@
+import { generateRandomString } from './utils';
+
 // recognitionSchema mocks
 export const validRecognitionSchemaMocks = [
   {
     url: 'https://www.google.com/',
     shazamApiKey: 'some-key',
-    start: 0,
-    end: 10,
+    startTime: 0,
+    duration: 10,
   },
   {
     url: 'https://www.google.com/',
-    start: 0,
-    end: 10,
+    startTime: 0,
+    duration: 10,
   },
   {
     url: 'https://www.google.com/',
     shazamApiKey: null,
-    start: 0,
-    end: 10,
+    startTime: 0,
+    duration: 10,
   },
   {
     url: 'https://www.google.com/',
     shazamApiKey: '',
-    start: 0,
-    end: 10,
+    startTime: 0,
+    duration: 10,
   },
   {
     url: 'https://www.google.com/',
@@ -36,71 +38,79 @@ export const invalidRecognitionSchemaMocks = [
   {
     url: 'https://www.google.com/',
     shazamApiKey: 'some-key',
-    start: 10,
-    end: 0,
+    startTime: 10,
+    duration: 0,
   },
   {
     url: 'https://www.google.com/',
     shazamApiKey: 'some-key',
-    start: 0,
-    end: 0,
+    startTime: 0,
+    duration: 0,
   },
   {
     url: '',
     shazamApiKey: 'some-key',
-    start: 0,
-    end: 10,
+    startTime: 0,
+    duration: 10,
   },
   {
     url: null,
     shazamApiKey: 'some-key',
-    start: 0,
-    end: 10,
+    startTime: 0,
+    duration: 10,
   },
   {
     shazamApiKey: 'some-key',
-    start: 0,
-    end: 10,
-  },
-  {
-    url: 'https://www.google.com/',
-    shazamApiKey: 'some-key',
-    start: -1,
-    end: -1,
+    startTime: 0,
+    duration: 10,
   },
   {
     url: 'https://www.google.com/',
     shazamApiKey: 'some-key',
-    start: -1,
-    end: 10,
+    startTime: -1,
+    duration: -1,
   },
   {
     url: 'https://www.google.com/',
     shazamApiKey: 'some-key',
-    start: 0,
-    end: -1,
+    startTime: -1,
+    duration: 10,
   },
   {
     url: 'https://www.google.com/',
     shazamApiKey: 'some-key',
-    start: 0,
+    startTime: 0,
+    duration: -1,
   },
   {
     url: 'https://www.google.com/',
     shazamApiKey: 'some-key',
-    end: 10,
+    startTime: 0,
+  },
+  {
+    url: 'https://www.google.com/',
+    shazamApiKey: 'some-key',
+    duration: 10,
   },
 ];
 
-// HTTP request mocks
-export const validSchemaHttpRequestMocks = validRecognitionSchemaMocks.map(mock => ({
-  url: 'api/songs/recognition',
+// HTTP mocks
+export const mockRequest = {
   method: 'POST',
-  body: mock,
-}));
+  url: '/api/songs/recognition',
+  body: {
+    url: 'https://www.google.com/',
+    shazamApiKey: 'some-key',
+    startTime: 0,
+    duration: 10,
+  },
+};
 
-export const invalidSchemaHttpRequestMocks = invalidRecognitionSchemaMocks.map(mock => ({
-  url: 'api/songs/recognition',
-  method: 'POST',
-  body: mock,
-}));
+// TikTok URLs mocks
+export const validTikTokUrls = Array.from({ length: 10 }, () => {
+  const url = `https://www.tiktok.com/@${generateRandomString(6)}/${generateRandomString(
+    19,
+    true,
+  )}`;
+  return url;
+});
