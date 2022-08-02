@@ -11,19 +11,19 @@ import type { MouseEvent, ChangeEvent } from 'react';
 export const ThemeWindow = () => {
   const [filter, setFilter] = useState('');
   const filteredThemes = useFilteredThemes(themeCollection, filter, 200);
-  const themeWindowRef = useRef<HTMLDivElement>(null);
   const { toggleThemeWindow } = useThemeWindowContext();
   const { setTheme } = useTheme();
+  const themeWindowRef = useRef<HTMLDivElement>(null);
   useClickOutside<HTMLDivElement>(themeWindowRef, () => toggleThemeWindow(false));
 
   const handleFilterChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilter(e.currentTarget.value);
   }, []);
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setTheme(e.currentTarget.innerText);
     toggleThemeWindow(false);
-  };
+  }, [])
 
   return (
     <motion.div
