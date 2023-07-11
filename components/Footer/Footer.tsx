@@ -7,7 +7,7 @@ export const Footer = () => {
       <div className="w-fit mx-auto flex items-center">
         <BsGithub className="w-6 h-6 fill-sub" />
         <Link
-          href="https://github.com/salvia-dev/tiktofiy-next"
+          href="https://github.com/dawid-bytys/tiktofiy-next"
           aria-label="Go to the GitHub repository"
         >
           <a
@@ -17,7 +17,7 @@ export const Footer = () => {
             target="_blank"
           >
             <span className="sr-only">GitHub repository</span>
-            salvia-dev/tiktofiy-next
+            dawid-bytys/tiktofiy-next
           </a>
         </Link>
       </div>

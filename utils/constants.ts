@@ -1,6 +1,8 @@
 // Client
 const DOMAIN_URL =
-  process.env.NODE_ENV === 'production' ? 'https://tiktofiy.com' : 'http://localhost:3000';
+  process.env.NODE_ENV === 'production'
+    ? 'https://incredible-sprite-a909b6.netlify.app'
+    : 'http://localhost:3000';
 
 export const SONGS_ENDPOINT = '/api/songs';
 export const SONGS_RECOGNITION_ENDPOINT = SONGS_ENDPOINT + '/recognition';
